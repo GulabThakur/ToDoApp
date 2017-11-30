@@ -1,5 +1,7 @@
 package com.bridgeit.ToDoApp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.ToDoApp.dao.InotesUserModelDao;
@@ -26,8 +28,12 @@ public class NodeServiceImp implements INoteService {
 	}
 
 	public Notes get_note(int id) {
-		Notes note=noteDao.getNode(id);
+		Notes note = noteDao.getNode(id);
 		return note;
+	}
+
+	public List<Notes> allNotes() {
+		return noteDao.getNotes();
 	}
 
 }

@@ -1,9 +1,15 @@
 package com.bridgeit.ToDoApp.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.bridgeit.ToDoApp.model.Notes;
 
 /**
@@ -11,6 +17,8 @@ import com.bridgeit.ToDoApp.model.Notes;
  *
  */
 
+@Repository
+@Transactional
 public class NotesUserModelDaoImp implements InotesUserModelDao {
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -39,9 +47,11 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 
 	}
 
+	@SuppressWarnings("unused")
 	public boolean deleteNote(int id) {
 		Session session = sessionFactory.openSession();
-		Transaction transaction=session.beginTransaction();
+		Transaction transaction = session.beginTransaction();
+		@SuppressWarnings("unused")
 		Notes note = (Notes) session.byId(Notes.class).load(id);
 		session.delete(note);
 		transaction.commit();
@@ -51,11 +61,25 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 
 	public Notes getNode(int id) {
 		Session session = sessionFactory.openSession();
-		Transaction transaction=session.beginTransaction();
+		Transaction transaction = session.beginTransaction();
 		Notes note = (Notes) session.byId(Notes.class).load(id);
 		transaction.commit();
 		session.close();
 		return note;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Notes> getNotes() {
+
+		try {
+			System.out.println("hellooo");
+			List<Notes> list = new ArrayList<Notes>();
+			list = sessionFactory.getCurrentSession().createCriteria(Notes.class).list();
+			return list;
+		} catch (Exception e) {
+			return new ArrayList<Notes>();
+		}
+
 	}
 
 }

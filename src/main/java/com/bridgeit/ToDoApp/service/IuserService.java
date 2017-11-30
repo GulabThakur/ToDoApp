@@ -11,7 +11,7 @@ public interface IuserService {
 	 * @param user
 	 * @this registration  into data base
 	 */
-	public void registration(UserModel user);
+	public int registration(UserModel user);
 
 	/**
 	 * @param email
@@ -21,8 +21,9 @@ public interface IuserService {
 	public void login(String email, String password);
 
 	/**
-	 * @param email
+	 * @param id
+	 * @return 
 	 * @this method will be using for update 
 	 */
-	public void update(String email);
+	public UserModel update(int id);
 }

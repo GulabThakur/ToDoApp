@@ -66,14 +66,7 @@
 			<version>2.0.1.RELEASE</version>
 		</dependency>
 		<!-- Close jar -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
-		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-web</artifactId> 
-			<version>4.0.4.RELEASE</version> </dependency> -->
-
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
-		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-validator</artifactId> 
-			<version>4.2.0.Final</version> </dependency> -->
-
+		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

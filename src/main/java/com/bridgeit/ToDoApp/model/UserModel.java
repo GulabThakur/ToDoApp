@@ -1,7 +1,4 @@
 package com.bridgeit.ToDoApp.model;
-
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +10,7 @@ import javax.persistence.Transient;
  *
  */
 @Entity(name="ToDoApp_user")
-public class UserModel implements Serializable{
+public class UserModel {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

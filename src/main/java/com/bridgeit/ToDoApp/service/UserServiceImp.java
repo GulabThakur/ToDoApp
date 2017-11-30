@@ -15,8 +15,8 @@ public class UserServiceImp implements IuserService {
 	private IUserDao userModelDao;
 
 
-	public void registration(UserModel user) {
-		userModelDao.register(user);
+	public int registration(UserModel user) {
+		return userModelDao.register(user);
 	}
 
 	
@@ -25,8 +25,9 @@ public class UserServiceImp implements IuserService {
 	}
 
 	
-	public void update(String email) {
-		userModelDao.update(email);
+	public UserModel update(int id) {
+		UserModel user=userModelDao.update(id);
+		return user;
 	}
 
 }

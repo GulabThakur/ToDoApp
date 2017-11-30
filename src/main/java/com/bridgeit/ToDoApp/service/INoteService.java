@@ -1,5 +1,7 @@
 package com.bridgeit.ToDoApp.service;
 
+import java.util.List;
+
 import com.bridgeit.ToDoApp.model.Notes;
 
 /**
@@ -32,4 +34,9 @@ public interface INoteService {
 	 * @return true when data will be fetch from data base
 	 */
 	public Notes get_note(int id);
+
+	/**
+	 * @return all note will be return
+	 */
+	public List<Notes> allNotes();
 }

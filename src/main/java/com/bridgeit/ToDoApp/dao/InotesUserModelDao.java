@@ -1,5 +1,7 @@
 package com.bridgeit.ToDoApp.dao;
 
+import java.util.List;
+
 import com.bridgeit.ToDoApp.model.Notes;
 
 /**
@@ -15,19 +17,24 @@ public interface InotesUserModelDao {
 
 	/**
 	 * @param id
-	 * @return true when update recored belong to this id  
+	 * @return true when update recored belong to this id
 	 */
-	public boolean upadteNote(int id ,Notes note_data);
+	public boolean upadteNote(int id, Notes note_data);
 
 	/**
 	 * @param id
-	 * @return true when delete recored belong to this id 
+	 * @return true when delete recored belong to this id
 	 */
 	public boolean deleteNote(int id);
 
 	/**
 	 * @param id
-	 * @return true when retrieve data from data base  
+	 * @return true when retrieve data from data base
 	 */
 	public Notes getNode(int id);
+
+	/**
+	 * @return
+	 */
+	public List<Notes> getNotes();
 }

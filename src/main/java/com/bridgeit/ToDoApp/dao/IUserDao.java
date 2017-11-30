@@ -11,7 +11,7 @@ public interface IUserDao {
 	 * @param user
 	 * @store the data into database
 	 */
-	public void register(UserModel user);
+	public int register(UserModel user);
 
 	/**
 	 * @param email
@@ -27,8 +27,15 @@ public interface IUserDao {
 	public boolean checkPsd(String password, String hash_psd);
 
 	/**
-	 * @param email
+	 * @param id
+	 * @return 
 	 * @this method well be using for update the password // Reset_password
 	 */
-	public void update(String email);
+	public UserModel update(int id);
+
+	/**
+	 * @param email
+	 * @return
+	 */
+	public boolean checkExits(String email);
 }

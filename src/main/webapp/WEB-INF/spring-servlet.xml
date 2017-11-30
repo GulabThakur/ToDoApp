@@ -8,16 +8,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="com.bridgeit.ToDoApp"></context:component-scan>
 	<mvc:annotation-driven />
-	<!-- <resources mapping="/resources/**" location="/resources/" /> -->
-
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-		<beans:property name="prefix" value="/WEB-INF/" /> <beans:property name="suffix" 
-		value=".jsp" /> </beans:bean> -->
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -50,13 +44,10 @@
 		</beans:property>
 	</beans:bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
 	<beans:bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<beans:property name="sessionFactory" ref="sessionFactory" />
 	</beans:bean>
-
-
 	<beans:bean id="userModelDao" class="com.bridgeit.ToDoApp.dao.UserDaoImp">
 	</beans:bean>
 	<beans:bean id="userModelService" class="com.bridgeit.ToDoApp.service.UserServiceImp">
@@ -66,8 +57,13 @@
 	</beans:bean>
 	<beans:bean id="noteService" class="com.bridgeit.ToDoApp.service.NodeServiceImp">
 	</beans:bean>
-	<!-- <beans:bean id="validation" class="com.bridgeit.loginAndRagistation.validation.ValidationImp"> 
-		</beans:bean> <beans:bean id="token" class="com.bridgeit.loginAndRagistation.token.TokenImp"> 
-		</beans:bean> <beans:bean id="email" class="com.bridgeit.loginAndRagistation.email.EmailClass"> 
-		</beans:bean> -->
+	<beans:bean id="email" class="com.bridgeit.ToDoApp.email.EmailImp">
+	</beans:bean>
+	<beans:bean id="token" class="com.bridgeit.ToDoApp.token.TokenImp">
+	</beans:bean>
+	<beans:bean id="encode" class="com.bridgeit.ToDoApp.security.SecurityImp">
+	</beans:bean>
+	 <beans:bean id="valid" 
+		class="com.bridgeit.ToDoApp.validation.ValidationImp">
+	</beans:bean> 
 </beans:beans>
