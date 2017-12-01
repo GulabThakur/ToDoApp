@@ -31,11 +31,16 @@ public interface IUserDao {
 	 * @return 
 	 * @this method well be using for update the password // Reset_password
 	 */
-	public UserModel update(int id);
+	public UserModel update(UserModel user);
 
 	/**
 	 * @param email
 	 * @return
 	 */
-	public boolean checkExits(String email);
+	public UserModel checkExits(String email);
+	/**
+	 * @param id
+	 * @return
+	 */
+	public UserModel getById(int id);
 }

@@ -63,7 +63,7 @@
 	</beans:bean>
 	<beans:bean id="encode" class="com.bridgeit.ToDoApp.security.SecurityImp">
 	</beans:bean>
-	<!-- <beans:bean id="valid" 
+	 <beans:bean id="valid" 
 		class="com.bridgeit.ToDoApp.validation.ValidationImp">
-	</beans:bean> -->
+	</beans:bean> 
 </beans:beans>

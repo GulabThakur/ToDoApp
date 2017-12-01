@@ -25,9 +25,25 @@ public class UserServiceImp implements IuserService {
 	}
 
 	
-	public UserModel update(int id) {
-		UserModel user=userModelDao.update(id);
-		return user;
+	public UserModel update(UserModel user) {
+		UserModel user1=userModelDao.update(user);
+		return user1;
 	}
+
+
+	public UserModel getDataByEmail(String email) {
+		return userModelDao.checkExits(email);
+	}
+
+
+	
+	public UserModel getDataById(int id) {
+		
+		return userModelDao.getById(id);
+	}
+
+
+
+	
 
 }

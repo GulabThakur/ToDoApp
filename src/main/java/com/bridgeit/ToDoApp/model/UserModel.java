@@ -19,7 +19,7 @@ public class UserModel {
 	private String password;
 	@Transient
 	private String conform_psd;
-	private boolean isActive;
+	private int isActive;
 	
 	public int getId() {
 		return id;
@@ -51,10 +51,10 @@ public class UserModel {
 	public void setConform_psd(String conform_psd) {
 		this.conform_psd = conform_psd;
 	}
-	public boolean isActive() {
+	public int isActive() {
 		return isActive;
 	}
-	public void setActive(boolean isActive) {
+	public void setActive(int isActive) {
 		this.isActive = isActive;
 	}
 }

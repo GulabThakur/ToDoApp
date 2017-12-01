@@ -25,5 +25,15 @@ public interface IuserService {
 	 * @return 
 	 * @this method will be using for update 
 	 */
-	public UserModel update(int id);
+	public UserModel update(UserModel user);
+	/**
+	 * @param email
+	 * @return
+	 */
+	public UserModel getDataByEmail(String email);
+	/**
+	 * @param id
+	 * @return
+	 */
+	public UserModel getDataById(int id);
 }
