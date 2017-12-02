@@ -66,4 +66,5 @@
 	 <beans:bean id="valid" 
 		class="com.bridgeit.ToDoApp.validation.ValidationImp">
 	</beans:bean> 
+	
 </beans:beans>
