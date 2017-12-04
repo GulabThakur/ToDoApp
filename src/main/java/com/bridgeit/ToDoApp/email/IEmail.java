@@ -14,5 +14,5 @@ public interface IEmail {
 	 * @param email
 	 * @return
 	 */
-	public String forgotPassword(String email ,String token); 
+	public String forgotPassword(String email ,String token);
 }

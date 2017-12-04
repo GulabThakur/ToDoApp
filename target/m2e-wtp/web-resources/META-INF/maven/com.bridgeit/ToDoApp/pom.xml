@@ -37,18 +37,18 @@
 			<version>20160810</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-client -->
-<dependency>
-    <groupId>org.jboss.resteasy</groupId>
-    <artifactId>resteasy-client</artifactId>
-    <version>3.1.0.Final</version>
-</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/jaxrs-api -->
-	<dependency>
-		<groupId>org.jboss.resteasy</groupId>
-		<artifactId>jaxrs-api</artifactId>
-		<version>3.0.11.Final</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/jaxrs-api -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<version>3.0.11.Final</version>
+		</dependency>
 
 
 		<!-- Close -->
@@ -62,12 +62,12 @@
 
 		<!-- close -->
 
-		 <!-- https://mvnrepository.com/artifact/org.apache.maven.shared/maven-dependency-tree -->
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.shared/maven-dependency-tree -->
 		<dependency>
 			<groupId>org.apache.maven.shared</groupId>
 			<artifactId>maven-dependency-tree</artifactId>
 			<version>1.2</version>
-		</dependency> 
+		</dependency>
 
 		<!--Email -->
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
@@ -180,14 +180,36 @@
 			<artifactId>spring-core</artifactId>
 			<version>4.3.9.RELEASE</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
-<dependency>
-    <groupId>org.apache.httpcomponents</groupId>
-    <artifactId>httpcore</artifactId>
-    <version>4.4.6</version>
-</dependency>
-		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.6</version>
+		</dependency>
+		<!-- activeMq jar -->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>4.3.9.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-core -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.7.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- close -->
 
 	</dependencies>
 	<build>

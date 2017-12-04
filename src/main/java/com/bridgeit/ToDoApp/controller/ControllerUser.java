@@ -1,5 +1,8 @@
 package com.bridgeit.ToDoApp.controller;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageProducer;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.ToDoApp.email.IEmail;
+import com.bridgeit.ToDoApp.model.EmailSet;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.security.IPasswordencode;
 import com.bridgeit.ToDoApp.service.IuserService;
@@ -26,6 +30,7 @@ import com.bridgeit.ToDoApp.validation.IValidation;
  */
 @RestController
 public class ControllerUser {
+	
 	@Autowired
 	private IuserService userModelService;
 	@Autowired
@@ -36,6 +41,8 @@ public class ControllerUser {
 	private IEmail email;
 	@Autowired
 	private IToken token;
+	@Autowired
+	MessageProducer messageProducer;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> registere(@RequestBody UserModel user, HttpServletRequest request) {
@@ -53,7 +60,16 @@ public class ControllerUser {
 				String token1 = token.genratedToken(id);
 				url = url.substring(0, url.lastIndexOf("/")) + "/active/" + token1;
 				System.out.println(url);
-				email.registration(user.getEmail(), url, "7024082813");
+				EmailSet data=new EmailSet();
+				data.setEmail(user.getEmail());
+				data.setToken(url);
+				try {
+					messageProducer.send((Message) data);
+				} catch (JMSException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//email.registration(user.getEmail(), url, "7024082813");
 				return new ResponseEntity<String>("sucessfull ragister", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>(status, HttpStatus.OK);

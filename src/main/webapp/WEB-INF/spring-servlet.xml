@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="com.bridgeit.ToDoApp"></context:component-scan>
@@ -63,8 +65,57 @@
 	</beans:bean>
 	<beans:bean id="encode" class="com.bridgeit.ToDoApp.security.SecurityImp">
 	</beans:bean>
-	 <beans:bean id="valid" 
+	<beans:bean id="valid"
 		class="com.bridgeit.ToDoApp.validation.ValidationImp">
-	</beans:bean> 
+	</beans:bean>
+	<!--  <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com"/>
+		<beans:property name="username" value="gulabthakur238@gmail.com"/>
+		<beans:property name="password" value="7024082813"/>
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.smtp.socketFactory.port">587</beans:prop>
+				<beans:prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</beans:prop>
+				<beans:prop key="mail.smtp.port">587</beans:prop>
+			</beans:props>
+	</beans:property>
+	</beans:bean> --> 
+	<beans:bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<!-- brokerURL, You may have different IP or port -->
+		<beans:constructor-arg index="0" value="tcp://localhost:61616" />
+	</beans:bean>
+
+	<!-- Pooled Spring connection factory -->
+	<beans:bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<beans:constructor-arg ref="amqConnectionFactory" />
+	</beans:bean>
+
 	
+	<beans:bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<!-- name of the queue -->
+		<beans:constructor-arg  index="0" value="messageQueue" />
+	</beans:bean>
+	
+	<beans:bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<beans:property name="connectionFactory" ref="connectionFactory" />
+		<beans:property name="defaultDestination" ref="defaultDestination" />
+	</beans:bean>
+
+	
+	<beans:bean id="jmsListenerContainerFactory"
+		class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+		<beans:property name="connectionFactory" ref="connectionFactory" />
+		<beans:property name="concurrency" value="3-10" />
+	</beans:bean>
+	
+	<beans:bean id="messageProducer" class="com.bridgeit.ToDoApp.jms.MessageProducer"/>	
+	<beans:bean id="consumer" class="com.bridgeit.ToDoApp.jms.MessageCounsumer"/>	
+	
+	<jms:listener-container container-type="default" connection-factory="connectionFactory"  
+ acknowledge="auto">  
+<jms:listener destination="messageQueue" ref="consumer" method="onMessage"></jms:listener>
+</jms:listener-container>
 </beans:beans>
