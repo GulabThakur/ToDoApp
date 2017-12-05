@@ -10,25 +10,16 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.bridgeit.ToDoApp.model.UserModel;
 
 /**
  * @author ThakurGulab
  *
  */
 public class EmailImp implements IEmail {
-	String email;
-	String token;
-	String psd;
-	public EmailImp(String email,String token ,String psd) 
-	{
-		this.email=email;
-		this.token=token;
-		this.psd="7024082813";
-	}
-
-	public String registration(String user, String token, final String psd) {
+	
+	public String registration(String user, String token) {
 		final String from = "gulabthakur238@gmail.com";
+		final String psd="7024082813";
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -57,7 +48,6 @@ public class EmailImp implements IEmail {
 	}
 
 	public String forgotPassword(String email, String token) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

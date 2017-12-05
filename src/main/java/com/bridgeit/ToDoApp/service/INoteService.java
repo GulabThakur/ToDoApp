@@ -11,9 +11,10 @@ import com.bridgeit.ToDoApp.model.Notes;
 public interface INoteService {
 	/**
 	 * @param note
+	 * @param token 
 	 * @return true when data will be store inside data base
 	 */
-	public boolean create_note(Notes note);
+	public boolean create_note(Notes note, String token);
 
 	/**
 	 * @param id

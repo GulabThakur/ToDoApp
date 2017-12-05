@@ -9,7 +9,7 @@ public interface IEmail {
 	 * @param string
 	 * @return
 	 */
-	public String registration(String user ,String token,String psd);
+	public String registration(String user ,String token);
 	/**
 	 * @param email
 	 * @return

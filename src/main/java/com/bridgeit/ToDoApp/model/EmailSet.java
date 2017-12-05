@@ -1,6 +1,10 @@
 package com.bridgeit.ToDoApp.model;
 
-public class EmailSet {
+import java.io.Serializable;
+
+public class EmailSet implements Serializable{
+	
+	private static final long serialVersionUID = -4064355262538594091L;
 		private String email;
 		private String token;
 		public String getEmail() {

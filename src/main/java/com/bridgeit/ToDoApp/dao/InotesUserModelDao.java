@@ -11,9 +11,10 @@ import com.bridgeit.ToDoApp.model.Notes;
 public interface InotesUserModelDao {
 	/**
 	 * @param note
+	 * @param token 
 	 * @return true when create note success
 	 */
-	public boolean createNote(Notes note);
+	public boolean createNote(Notes note, String token);
 
 	/**
 	 * @param id

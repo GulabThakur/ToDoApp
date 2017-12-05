@@ -15,8 +15,8 @@ public class NodeServiceImp implements INoteService {
 	@Autowired
 	private InotesUserModelDao noteDao;
 
-	public boolean create_note(Notes note) {
-		return noteDao.createNote(note);
+	public boolean create_note(Notes note, String token) {
+		return noteDao.createNote(note, token);
 	}
 
 	public boolean update_note(int id, Notes note) {

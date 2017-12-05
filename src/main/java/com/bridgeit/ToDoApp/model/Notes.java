@@ -18,8 +18,8 @@ public class Notes implements Serializable{
 	private int id;
 	private String title;
 	private String description;
-	private long currenTime;
-	private long updateTime;
+	private String currenTime;
+	private String updateTime;
 	private long usr_id;
 	public int getId() {
 		return id;
@@ -53,19 +53,19 @@ public class Notes implements Serializable{
 		this.description = description;
 	}
 
-	public long getCurrenTime() {
+	public String getCurrenTime() {
 		return currenTime;
 	}
 
-	public void setCurrenTime(long currentTime) {
+	public void setCurrenTime(String currentTime) {
 		this.currenTime = currentTime;
 	}
 
-	public long getUpdateTime() {
+	public String  getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(long currentTime) {
+	public void setUpdateTime(String currentTime) {
 		this.updateTime = currentTime;
 	}
 }

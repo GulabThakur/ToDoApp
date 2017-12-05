@@ -20,7 +20,7 @@ public class MessageCounsumer implements MessageListener {
 			System.out.println("In consumer");
 			ObjectMessage msg = (ObjectMessage) message;
 			EmailSet mail = (EmailSet) msg.getObject();
-			email.registration(mail.getEmail(), mail.getToken(), "7024082813");
+			email.registration(mail.getEmail(), mail.getToken());
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

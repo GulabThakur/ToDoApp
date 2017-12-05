@@ -13,7 +13,7 @@ public class MessageProducer {
 	@Autowired
 	JmsTemplate jmsTemplate;
 
-	public void send(final String email) {
+	public void send(String email) {
 		System.out.println("email : " + email);
 		jmsTemplate.send(new MessageCreator() {
 

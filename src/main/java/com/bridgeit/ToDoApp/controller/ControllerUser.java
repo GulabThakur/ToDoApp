@@ -2,11 +2,9 @@ package com.bridgeit.ToDoApp.controller;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.MessageProducer;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.ToDoApp.email.IEmail;
+import com.bridgeit.ToDoApp.jms.MessageProducer;
 import com.bridgeit.ToDoApp.model.EmailSet;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.security.IPasswordencode;
@@ -30,7 +29,7 @@ import com.bridgeit.ToDoApp.validation.IValidation;
  */
 @RestController
 public class ControllerUser {
-	
+
 	@Autowired
 	private IuserService userModelService;
 	@Autowired
@@ -41,11 +40,11 @@ public class ControllerUser {
 	private IEmail email;
 	@Autowired
 	private IToken token;
-	@Autowired
-	MessageProducer messageProducer;
+	@Autowired(required = true)
+	private MessageProducer messageProducer;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> registere(@RequestBody UserModel user, HttpServletRequest request) {
+	public ResponseEntity<String> registere(@RequestBody UserModel user, HttpServletRequest request) throws JMSException {
 		String status = valid.valid(user);
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
@@ -53,23 +52,19 @@ public class ControllerUser {
 			System.out.println(url);
 			if (status == null) {
 				String endodePsd = encode.endode(user);
-				// we are using false because that time this user only register
 				user.setActive(0);
 				user.setPassword(endodePsd);
 				int id = userModelService.registration(user);
 				String token1 = token.genratedToken(id);
 				url = url.substring(0, url.lastIndexOf("/")) + "/active/" + token1;
 				System.out.println(url);
-				EmailSet data=new EmailSet();
+				EmailSet data = new EmailSet();
 				data.setEmail(user.getEmail());
 				data.setToken(url);
-				try {
-					messageProducer.send((Message) data);
-				} catch (JMSException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				//email.registration(user.getEmail(), url, "7024082813");
+                
+				messageProducer.send(data.getEmail());;
+
+				// email.registration(user.getEmail(), url);
 				return new ResponseEntity<String>("sucessfull ragister", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>(status, HttpStatus.OK);
@@ -90,7 +85,7 @@ public class ControllerUser {
 			System.out.println(token2);
 			String url = request.getRequestURI().toString();
 			url = url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
-			email.registration(email2, url, "7024082813");
+			email.registration(email2, url);
 			userModelService.login(email2, psd);
 			return new ResponseEntity<String>(HttpStatus.OK);
 		}
@@ -118,27 +113,43 @@ public class ControllerUser {
 
 	}
 
-	@RequestMapping(value = "/reset/{email}/{password}/{conform}", method = RequestMethod.PUT)
-	public ResponseEntity<String> setPassword(@PathVariable("email") String eamil, @PathVariable("password") String psd,
-			@PathVariable("conform") String cpd) {
-		UserModel user = userModelService.getDataByEmail(eamil);
-
-		if (user == null) {
+	@RequestMapping(value = "/reset/{token:.+}", method = RequestMethod.PUT)
+	public ResponseEntity<String> setPassword(@RequestBody UserModel user, @PathVariable("token") String jwt) {
+		int id = token.varifyToken(jwt);
+		System.out.println(id);
+		UserModel user1 = userModelService.getDataById(id);
+		if (user1 == null) {
 			return new ResponseEntity<String>("This email is not avilable data base", HttpStatus.OK);
 		}
-		if (psd.equals(cpd)) {
-			user.setConform_psd(cpd);
-			user.setPassword(psd);
-			String status = valid.valid(user);
+		if (user.getPassword().equals(user.getConform_psd())) {
+			user1.setConform_psd(user.getPassword());
+			user1.setPassword(user.getConform_psd());
+			String status = valid.valid(user1);
 			if (status == null) {
-				String codepsd = encode.endode(user);
-				user.setPassword(codepsd);
-				userModelService.update(user);
+				String codepsd = encode.endode(user1);
+				user1.setPassword(codepsd);
+				userModelService.update(user1);
 				return new ResponseEntity<String>("Sucessfull reset password", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>("password Length is not valid", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("MisMatch conform  and password ", HttpStatus.OK);
+
+	}
+
+	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
+	public ResponseEntity<String> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
+		UserModel user_arg = userModelService.getDataByEmail(user.getEmail());
+		if (user_arg != null) {
+			String url = request.getRequestURI().toString();
+			int id = user_arg.getId();
+			String token2 = token.genratedToken(id);
+			url = url.substring(0, url.lastIndexOf("/")) + "/reset/" + token2;
+			email.registration(user.getEmail(), url);
+			return new ResponseEntity<String>("Your password changed", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<String>("You Dont have acount..", HttpStatus.OK);
 
 	}
 }
