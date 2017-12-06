@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgeit.ToDoApp.email.IEmail;
 import com.bridgeit.ToDoApp.jms.MessageProducer;
 import com.bridgeit.ToDoApp.model.EmailSet;
+import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.security.IPasswordencode;
 import com.bridgeit.ToDoApp.service.IuserService;
@@ -44,7 +45,9 @@ public class ControllerUser {
 	private MessageProducer messageProducer;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> registere(@RequestBody UserModel user, HttpServletRequest request) throws JMSException {
+	public ResponseEntity<Response> registere(@RequestBody UserModel user, HttpServletRequest request)
+			throws JMSException {
+		Response message = new Response();
 		String status = valid.valid(user);
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
@@ -61,23 +64,29 @@ public class ControllerUser {
 				EmailSet data = new EmailSet();
 				data.setEmail(user.getEmail());
 				data.setToken(url);
-                
-				messageProducer.send(data.getEmail());;
-
+				// This use for for jms technology.....
+				messageProducer.send(data);
+				// if you want to email process in your project remove in blow line then use
+				// email process
 				// email.registration(user.getEmail(), url);
-				return new ResponseEntity<String>("sucessfull ragister", HttpStatus.OK);
+				message.setMessage("sucessfull ragister");
+				return new ResponseEntity<Response>(message, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>(status, HttpStatus.OK);
+			message.setMessage(status);
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("already register ", HttpStatus.OK);
+		message.setMessage("already register ");
+		return new ResponseEntity<Response>(message, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/login/{email}/{password}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> login(@PathVariable("email") String email2, @PathVariable("password") String psd,
+	public ResponseEntity<Response> login(@PathVariable("email") String email2, @PathVariable("password") String psd,
 			HttpServletRequest request) {
+		Response message = new Response();
 		UserModel user = userModelService.getDataByEmail(email2);
 		if (user == null) {
-			return new ResponseEntity<String>("You dont have account plesse register first", HttpStatus.OK);
+			message.setMessage("You dont have account plesse register first");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
 		String token2 = token.genratedToken(user.getId());
 		int condition = user.isActive();
@@ -87,39 +96,49 @@ public class ControllerUser {
 			url = url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
 			email.registration(email2, url);
 			userModelService.login(email2, psd);
-			return new ResponseEntity<String>(HttpStatus.OK);
+			message.setMessage("Welcome ..");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("active method ", HttpStatus.OK);
+		message.setMessage("please acivate your ragistration chech mail");
+		return new ResponseEntity<Response>(message, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/active/{token:.+}", method = RequestMethod.GET)
-	public ResponseEntity<String> activeLogin(@PathVariable("token") String jwt) {
+	public ResponseEntity<Response> activeLogin(@PathVariable("token") String jwt) {
+		Response message = new Response();
 		int id = token.varifyToken(jwt);
 		UserModel user = userModelService.getDataById(id);
 		if (user != null && user.isActive() == 0) {
 			userModelService.update(user);
-			return new ResponseEntity<String>("sucessful ", HttpStatus.OK);
+			message.setMessage("Your registration activate ...");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("you have already active ", HttpStatus.OK);
+		message.setMessage("Please ragistration first then activate ");
+		return new ResponseEntity<Response>(message, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/verify/{token:.+}", method = RequestMethod.GET)
-	public ResponseEntity<String> varify(@PathVariable("token") String token1) {
+	public ResponseEntity<Response> varify(@PathVariable("token") String token1) {
+		Response message = new Response();
 		int id = token.varifyToken(token1);
 		if (id > 0) {
-			return new ResponseEntity<String>("Sucessfull verfy", HttpStatus.OK);
+			message.setMessage("verification is sucessfully....");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Not varify ", HttpStatus.OK);
+		message.setMessage("sorry registration first...");
+		return new ResponseEntity<Response>(message, HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value = "/reset/{token:.+}", method = RequestMethod.PUT)
-	public ResponseEntity<String> setPassword(@RequestBody UserModel user, @PathVariable("token") String jwt) {
+	public ResponseEntity<Response> setPassword(@RequestBody UserModel user, @PathVariable("token") String jwt) {
+		Response message = new Response();
 		int id = token.varifyToken(jwt);
 		System.out.println(id);
 		UserModel user1 = userModelService.getDataById(id);
 		if (user1 == null) {
-			return new ResponseEntity<String>("This email is not avilable data base", HttpStatus.OK);
+			message.setMessage("This is incorect email ...");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
 		if (user.getPassword().equals(user.getConform_psd())) {
 			user1.setConform_psd(user.getPassword());
@@ -129,16 +148,20 @@ public class ControllerUser {
 				String codepsd = encode.endode(user1);
 				user1.setPassword(codepsd);
 				userModelService.update(user1);
-				return new ResponseEntity<String>("Sucessfull reset password", HttpStatus.OK);
+				message.setMessage("Your password is change..");
+				return new ResponseEntity<Response>(message, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("password Length is not valid", HttpStatus.OK);
+			message.setMessage("please enter the valid password....");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("MisMatch conform  and password ", HttpStatus.OK);
+		message.setMessage("password and conform password are not match");
+		return new ResponseEntity<Response>(message, HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
-	public ResponseEntity<String> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
+	public ResponseEntity<Response> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
+		Response message = new Response();
 		UserModel user_arg = userModelService.getDataByEmail(user.getEmail());
 		if (user_arg != null) {
 			String url = request.getRequestURI().toString();
@@ -146,10 +169,11 @@ public class ControllerUser {
 			String token2 = token.genratedToken(id);
 			url = url.substring(0, url.lastIndexOf("/")) + "/reset/" + token2;
 			email.registration(user.getEmail(), url);
-			return new ResponseEntity<String>("Your password changed", HttpStatus.OK);
+			message.setMessage("your password changed....");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-
-		return new ResponseEntity<String>("You Dont have acount..", HttpStatus.OK);
+		message.setMessage("please enter the valid user");
+		return new ResponseEntity<Response>(message, HttpStatus.OK);
 
 	}
 }

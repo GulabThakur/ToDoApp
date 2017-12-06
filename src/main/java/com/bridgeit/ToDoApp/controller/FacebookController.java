@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bridgeit.ToDoApp.fbLogin.FaceBook;
+import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.service.IuserService;
 import com.bridgeit.ToDoApp.token.IToken;
@@ -37,9 +38,9 @@ public class FacebookController {
 	}
 	
 	@RequestMapping(value="/connectFB")
-	public ResponseEntity<String/*Response*/> redirectURL(HttpServletRequest request,HttpServletResponse response,HttpSession session,UriComponentsBuilder ucBuilder) throws IOException
+	public ResponseEntity<Response> redirectURL(HttpServletRequest request,HttpServletResponse response,HttpSession session,UriComponentsBuilder ucBuilder) throws IOException
 	{
-		//Response errorMessage = new Response();
+		Response message = new Response();
 		String sessionState = (String) request.getSession().getAttribute("State");
 		String googlestate = request.getParameter("state");
 		
@@ -50,8 +51,8 @@ public class FacebookController {
 
 		String error = request.getParameter("error");
 		if (error != null && error.trim().isEmpty()) {
-			//errorMessage.setMessage("Error occured Try again.");
-			return new ResponseEntity<String>(" "/*errorMessage*/, HttpStatus.BAD_REQUEST);
+			message.setMessage("Error occured Try again.");
+			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
 		
 		String authCode = request.getParameter("code");
@@ -73,21 +74,21 @@ public class FacebookController {
 				String token1 = token.genratedToken(userId);
     			response.setHeader("Authorization", token1);
     			session.setAttribute("token", token1);
-    			//errorMessage.setMessage("User Successfully registered.");
-    			return new ResponseEntity<String>("User Successfully registered", HttpStatus.ACCEPTED);
+    			message.setMessage("User Successfully registered.");
+    			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
  			}
 			else
 			{
-				//errorMessage.setMessage("User is not registered.");
-    			return new ResponseEntity<String>("User is not registered", HttpStatus.BAD_REQUEST);
+				message.setMessage("User is not registered.");
+    			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 			}
 		}else {
 			
 			String token2 = token.genratedToken(user.getId());
 			userModelService.update(user);
-			session.setAttribute("token", token);
-			//errorMessage.setMessage("User already exist.");
-			return new ResponseEntity<String>("User already exist.", HttpStatus.ALREADY_REPORTED);
+			session.setAttribute("token", token2);
+			message.setMessage("User already exist.");
+			return new ResponseEntity<Response>(message, HttpStatus.ALREADY_REPORTED);
 		}
 }
 }

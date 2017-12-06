@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.ToDoApp.fbLogin.GoogleLogin;
+import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.service.IuserService;
 import com.bridgeit.ToDoApp.token.IToken;
@@ -35,9 +36,9 @@ public class GoogleController {
 	}
 
 	@RequestMapping(value = "/connectgoogle")
-	public ResponseEntity<String/* Response */> redirectFromGoogle(HttpServletRequest request,
+	public ResponseEntity<Response> redirectFromGoogle(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		// Response responseForMessage=new Response();
+		Response responseForMessage=new Response();
 		String sessionState = (String) request.getSession().getAttribute("STATE");
 		String googlestate = request.getParameter("state");
 
@@ -64,9 +65,8 @@ public class GoogleController {
 			/* user.setPicUrl(profile.get("image").get("url")); */
 			user.setPassword("");
 			userModelService.registration(user);
-			// responseForMessage.setMessage("Hello "+user.getUserName()+" you are new
-			// user.");
-			return new ResponseEntity<String /* Response */>("Hello \"+user.getUserName()+\" you are new user.",
+			 responseForMessage.setMessage("Hello "+user.getUserName()+" you are new user.");
+			return new ResponseEntity<Response>(responseForMessage,
 					HttpStatus.ACCEPTED);
 		} else {
 			user = userModelService.getDataByEmail(user.getUserName());
@@ -74,8 +74,8 @@ public class GoogleController {
 			response.setHeader("Authentication", token1);
 			Cookie accCookie = new Cookie("socialaccessToken", token1);
 			response.addCookie(accCookie);
-			//responseForMessage.setMessage("Hello " + user.getfName() + " you are alredy visited here.");
-			return new ResponseEntity<String>("Hello " + user.getUserName() + " you are alredy visited here.", HttpStatus.ACCEPTED);
+			responseForMessage.setMessage("Hello " + user.getUserName() + " you are alredy visited here.");
+			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
 	}
 }

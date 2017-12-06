@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.ToDoApp.model.Notes;
+import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.service.INoteService;
 
 /**
@@ -26,32 +27,41 @@ public class NoteController {
 	private INoteService noteService;
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> store_note(@RequestBody Notes note, HttpServletRequest request) {
+	public ResponseEntity<Response> store_note(@RequestBody Notes note, HttpServletRequest request) {
+		Response meResponse = new Response();
 		String token = request.getHeader("jwt");
 		boolean status = noteService.create_note(note, token);
 		if (status) {
-			return new ResponseEntity<String>("succesfull data stored", HttpStatus.OK);
+			meResponse.setMessage("succesfull data stored");
+			return new ResponseEntity<Response>(meResponse, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("data did not store", HttpStatus.BAD_REQUEST);
+		meResponse.setMessage("data did not store");
+		return new ResponseEntity<Response>(meResponse, HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> update_note1(@RequestBody Notes note, @PathVariable("id") int id) {
+	public ResponseEntity<Response> update_note1(@RequestBody Notes note, @PathVariable("id") int id) {
+		Response meResponse = new Response();
 		boolean status = noteService.update_note(id, note);
 		if (status) {
-			return new ResponseEntity<String>("sucessUpdate", HttpStatus.OK);
+			meResponse.setMessage("sucessfully Update");
+			return new ResponseEntity<Response>(meResponse, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("this record not upadte ", HttpStatus.BAD_REQUEST);
+		meResponse.setMessage("This record is not avilable");
+		return new ResponseEntity<Response>(meResponse, HttpStatus.BAD_REQUEST);
 
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> delete_note(@PathVariable("id") int id) {
+	public ResponseEntity<Response> delete_note(@PathVariable("id") int id) {
+		Response meResponse = new Response();
 		boolean status = noteService.delete_note(id);
 		if (status) {
-			return new ResponseEntity<String>(" delete record", HttpStatus.OK);
+			meResponse.setMessage("Delete record sucessful...");
+			return new ResponseEntity<Response>(meResponse, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("delete process is not done", HttpStatus.BAD_REQUEST);
+		meResponse.setMessage("this record is not avilable....");
+		return new ResponseEntity<Response>(meResponse, HttpStatus.BAD_REQUEST);
 
 	}
 
