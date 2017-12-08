@@ -1,0 +1,78 @@
+hr{
+background: black;
+}
+
+#loginstyle{
+	background-color: #536800;
+	margin: 75px;
+	width: 500px;
+	margin: 35px;
+	align-self: center;
+	/* style="color:#536800; margin: 75px; padding-top: 10px; border: 2px" align="center" */
+	
+}
+
+#login{
+	background-color:  #00ffff;
+	 margin-top: 75px;
+	  width: 500px; 
+	  margin-left: 35px;
+}
+
+.login{
+	 margin: 8px 0;
+	align:center;
+	width: 80%;
+	top:30px;
+	height:100px;
+}
+
+
+input[type=email], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    background-color: #66ffff;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: 1px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+#fbbutton {
+	background-color:#0000ff;
+	color: white;
+	padding: 10px 20px;
+	margin: 8px 0;
+	border: 2px;
+	cursor: pointer;
+	width: 100%;
+}
+
+#gbutton {
+	background-color:black;
+	color: white;
+	padding: 10px 20px;
+	margin: 8px 0;
+	border: 2px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.vert{
+border-right:  solid ;
+}
+
+#div1{
+	top:100px;
+	height: 500px;
+}
