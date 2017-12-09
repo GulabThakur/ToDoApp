@@ -1,40 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head >
-<meta charset="UTF-8">
-<title>loginPage</title>
-<!-- <link rel="stylesheet" href="css/login.css"> -->
-</head>
-<body bgcolor="#014718">
-	<script>
-		
-	</script>
-	<div class="login" style="color:#536800; margin: 75px; padding-top: 10px; border: 12px" align="center" >
-		<table>
-		    
-			<h1>SignIn Page</h1>
-			<h3>Welcome To ToDoApp</h3>
-			<tr>
-				<td>Email</td>
-				<td>:<input type="email" required=""></input></td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td>:<input type="password" required="required"></input></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><button type="submit">logIn</button>
-					</td>
-			</tr>
-			
-		</table>
- 			<div>
- 			<a href="registration.html">RegistrationPage<a>
- 			<h2>SignIn Social Side</h2>
- 			<a href="">FacebookSignIn</a>
- 			<a href="">GoogleSignIn</a>
- 			</div>
+<md-content flex layout="row" layout-align="space-around"
+	layout-padding="layout-padding" ng-cloak="ng-cloak"> <md-card
+	flex-gt-sm="38" flex-gt-md="40" style=" max-height:700px"> <md-card-content>
+
+<form name="userForm">
+	<h1 class="sfYUmb" id="headingText"
+		jsname="z6sL2b"><b>LOG IN</b></h1>
+
+	<center>
+		<font color="red"><p ng-bind="error" ng-disable></p></font>
+	</center>
+
+	<md-input-container class="md-block"> <label>Enter the email</label>
+	<input type="email" name="email" class="form-control"
+		ng-model="user.userName" required>
+	<div ng-messages="userForm.email.$error" role="alert">
+		<div ng-message="required">This is required.</div>
 	</div>
-</body>
-</html>
+	</md-input-container>
+	
+	<md-input-container class="md-block"> <label>Enter the password</label>
+	<input type="password" name="password" class="form-control"
+		ng-model="user.password" required>
+		
+	<div ng-messages="userForm.password.$error">
+		<div ng-message="required">This is required.</div>
+	</div>
+	<p>
+		<span id="errmsg"></span>
+	</p>
+	</md-input-container>
+	
+	<md-button md-no-ink class="md-primary" ng-click="loginUser()" ng-disabled="loginform.$invalid" 
+	style="background: #DB7093; width: 465px; align: center; margin-left: 3px;">Login</md-button>
+	
+	<div style="height: 15px; margin-bottom: 5px;">
+		<h6 style="; margin-top:5px; margin-bottom: 5px;">
+		<a href="forgotPassword" style="color:blue; margin-left: 10px;">forgot password?</a>
+		<a href="#!/registration" style="color:blue; align: right; margin-left: 250px;">registration?</a>
+		</h6>
+	</div>
+
+	<button class="loginBtn loginBtn--facebook"><a href="">Facebook Login</a>
+	</button><br/>
+	<button class="loginBtn loginBtn--google"><a href="">GoogleLogin</a>
+	</button>
+</form>
+	
+</md-card-actions>
+</md-card> 
+</md-content>

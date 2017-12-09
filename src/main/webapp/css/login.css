@@ -1,78 +1,172 @@
-hr{
-background: black;
+@CHARSET "UTF-8";
+
+/* .formDiv{
+	background-color: white;
+	height: 200px;
+	width: 300px;
+	margin: 0, auto, 0, auto;
 }
-
-#loginstyle{
-	background-color: #536800;
-	margin: 75px;
-	width: 500px;
-	margin: 35px;
-	align-self: center;
-	/* style="color:#536800; margin: 75px; padding-top: 10px; border: 2px" align="center" */
-	
+.forgotpassword{
+	margin-top: 10px;
 }
+ */
 
-#login{
-	background-color:  #00ffff;
-	 margin-top: 75px;
-	  width: 500px; 
-	  margin-left: 35px;
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 20px 0 46px;
+  border: none;
+  text-align: center;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+  width: 100px;
 }
-
-.login{
-	 margin: 8px 0;
-	align:center;
-	width: 80%;
-	top:30px;
-	height:100px;
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 34px;
+  height: 100%;
 }
-
-
-input[type=email], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+.loginBtn:focus {
+  outline: none;
 }
-
-input[type=submit] {
-    background-color: #66ffff;
-    color: white;
-    padding: 10px 20px;
-    margin: 8px 0;
-    border: 1px;
-    cursor: pointer;
-    width: 100%;
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
 }
 
 
-#fbbutton {
-	background-color:#0000ff;
-	color: white;
-	padding: 10px 20px;
-	margin: 8px 0;
-	border: 2px;
-	cursor: pointer;
-	width: 100%;
+/* Facebook */
+.loginBtn--facebook {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
+  width:465px;
+  margin-left: 3px;
+}
+.loginBtn--facebook:before {
+  border-right: #364e92 1px solid;
+  margin-left: 3px;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #5B7BD5;
+  margin-left: 3px;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
 }
 
-#gbutton {
-	background-color:black;
-	color: white;
-	padding: 10px 20px;
-	margin: 8px 0;
-	border: 2px;
-	cursor: pointer;
-	width: 100%;
+
+/* Google */
+.loginBtn--google {
+  background: #DD4B39;
+  width: 465px;
+  margin-left: 3px;
+}
+.loginBtn--google:before {
+  border-right: #BB3F30 1px solid;
+  margin-left: 3px;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+	margin-left: 3px;
+  background: #E74B37;
+}
+.body
+ {
+	background-color: #F2F3F4;
+	overflow-y: scroll;
+	layout: column;
 }
 
-.vert{
-border-right:  solid ;
+.sfYUmb {
+    padding-bottom: 0;
+    padding-top: 16px;
+    font-size: large;
+    text-align: center;
 }
 
-#div1{
-	top:100px;
-	height: 500px;
+h1 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.3333;
+    margin: 0;
+}
+.FgbZLd {
+    position: relative;
+}
+
+.FgbZLd {
+    padding-bottom: 3px;
+    padding-top: 1px;
+    margin: 0;
+}
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.text-strong{
+	font-weight: 400;
+}
+
+
+.inputdemoErrorsAdvanced {
+  /* NOTE: Check the demo's HTML to see some additional RTL support CSS */
+  /* Setup animations similar to the ng-messages */ }
+  .inputdemoErrorsAdvanced .hint {
+    /* Position the hint */
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey; }
+  .inputdemoErrorsAdvanced .hint.ng-hide,
+  .inputdemoErrorsAdvanced .hint.ng-enter,
+  .inputdemoErrorsAdvanced .hint.ng-leave.ng-leave-active {
+    bottom: 26px;
+    opacity: 0; }
+  .inputdemoErrorsAdvanced .hint.ng-leave,
+  .inputdemoErrorsAdvanced .hint.ng-enter.ng-enter-active {
+    bottom: 7px;
+    opacity: 1; 
+ }
+
+    
+    
+
+html, body
+{
+    height:100%;
+}
+.centre
+{
+    position:absolute;
+    left:50%;
+    top:50%;
+}
+#wrapper {
+    height:100%;
+    position:relative;
+    left:0px;
+    top:0px;
+    min-height:600px;
+    min-width:600px;
 }
