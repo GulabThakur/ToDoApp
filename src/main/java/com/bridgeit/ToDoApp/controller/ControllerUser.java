@@ -79,23 +79,24 @@ public class ControllerUser {
 		return new ResponseEntity<Response>(message, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/login/{email}/{password}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> login(@PathVariable("email") String email2, @PathVariable("password") String psd,
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> login(@RequestBody UserModel user,
 			HttpServletRequest request) {
 		Response message = new Response();
-		UserModel user = userModelService.getDataByEmail(email2);
-		if (user == null) {
+		System.out.println("value ...."+user.getEmail());
+		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
+		if (user1 == null) {
 			message.setMessage("You dont have account plesse register first");
 			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
-		String token2 = token.genratedToken(user.getId());
-		int condition = user.isActive();
+		String token2 = token.genratedToken(user1.getId());
+		int condition = user1.isActive();
 		if (condition > 0) {
 			System.out.println(token2);
 			String url = request.getRequestURI().toString();
-			url = url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
-			email.registration(email2, url);
-			userModelService.login(email2, psd);
+			url = "http://localhost:8080/"+url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
+			email.registration(user.getEmail(), url);
+			userModelService.login(user.getEmail(),user.getPassword() );
 			message.setMessage("Welcome ..");
 			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}

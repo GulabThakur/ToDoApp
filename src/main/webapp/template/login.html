@@ -12,7 +12,7 @@
 
 	<md-input-container class="md-block"> <label>Enter the email</label>
 	<input type="email" name="email" class="form-control"
-		ng-model="user.userName" required>
+		ng-model="user.email" required>
 	<div ng-messages="userForm.email.$error" role="alert">
 		<div ng-message="required">This is required.</div>
 	</div>
@@ -30,19 +30,19 @@
 	</p>
 	</md-input-container>
 	
-	<md-button md-no-ink class="md-primary" ng-click="loginUser()" ng-disabled="loginform.$invalid" 
-	style="background: #DB7093; width: 465px; align: center; margin-left: 3px;">Login</md-button>
+	<md-button md-no-ink class="md-primary" ng-click="loginClick()" ng-disabled="loginform.$invalid" 
+	style="background: #233d38; width: 465px; align: center; margin-left: 3px;">Login</md-button>
 	
 	<div style="height: 15px; margin-bottom: 5px;">
-		<h6 style="; margin-top:5px; margin-bottom: 5px;">
-		<a href="forgotPassword" style="color:blue; margin-left: 10px;">forgot password?</a>
+		<h6 style="; margin-top:6px; margin-bottom: 6px;">
+		<a href="#!/forgotPassword" style="color:blue; margin-left: 10px;">forgot password?</a>
 		<a href="#!/registration" style="color:blue; align: right; margin-left: 250px;">registration?</a>
 		</h6>
 	</div>
-
-	<button class="loginBtn loginBtn--facebook"><a href="">Facebook Login</a>
+     <h3>Social-Side </h3>
+	<button class="loginBtn loginBtn--facebook"><a href="#!/facebook.html">Facebook Login</a>
 	</button><br/>
-	<button class="loginBtn loginBtn--google"><a href="">GoogleLogin</a>
+	<button class="loginBtn loginBtn--google"><a href="#!/home.html">GoogleLogin</a>
 	</button>
 </form>
 	

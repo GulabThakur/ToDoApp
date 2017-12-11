@@ -12,13 +12,13 @@ app.config(
 			.state('registration', {
 				url : '/registration',
 				templateUrl : 'template/registration.html',
-				//controller : 'registerController'
+				controller : 'registerController'
+			})
+			.state('forgotPassword',{
+				url:'/forgotPassword',
+				templateUrl:'template/forgotPassword.html',
+				controller:'forgotPasswodCrtl'
 			})
 			
-			.state('home', {
-				url : '/home',
-				templateUrl : 'template/home.html',
-				//controller : 'registerController'
-			})
 			$urlRouterProvider.otherwise('/login');
 } );

@@ -6,9 +6,9 @@
 	<form name="userForm">
 		<h3 style="text-align: center;">Registration Form</h3>
 		<md-input-container class="md-block"> <label>User-Name</label>
-		 	<input ng-pattern="/^[a-zA-Z\s]*$/" type="text" name="fName"
-		class="form-control" ng-model="user.fName" required>
-			<div ng-messages="userForm.fName.$error">
+		 	<input ng-pattern="/^[a-zA-Z\s]*$/" type="text" name="userName"
+		class="form-control" ng-model="user.userName" required>
+			<div ng-messages="userForm.userName.$error">
 				<div ng-message-exp="['required','pattern']">Enter valid name.</div>
 			</div>
 		</md-input-container>
@@ -22,9 +22,9 @@
 		</md-input-container>
  -->
 		<md-input-container class="md-block"> <label>Email-Id</label>
-			<input type="email" name="userName" class="form-control"
-			ng-model="user.userName" required>
-			<div ng-messages="userForm.userName.$error" role="alert">
+			<input type="email" name="email" class="form-control"
+			ng-model="user.email" required>
+			<div ng-messages="userForm.email.$error" role="alert">
 				<div ng-message-exp="['required','pattern']">Enter valid Email.</div>
 			</div>
 		</md-input-container>
@@ -39,9 +39,9 @@
 		
 		
 				<md-input-container class="md-block"> <label>Conform-password</label>
-			<input type="password" name="conform" class="form-control"
-			ng-model="user.conform" ng-minlength="6" ng-maxlength="16" required>
-			<div ng-messages="userForm.password.$error">
+			<input type="password" name="conform_psd" class="form-control"
+			ng-model="user.conform_psd" ng-minlength="6" ng-maxlength="16" required>
+			<div ng-messages="userForm.conform_psd.$error">
 				<div ng-message="required">This is required.</div>
 			</div>
 		</md-input-container>
@@ -64,17 +64,17 @@
 		</div>
 		</md-input-container>
  -->
-		<md-button ng-disabled="!userForm.$valid" ng-click="registerUser()"
+		<!-- <md-button ng-disabled="!userForm.$valid" ng-click="registerUser()"
 		class="md-raised md-primary"
 		style="width: 465px; margin-left: 0px; background: #DB7093; color: white;">Registration</md-button>
-		<br/>
+		<br/> -->
 	<md-button ng-disabled="!userForm.$valid"
-		class="md-raised md-primary"
-		style="width: 465px; margin-left: 0px; background: #DB7093; color: white;"><a ui-sref="login">Registration</a></md-button>
+		class="md-raised md-primary" ng-click="registerUser()"
+		style="width: 465px; margin-left: 0px; background: #DB7093; color: white;">Registration</md-button>
 		<br/>
-		<h5 style="text-align: center; margin-top: 0px;">
+		<!-- <h5 style="text-align: center; margin-top: 0px;">
 			<a ui-sref="login">Log In</a>
-		</h5>
+		</h5> -->
 		<center>
 			<font color="red"><p ng-bind="error" ng-disable></p></font>
 		</center>
