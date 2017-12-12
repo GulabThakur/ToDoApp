@@ -1,7 +1,6 @@
 var app = angular.module('ToDo');
-
 app.controller('registerController',function($scope,registrationService,$location){
-	console.log("inside registration");
+
 	$scope.registerUser= function(){
 		var a = registrationService.registerUser($scope.user);
 		console.log(a);
@@ -9,7 +8,6 @@ app.controller('registerController',function($scope,registrationService,$locatio
 				console.log(response.data.message);
 				localStorage.setItem('token',response.data.message);
 				
-				console.log("register success");
 				$location.path();
 			},function(response){
 				if(response.status==409)
@@ -18,7 +16,6 @@ app.controller('registerController',function($scope,registrationService,$locatio
 					}
 				else
 					{	
-						console.log("fail");
 						$scope.error="Enter valid data";
 					}
 			});

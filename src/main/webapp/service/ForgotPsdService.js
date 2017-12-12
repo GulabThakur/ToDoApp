@@ -1,14 +1,15 @@
 var app=angular.module('ToDo');
-app.factory("loginService",function($http,$location)
+app.factory("forgotPsdService",function($http,$location)
 		{
-			var login={};
-			login.forgotUser=function(user)
+			var forgot={};
+			forgot.forgotUser=function(user)
 			{
 				return $http({
 					method :"post",
-					url:"login",
-					data: user
+					url:"forgot",
+					data: user,
+					//urlPath:"reset.html"
 				})
 			}
-			return login;
+			return forgot;
 		});

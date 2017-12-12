@@ -1,8 +1,7 @@
 var app=angular.module('ToDo');
 app.controller('forgotPasswodCrtl',function ($scope,forgotPsdService,$location)
 		{
-			console.log("it came into login");
-			$scope.loginClick=function()
+			$scope.fogotClick=function()
 			{
 				var a=forgotPsdService.forgotUser($scope.user);
 				
@@ -10,7 +9,6 @@ app.controller('forgotPasswodCrtl',function ($scope,forgotPsdService,$location)
 						{
 							console.log(response.data.message);
 							localStorage.setItem('token',response.data.message);
-							console.log("loginsucessfull");
 						}),function(response)
 						{
 							if(response.status=409)

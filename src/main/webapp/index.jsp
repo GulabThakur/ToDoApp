@@ -22,18 +22,20 @@
 
 <script type="text/javascript" src="service/registerService.js"></script>
 <script type="text/javascript" src="service/loginService.js"></script>
-
-
+<script type="text/javascript" src="service/ForgotPsdService.js"></script>
+<script type="text/javascript" src="service/ResetService.js"></script>
 <!-- All Controllers are here -->
 <script type="text/javascript" src="controller/loginController.js"></script>
 <script type="text/javascript" src="controller/RegisterController.js"></script>
-
+<script type="text/javascript" src="controller/ForgotPassword.js"></script>
+<script type="text/javascript" src="controller/ResetPasswordController.js"></script>
 
 <!-- All templates are here -->
 
 <script type="text/javascript" src="template/login.html"></script>
 <script type="text/javascript" src="template/registration.html"></script>
 <script type="text/javascript" src="template/forgotPassword.html"></script>
+<script type="text/javascript" src="template/resetpassword.html"></script>
 
 <!-- All css files are here -->
 

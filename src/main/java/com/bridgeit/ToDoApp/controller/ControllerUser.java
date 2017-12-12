@@ -1,8 +1,12 @@
 package com.bridgeit.ToDoApp.controller;
 
+import java.io.IOException;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,10 +84,9 @@ public class ControllerUser {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> login(@RequestBody UserModel user,
-			HttpServletRequest request) {
+	public ResponseEntity<Response> login(@RequestBody UserModel user, HttpServletRequest request) {
 		Response message = new Response();
-		System.out.println("value ...."+user.getEmail());
+		System.out.println("value ...." + user.getEmail());
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
 			message.setMessage("You dont have account plesse register first");
@@ -94,9 +97,9 @@ public class ControllerUser {
 		if (condition > 0) {
 			System.out.println(token2);
 			String url = request.getRequestURI().toString();
-			url = "http://localhost:8080/"+url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
+			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
 			email.registration(user.getEmail(), url);
-			userModelService.login(user.getEmail(),user.getPassword() );
+			userModelService.login(user.getEmail(), user.getPassword());
 			message.setMessage("Welcome ..");
 			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
@@ -131,15 +134,32 @@ public class ControllerUser {
 
 	}
 
-	@RequestMapping(value = "/reset/{token:.+}", method = RequestMethod.PUT)
-	public ResponseEntity<Response> setPassword(@RequestBody UserModel user, @PathVariable("token") String jwt) {
+	@RequestMapping(value = "/verifyReset/{token:.+}", method = RequestMethod.GET)
+	public ResponseEntity<Response> varifyReset(@PathVariable("token") String token1, HttpServletResponse response,
+			HttpSession session) throws IOException {
 		Response message = new Response();
-		int id = token.varifyToken(jwt);
-		System.out.println(id);
+		int id = token.varifyToken(token1);
+		session.setAttribute("id", id);
+		System.out.println("This token id is :" + id);
+		if (id > 0) {
+			message.setMessage("done verfy");
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/resetpassword");
+			return new ResponseEntity<Response>(message, HttpStatus.OK);
+		}
+		message.setMessage("this is not valid....");
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+
+	}
+
+	@RequestMapping(value = "/reset", method = RequestMethod.PUT)
+	public ResponseEntity<Response> setPassword(@RequestBody UserModel user,HttpSession session) {
+		Response message = new Response();
+		int id=(int) session.getAttribute("id");
+	
 		UserModel user1 = userModelService.getDataById(id);
 		if (user1 == null) {
 			message.setMessage("This is incorect email ...");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
 		if (user.getPassword().equals(user.getConform_psd())) {
 			user1.setConform_psd(user.getPassword());
@@ -150,13 +170,14 @@ public class ControllerUser {
 				user1.setPassword(codepsd);
 				userModelService.update(user1);
 				message.setMessage("Your password is change..");
-				return new ResponseEntity<Response>(message, HttpStatus.OK);
+
+				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			}
 			message.setMessage("please enter the valid password....");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
 		message.setMessage("password and conform password are not match");
-		return new ResponseEntity<Response>(message, HttpStatus.OK);
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -164,13 +185,14 @@ public class ControllerUser {
 	public ResponseEntity<Response> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
 		Response message = new Response();
 		UserModel user_arg = userModelService.getDataByEmail(user.getEmail());
+
 		if (user_arg != null) {
 			String url = request.getRequestURI().toString();
 			int id = user_arg.getId();
 			String token2 = token.genratedToken(id);
-			url = url.substring(0, url.lastIndexOf("/")) + "/reset/" + token2;
+			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
 			email.registration(user.getEmail(), url);
-			message.setMessage("your password changed....");
+			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
 		message.setMessage("please enter the valid user");
