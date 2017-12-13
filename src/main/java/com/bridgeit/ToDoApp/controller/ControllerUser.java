@@ -3,7 +3,6 @@ package com.bridgeit.ToDoApp.controller;
 import java.io.IOException;
 
 import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,6 +47,10 @@ public class ControllerUser {
 	@Autowired(required = true)
 	private MessageProducer messageProducer;
 
+	/*
+	 * ................this my register API........
+	 */
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> registere(@RequestBody UserModel user, HttpServletRequest request)
 			throws JMSException {
@@ -74,23 +77,28 @@ public class ControllerUser {
 				// email process
 				// email.registration(user.getEmail(), url);
 				message.setMessage("sucessfull ragister");
-				return new ResponseEntity<Response>(message, HttpStatus.OK);
+				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			}
 			message.setMessage(status);
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
 		message.setMessage("already register ");
-		return new ResponseEntity<Response>(message, HttpStatus.OK);
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 	}
 
+	/*
+	 * ................this my login API........
+	 */
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> login(@RequestBody UserModel user, HttpServletRequest request) {
+	public ResponseEntity<Response> login(@RequestBody UserModel user, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		Response message = new Response();
 		System.out.println("value ...." + user.getEmail());
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
 			message.setMessage("You dont have account plesse register first");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
 		String token2 = token.genratedToken(user1.getId());
 		int condition = user1.isActive();
@@ -98,14 +106,20 @@ public class ControllerUser {
 			System.out.println(token2);
 			String url = request.getRequestURI().toString();
 			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
-			email.registration(user.getEmail(), url);
+			//email.registration(user.getEmail(), url);
 			userModelService.login(user.getEmail(), user.getPassword());
+			// calling home page.......
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
 			message.setMessage("Welcome ..");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("please acivate your ragistration chech mail");
-		return new ResponseEntity<Response>(message, HttpStatus.OK);
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 	}
+
+	/*
+	 * ................this my activate API........
+	 */
 
 	@RequestMapping(value = "/active/{token:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> activeLogin(@PathVariable("token") String jwt) {
@@ -118,22 +132,29 @@ public class ControllerUser {
 			return new ResponseEntity<Response>(message, HttpStatus.OK);
 		}
 		message.setMessage("Please ragistration first then activate ");
-		return new ResponseEntity<Response>(message, HttpStatus.OK);
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 	}
 
+	/*
+	 * ................this my verification API........
+	 */
 	@RequestMapping(value = "/verify/{token:.+}", method = RequestMethod.GET)
-	public ResponseEntity<Response> varify(@PathVariable("token") String token1) {
+	public ResponseEntity<Response> varify(@PathVariable("token") String token1,HttpServletResponse response) throws IOException {
 		Response message = new Response();
 		int id = token.varifyToken(token1);
 		if (id > 0) {
 			message.setMessage("verification is sucessfully....");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
+			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("sorry registration first...");
-		return new ResponseEntity<Response>(message, HttpStatus.OK);
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
 
+	/*
+	 * ................this my verification for reset API........
+	 */
 	@RequestMapping(value = "/verifyReset/{token:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> varifyReset(@PathVariable("token") String token1, HttpServletResponse response,
 			HttpSession session) throws IOException {
@@ -143,28 +164,48 @@ public class ControllerUser {
 		System.out.println("This token id is :" + id);
 		if (id > 0) {
 			message.setMessage("done verfy");
+			// here send user inside the reset password page...
+
 			response.sendRedirect("http://localhost:8080/ToDoApp/#!/resetpassword");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("this is not valid....");
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
 
+	/*
+	 * ................this my reset API........
+	 */
 	@RequestMapping(value = "/reset", method = RequestMethod.PUT)
-	public ResponseEntity<Response> setPassword(@RequestBody UserModel user,HttpSession session) {
+	public ResponseEntity<Response> setPassword(@RequestBody UserModel user, HttpSession session) {
 		Response message = new Response();
-		int id=(int) session.getAttribute("id");
-	
+
+		System.out.println("fhgfghhg");
+		
+		int id = (int) session.getAttribute("id");
+
+		// here i am using get the data from data base by id....
+
 		UserModel user1 = userModelService.getDataById(id);
+
+		// then check condition user is null so return bad request...
 		if (user1 == null) {
 			message.setMessage("This is incorect email ...");
 			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
+		// again i am checking here that data password and conform password will be
+		// match or not match
+
 		if (user.getPassword().equals(user.getConform_psd())) {
+			System.out.println("password  corrrect");
 			user1.setConform_psd(user.getPassword());
 			user1.setPassword(user.getConform_psd());
+
+			// this line will be use for check password is follow instruction ..
+
 			String status = valid.valid(user1);
+			// when status is null then enter the inside
 			if (status == null) {
 				String codepsd = encode.endode(user1);
 				user1.setPassword(codepsd);
@@ -176,10 +217,15 @@ public class ControllerUser {
 			message.setMessage("please enter the valid password....");
 			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
+		System.out.println("password incorrrect");
 		message.setMessage("password and conform password are not match");
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
+
+	/*
+	 * ................this my forgot API........
+	 */
 
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
 	public ResponseEntity<Response> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
@@ -193,10 +239,10 @@ public class ControllerUser {
 			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
 			email.registration(user.getEmail(), url);
 			message.setMessage("check your email....");
-			return new ResponseEntity<Response>(message, HttpStatus.OK);
+			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("please enter the valid user");
-		return new ResponseEntity<Response>(message, HttpStatus.OK);
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
 }

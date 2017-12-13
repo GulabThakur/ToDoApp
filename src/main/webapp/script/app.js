@@ -1,6 +1,6 @@
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ]);
+var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial']);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider ) {
 	$stateProvider
 	// this code will be use for login CrtL and load HtmL..
 	.state('login', {
@@ -27,6 +27,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'template/resetpassword.html',
 	    controller:'resetPsdCrtl'
 	})
-
+	.state('homepage',
+	{
+		url:"/homepage",
+		templateUrl:'template/homepage.html'
+		//controller:'homepageCrt'
+	})
 	$urlRouterProvider.otherwise('/login');
 });
+
+

@@ -11,6 +11,7 @@ app.controller('loginController',function ($scope,loginService,$location)
 					console.log(response.data.message);
 					localStorage.setItem('token',response.data.message);
 					console.log("loginsucessfull");
+					$location.path('homepage');
 				}),function(response)
 				{
 					if(response.status=409)

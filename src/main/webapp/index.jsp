@@ -1,5 +1,10 @@
 <html>
 <head>
+<!-- All css files are here -->
+
+<link rel="stylesheet" ; href="css/login.css" />
+<link re="stylesheet" ; href="css/registration.css">
+<link rel="stylesheet" ;href="css/forgotpassword.css">
 <link rel="stylesheet"
 	href="bower_components/angular-material/angular-material.min.css" />
 <!-- <script src = "bower_components/angular/angular.js"></script> -->
@@ -17,7 +22,7 @@
 
 <script type="text/javascript" src="script/app.js"></script>
 
-
+<script type="text/javascript" src="directive/navbar.js"></script>
 <!-- All Services are here -->
 
 <script type="text/javascript" src="service/registerService.js"></script>
@@ -30,24 +35,15 @@
 <script type="text/javascript" src="controller/ForgotPassword.js"></script>
 <script type="text/javascript" src="controller/ResetPasswordController.js"></script>
 
-<!-- All templates are here -->
 
-<script type="text/javascript" src="template/login.html"></script>
-<script type="text/javascript" src="template/registration.html"></script>
-<script type="text/javascript" src="template/forgotPassword.html"></script>
-<script type="text/javascript" src="template/resetpassword.html"></script>
 
-<!-- All css files are here -->
 
-<link rel="stylesheet" ; href="css/login.css" />
-<link re="stylesheet" ; href="css/registration.css">
-<link rel="stylesheet" ;href="css/forgotpassword.css">
+ 
+
 </head>
 <body ng-app='ToDo'>
 
 	<div ui-view></div>
 </body>
-
-
 
 </html>

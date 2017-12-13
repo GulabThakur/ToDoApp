@@ -6,11 +6,11 @@ app.controller('resetPsdCrtl',
 				restPsd.then(function(response) {
 					
 					console.log("welcome error free");
-				}), function(response) {
-					
+				}, function(response) {
+					console.log(response.data);
 					$scope.errormessage = response.data.message;
 					console.log(errormessage);
-					$location.path('resetpassword');
-				}
+					
+				});
 			}
 		});
