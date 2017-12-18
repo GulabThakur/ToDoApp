@@ -10,16 +10,20 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
  * @author ThakurGulab
  *
  */
 public class EmailImp implements IEmail {
+	@Autowired
+	EmailProperties emailService;
 	
 	public String registration(String user, String token) {
-		final String from = "gulabthakur238@gmail.com";
-		final String psd="7024082813";
+		final String from = emailService.getEmail();
+		final String psd=emailService.getPassword();
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");

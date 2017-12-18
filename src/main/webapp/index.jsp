@@ -1,7 +1,8 @@
 <html>
 <head>
 <!-- All css files are here -->
-
+<link rel="stylesheet" ; href="css/navar.css">
+<link rel="stylesheet" ; href="css/sidebar.css">
 <link rel="stylesheet" ; href="css/login.css" />
 <link re="stylesheet" ; href="css/registration.css">
 <link rel="stylesheet" ;href="css/forgotpassword.css">
@@ -23,22 +24,21 @@
 <script type="text/javascript" src="script/app.js"></script>
 
 <script type="text/javascript" src="directive/navbar.js"></script>
+<script type="text/javascript" src="directive/dashbar.js"></script>
+<script type="text/javascript" src="directive/sidebar.js"></script>
 <!-- All Services are here -->
 
 <script type="text/javascript" src="service/registerService.js"></script>
 <script type="text/javascript" src="service/loginService.js"></script>
 <script type="text/javascript" src="service/ForgotPsdService.js"></script>
 <script type="text/javascript" src="service/ResetService.js"></script>
+<script type="text/javascript" src="service/HomeService.js"></script>
 <!-- All Controllers are here -->
 <script type="text/javascript" src="controller/loginController.js"></script>
 <script type="text/javascript" src="controller/RegisterController.js"></script>
 <script type="text/javascript" src="controller/ForgotPassword.js"></script>
 <script type="text/javascript" src="controller/ResetPasswordController.js"></script>
-
-
-
-
- 
+<script type="text/javascript" src="controller/HomeContoller.js"></script>
 
 </head>
 <body ng-app='ToDo'>

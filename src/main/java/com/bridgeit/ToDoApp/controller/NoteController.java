@@ -29,7 +29,9 @@ public class NoteController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> store_note(@RequestBody Notes note, HttpServletRequest request) {
 		Response meResponse = new Response();
+		System.out.println("come in side node");
 		String token = request.getHeader("jwt");
+		System.out.println(token);
 		boolean status = noteService.create_note(note, token);
 		if (status) {
 			meResponse.setMessage("succesfull data stored");

@@ -31,7 +31,7 @@ public class UserDaoImp implements IUserDao {
 		return id;
 	}
 
-	public void login(String email, String password) {
+	public boolean login(String email, String password) {
 		Session session = sessionFactory.openSession();
 		String persion = null;
 		Criteria criteria = session.createCriteria(UserModel.class);
@@ -45,17 +45,21 @@ public class UserDaoImp implements IUserDao {
 			boolean status = userModelDao.checkPsd(password, user.getPassword());
 			if (status) {
 				persion = user.getUserName();
+				
 				/// return persion;
 				System.out.println(persion);
+				return true;
 			} else {
 				persion = "password wrong";
 
 				// return persion;
 				System.out.println(persion);
+				return false;
 			}
 		}
 		// return persion;
 		System.out.println(persion);
+		return false;
 	}
 
 	public boolean checkPsd(String password, String hash_psd) {

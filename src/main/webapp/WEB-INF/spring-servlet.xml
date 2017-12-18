@@ -68,6 +68,7 @@
 	<beans:bean id="noteService" class="com.bridgeit.ToDoApp.service.NodeServiceImp">
 	</beans:bean>
 	<beans:bean id="email" class="com.bridgeit.ToDoApp.email.EmailImp">
+	
 	</beans:bean>
 	<beans:bean id="token" class="com.bridgeit.ToDoApp.token.TokenImp">
 	</beans:bean>
@@ -76,6 +77,11 @@
 	<beans:bean id="valid"
 		class="com.bridgeit.ToDoApp.validation.ValidationImp">
 	</beans:bean>
+	 
+		<beans:bean id="emailService" class="com.bridgeit.ToDoApp.email.EmailProperties">
+		<beans:property name="email" value="gulabthakur238@gmail.com"/>
+		<beans:property name="password" value="7024082813"/>
+	    </beans:bean>
 	 
  
 	<beans:bean id="mailSender"
@@ -133,4 +139,5 @@
 		<jms:listener destination="messageQueue" ref="consumer"
 			method="onMessage"></jms:listener>
 	</jms:listener-container> 
+	
 </beans:beans>

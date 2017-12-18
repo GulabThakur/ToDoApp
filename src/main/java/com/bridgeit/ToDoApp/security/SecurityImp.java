@@ -7,9 +7,9 @@ import com.bridgeit.ToDoApp.model.UserModel;
 public class SecurityImp implements IPasswordencode {
 	private static int workload = 12;
 
-	public String endode(UserModel user) {
+	public String endode(String user) {
 		String salt = BCrypt.gensalt(workload);
-		String hashed_password = BCrypt.hashpw(user.getPassword(), salt);
+		String hashed_password = BCrypt.hashpw(user, salt);
 		return hashed_password;
 	}
 

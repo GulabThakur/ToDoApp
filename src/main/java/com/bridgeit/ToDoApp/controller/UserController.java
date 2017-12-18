@@ -32,7 +32,7 @@ import com.bridgeit.ToDoApp.validation.IValidation;
  *
  */
 @RestController
-public class ControllerUser {
+public class UserController {
 
 	@Autowired
 	private IuserService userModelService;
@@ -59,9 +59,9 @@ public class ControllerUser {
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
 			String url = request.getRequestURL().toString();
-			System.out.println(url);
+			//System.out.println(url);
 			if (status == null) {
-				String endodePsd = encode.endode(user);
+				String endodePsd = encode.endode(user.getPassword());
 				user.setActive(0);
 				user.setPassword(endodePsd);
 				int id = userModelService.registration(user);
@@ -110,7 +110,7 @@ public class ControllerUser {
 			boolean status=userModelService.login(user.getEmail(), user.getPassword());
 			if(status) 
 			{
-				message.setMessage("Welcome ..");
+				message.setMessage(token2);
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			}
 			// calling home page.......
@@ -212,7 +212,7 @@ public class ControllerUser {
 			String status = valid.valid(user1);
 			// when status is null then enter the inside
 			if (status == null) {
-				String codepsd = encode.endode(user1);
+				String codepsd = encode.endode(user1.getPassword());
 				user1.setPassword(codepsd);
 				userModelService.update(user1);
 				message.setMessage("Your password is change..");

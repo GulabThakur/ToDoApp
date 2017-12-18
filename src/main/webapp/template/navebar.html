@@ -1,26 +1,50 @@
-<div flex layout="column" style="height: 500px; color:">
-
-	<div flex layout="row" style="width: 100%; height: 100px;">
-
-		<div style="width: 30%; height: 80px;">
-			<div style="width: 10%; height: 48px"><h1>menu</h1></div>
-			<div style="width: 20%; height: 48px" >
-				<span>Google</span><span>keep<span>
+<md-navbar class="nav_bar" layout="row"  layout-align="start center">
+	
+		<div layout="row" layout-margin >
+			<div layout-margin flex="8">
+				<md-button class="md-icon-button md-primary" aria-label="">
+				<md-icon md-svg-icon="image/menu.svg"></md-icon> </md-button>
+			</div>
+			<div>
+				<h1 style="color:#f4eb41">Google Keep</h1>
 			</div>
 		</div>
-		<div style="width: 60%; height: 80px">
-			<h1>search</h1>
-		</div>
-		<div style="width: 20%; height: 80px">
-			<div style="width: 10%; height: 48px">
-				<h1>style view</h1>
-				<div style="width: 10%; height: 48px">
-					<h1>style view</h1>
-				</div>
+		<div md-search-text="ctrl.searchText" layout="row" flex>
+			<div flex="8">
+				<md-button class="md-icon-button md-primary" aria-label="">
+				<md-icon md-svg-icon="image/search.svg"></md-icon> </md-button>
+			</div>
+			<div flex  layout-align="center center">
+			<input class="inputType" aria-label="Search" autocomplete="off" placeholder="Search" role="combobox" type="text">
+				
+			</div>
+			<div flex="8">
+				<md-button class="md-icon-button md-primary" aria-label="">
+				<md-icon md-svg-icon="image/close_white.svg"></md-icon> </md-button>
 			</div>
 		</div>
-
-		<div style="width: 10%; height: 80px">
-			<h1>profile</h1>
+		<div flex="8">
+			<md-button class="md-icon-button md-primary" aria-label="">
+			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
 		</div>
-	</div>
+		<div flex="8">
+			<md-button class="md-icon-button md-primary" aria-label="">
+			<md-icon md-svg-icon="image/grid_image.svg"></md-icon> </md-button>
+		</div>
+		<div layout="row">
+			<div>
+				<md-button class="md-icon-button md-primary" aria-label="">
+				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
+			</div>
+			<div>
+				<md-button class="md-icon-button md-primary" aria-label="">
+				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
+			</div>
+			<div>
+				<md-button>profile</md-button>
+			</div>
+		</div>
+	
+</md-navbar>
+ 
+

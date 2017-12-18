@@ -18,7 +18,7 @@ public interface IuserService {
 	 * @param password
 	 * @this method using for login user
 	 */
-	public void login(String email, String password);
+	public boolean login(String email, String password);
 
 	/**
 	 * @param id

@@ -17,7 +17,7 @@ public interface IUserDao {
 	 * @param email
 	 * @param password
 	 */
-	public void login(String email, String password);
+	public boolean login(String email, String password);
 
 	/**
 	 * @param password

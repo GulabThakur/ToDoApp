@@ -25,12 +25,11 @@
 	<div ng-messages="userForm.password.$error">
 		<div ng-message="required">This is required.</div>
 	</div>
-	<p>
-		<span id="errmsg"></span>
-	</p>
+	
 	</md-input-container>
 	
 	<md-button md-no-ink class="md-primary" ng-click="loginClick()" ng-disabled="loginform.$invalid" 
+	ng-model="loginController.error"
 	style="background: #233d38; width: 465px; align: center; margin-left: 3px;">Login</md-button>
 	
 	<div style="height: 15px; margin-bottom: 5px;">

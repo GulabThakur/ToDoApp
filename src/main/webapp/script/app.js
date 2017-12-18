@@ -27,11 +27,10 @@ app.config(function($stateProvider, $urlRouterProvider ) {
 		templateUrl : 'template/resetpassword.html',
 	    controller:'resetPsdCrtl'
 	})
-	.state('homepage',
-	{
+	.state('homepage',{
 		url:"/homepage",
-		templateUrl:'template/homepage.html'
-		//controller:'homepageCrt'
+		templateUrl:'template/homepage.html',
+		controller:'homepageCrt'
 	})
 	$urlRouterProvider.otherwise('/login');
 });

@@ -1,5 +1,5 @@
 var app=angular.module('ToDo');
-app.directive('sidebar', function() {
+app.directive('sideBar', function() {
     return {
         templateUrl : "template/sidebar.html"
     };

@@ -20,8 +20,8 @@ public class UserServiceImp implements IuserService {
 	}
 
 	
-	public void login(String email, String password) {
-		userModelDao.login(email, password);
+	public boolean login(String email, String password) {
+		return userModelDao.login(email, password);
 	}
 
 	

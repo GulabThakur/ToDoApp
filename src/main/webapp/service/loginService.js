@@ -1,6 +1,7 @@
 var app=angular.module('ToDo');
 app.factory("loginService",function($http,$location)
 		{
+	console.log("response will come");
 			var login={};
 			login.loginUser=function(user)
 			{
