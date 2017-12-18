@@ -77,7 +77,7 @@ public class NoteController {
 
 	}
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Notes>> getsRecord() {
 		List<Notes> notes = noteService.allNotes();
 		if (notes != null) {

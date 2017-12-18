@@ -6,7 +6,7 @@ app.factory("forgotPsdService",function($http,$location)
 			{
 				return $http({
 					method :"post",
-					url:"forgot",
+					url:"test",
 					data: user,
 					//urlPath:"reset.html"
 				})

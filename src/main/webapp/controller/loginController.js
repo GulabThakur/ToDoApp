@@ -2,7 +2,6 @@
 var app = angular.module('ToDo');
 app.controller('loginController', function($scope, loginService, $location,
 		$state) {
-	console.log("it came into login");
 	$scope.loginClick = function() {
 		var a = loginService.loginUser($scope.user);
 		// when you password and email is correct

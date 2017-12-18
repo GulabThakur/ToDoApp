@@ -12,4 +12,12 @@ app.factory("loginService",function($http,$location)
 				})
 			}
 			return login;
+			
+			login.getToken=function(){
+				return $http({
+					method:"get",
+					url:'getToken'
+				});
+			}
+		return login;
 		});

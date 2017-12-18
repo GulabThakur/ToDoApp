@@ -1,16 +1,42 @@
-<div style="width: 75%; height: 200px" layout="column" layout-align="center start">
-		<div layout-align="center center">
-         <form>
-          <md-input-container>
-	    <input type="text" name="tittle" class="form-control"
-		ng-model="note.tittle" required>
-	
-	
-	</md-input-container>
-	      <md-input-container> 
-	    <input type="text" name="description" class="form-control"
-		ng-model="note.description" required>
-	</md-input-container>
-	<md-button  ng-click="addNode()" >Done</md-button>
-		</div>
+<div flex layout="column"
+	layout-align="space-around center">
+	 <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column" class="first-card">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"  md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <input class="md-headline" placeholder="Tittle"></input>
+            <input class="md-headline" placeholder="discription"></input>
+              <md-button on-click="addNode()">done</md-button>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <!-- <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button> -->
+        </md-card-actions>
+      </md-card>
+     
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+           			
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-sm card-media" ng-repeat="note in notes"> {note.title} {note.discription}</div>
+            
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+        
+          
+        </md-card-actions>
+      </md-card>
+     
+      
+    </div>
+  </md-content>
 </div>

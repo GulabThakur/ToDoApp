@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgeit.ToDoApp.email.EmailProperties;
 import com.bridgeit.ToDoApp.email.IEmail;
 import com.bridgeit.ToDoApp.jms.MessageProducer;
 import com.bridgeit.ToDoApp.model.EmailSet;
@@ -33,7 +34,10 @@ import com.bridgeit.ToDoApp.validation.IValidation;
  */
 @RestController
 public class UserController {
-
+	
+	@Autowired
+	EmailProperties emailService;
+	
 	@Autowired
 	private IuserService userModelService;
 	@Autowired
@@ -232,7 +236,7 @@ public class UserController {
 	 * ................this my forgot API........
 	 */
 
-	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
+	@RequestMapping(value = "/test/forgot", method = RequestMethod.POST)
 	public ResponseEntity<Response> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
 		Response message = new Response();
 		UserModel user_arg = userModelService.getDataByEmail(user.getEmail());
@@ -243,6 +247,24 @@ public class UserController {
 			String token2 = token.genratedToken(id);
 			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
 			email.registration(user.getEmail(), url);
+			message.setMessage("check your email....");
+			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
+		}
+		message.setMessage("please enter the valid user");
+		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+
+	}
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public ResponseEntity<Response> test(@RequestBody UserModel user, HttpServletRequest request) {
+		Response message = new Response();
+		UserModel user_arg = userModelService.getDataByEmail(user.getEmail());
+
+		if (user_arg != null) {
+			String url = request.getRequestURI().toString();
+			int id = user_arg.getId();
+			String token2 = token.genratedToken(id);
+			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
+			email.registration(emailService.getEmail(), url);
 			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}

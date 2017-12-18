@@ -9,7 +9,8 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
-
+	
+	<context:property-placeholder location="classpath:development.properties" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="com.bridgeit.ToDoApp"></context:component-scan>
 	<mvc:annotation-driven />
@@ -26,9 +27,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/program1" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="101023" />
+			value="${url}" />
+		<beans:property name="username" value="${dbuser}" />
+		<beans:property name="password" value="${dbpassword}" />
 	</beans:bean>
 
 	<!-- Hibernate 4 SessionFactory Bean definition -->
@@ -77,18 +78,18 @@
 	<beans:bean id="valid"
 		class="com.bridgeit.ToDoApp.validation.ValidationImp">
 	</beans:bean>
-	 
+	  
 		<beans:bean id="emailService" class="com.bridgeit.ToDoApp.email.EmailProperties">
-		<beans:property name="email" value="gulabthakur238@gmail.com"/>
-		<beans:property name="password" value="7024082813"/>
+		<beans:property name="email" value="${userId}"/>
+		<beans:property name="password" value="${password}"/>
 	    </beans:bean>
 	 
  
 	<beans:bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
-		<beans:property name="username" value="gulabthakur238@gmail.com" />
-		<beans:property name="password" value="7024082813" />
+		<beans:property name="username" value="${userId}" />
+		<beans:property name="password" value="${password}" />
 		<beans:property name="javaMailProperties">
 			<beans:props>
 				<beans:prop key="mail.smtp.auth">true</beans:prop>

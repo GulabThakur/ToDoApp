@@ -2,9 +2,8 @@ var app = angular.module('ToDo');
 app.controller('registerController',function($scope,registrationService,$location){
 
 	$scope.registerUser= function(){
-		var a = registrationService.registerUser($scope.user);
-		console.log(a);
-			a.then(function(response){
+		registrationService.registerUser($scope.user)
+				.then(function(response){
 				console.log(response.data.message);
 				localStorage.setItem('token',response.data.message);
 				
