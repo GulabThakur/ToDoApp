@@ -192,7 +192,7 @@ public class UserController {
 
 		System.out.println("fhgfghhg");
 		
-		int id = (int) session.getAttribute("id");
+		int id = (Integer) session.getAttribute("id");
 
 		// here i am using get the data from data base by id....
 

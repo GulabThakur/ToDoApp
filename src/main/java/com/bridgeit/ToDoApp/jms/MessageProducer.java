@@ -15,7 +15,7 @@ public class MessageProducer {
 	@Autowired
 	JmsTemplate jmsTemplate;
 
-	public void send(EmailSet data) {
+	public void send(final EmailSet data) {
 		System.out.println("email : " + data);
 		jmsTemplate.send(new MessageCreator() {
 

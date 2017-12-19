@@ -18,7 +18,7 @@
 	<mvc:resources location="/controller/" mapping="/controller/**"/>
 	<mvc:resources location="/css/" mapping="/css/**"/>
 	<mvc:resources location="/image/" mapping="/image/**"/>
-	<mvc:resources location="/script/" mapping="/script/**"/>
+	<mvc:resources location="/config/" mapping="/config/**"/>
 	<mvc:resources location="/service/" mapping="/service/**"/>
 	<mvc:resources location="/template/" mapping="/template/**"/>
 	<mvc:resources location="/directive/" mapping="/directive/**"/>

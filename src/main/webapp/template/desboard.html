@@ -1,42 +1,94 @@
 <div flex layout="column"
-	layout-align="space-around center">
-	 <md-content class="md-padding" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column" class="first-card">
-      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}"  md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-            <input class="md-headline" placeholder="Tittle"></input>
-            <input class="md-headline" placeholder="discription"></input>
-              <md-button on-click="addNode()">done</md-button>
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <!-- <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button> -->
-        </md-card-actions>
+	layout-align="space-around center" >
+	 <md-content layout-xs="column" layout="column" class="first-card">
+    <div flex-gt-xs="50" layout="column"  flex>
+      <md-card class="mdcardfirst" layout-align="star center">
+       	<form layout=column>
+            <md-content>
+             <input  placeholder="Tittle" name="title" ng-model="note.title"></input><br>
+             <input placeholder="Note create " name="description"  ng-model="note.description" ></input>
+             </md-content>
+			
+			</form>	    
+			<div layout="row" layout-align="start">
+				<div>
+					<md-icon md-svg-icon="image/touch_black.svg" flex></md-icon>
+				</div>
+				<div>
+					<md-icon md-svg-icon="image/collabroter.svg" flex></md-icon>
+				</div>
+				<div>
+					<md-icon md-svg-icon="image/colore.svg" flex></md-icon>
+				</div>
+				<div>
+					<md-icon md-svg-icon="image/image.svg" flex></md-icon>
+				</div>
+				<div>
+					<md-icon md-svg-icon="image/archive_black.svg" flex></md-icon>
+				</div>
+				<div>
+        			<md-icon md-svg-icon="image/menudown.svg" flex></md-icon>
+        	    </div>
+				<div>
+        	       <md-icon md-svg-icon="image/undo.svg" flex></md-icon>
+        	    </div>
+        	    <div>
+        	       <md-icon md-svg-icon="image/redo.svg" flex></md-icon>
+        	   </div>
+				<div> 
+				    <md-button ng-click="addNode()" layout-align="start">Done</md-button>
+					<!-- <md-button ng-click="addNode()" layout-align="end end">done</md-button> -->
+				</div>
+			</div>
       </md-card>
-     
-    <div flex-xs flex-gt-xs="50" layout="column">
-      <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-           			
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-sm card-media" ng-repeat="note in notes"> {note.title} {note.discription}</div>
-            
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
         
-          
+    </div>
+    	
+    <div flex-gt-xs="50" layout="column"  ng-repeat="note in notes"  class="content-class" ng-click="deletebyId(note.id)" flex >
+      <md-card>
+       </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="column" layout-align="start">
+      	<div><h4>{{note.title}}</h4></div> 
+      	<div><h2>{{note.description}}</h2></div>
+      	<br>     
         </md-card-actions>
+        <div layout="row" >
+        	<div>
+        		<md-icon md-svg-icon="image/touch_black.svg" flex></md-icon>
+        	</div>
+        	<div>
+					<md-icon md-svg-icon="image/collabroter.svg" flex></md-icon>
+			</div>
+			<div>
+					<md-icon md-svg-icon="image/image.svg" flex></md-icon>
+			</div>
+        	<div>
+				<md-icon md-svg-icon="image/colore.svg" flex></md-icon>
+			</div>
+        	<div>
+        	<md-icon md-svg-icon="image/archive_black.svg" flex></md-icon>
+        	</div>
+        	<div>
+        	<md-icon md-svg-icon="image/menudown.svg" flex></md-icon>
+        	</div>
+        	<div>
+        	<md-icon md-svg-icon="image/undo.svg" flex></md-icon>
+        	</div>
+        	<div>
+        	<md-icon md-svg-icon="image/redo.svg" flex></md-icon>
+        	</div>
+        	<div> 
+				  <md-button ng-click="editNote($index.note.id)" layout-align="start">Done</md-button>
+					<!-- <md-button ng-click="addNode()" layout-align="end end">done</md-button> -->
+			</div>
+        </div>
       </md-card>
      
-      
-    </div>
+      </div>
+    	
+  </md-content>
+  <md-content >
+  		
   </md-content>
 </div>

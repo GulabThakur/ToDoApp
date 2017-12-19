@@ -21,7 +21,7 @@
 
 <!-- All script folders file is here -->
 
-<script type="text/javascript" src="script/app.js"></script>
+<script type="text/javascript" src="config/app.js"></script>
 
 <script type="text/javascript" src="directive/navbar.js"></script>
 <script type="text/javascript" src="directive/dashbar.js"></script>
