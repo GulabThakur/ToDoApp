@@ -20,6 +20,37 @@ public class Notes implements Serializable{
 	private String description;
 	private String currenTime;
 	private String updateTime;
+	private boolean isArchive;
+	private boolean isPin;
+	private boolean isTrash;
+	public boolean isArchive() {
+		return isArchive;
+	}
+
+	public void setArchive(boolean isArchive) {
+		this.isArchive = isArchive;
+	}
+	
+	public boolean getArchive() {
+		return isArchive;
+	}
+
+	public boolean getPin() {
+		return isPin;
+	}
+
+	public void setPin(boolean isPin) {
+		this.isPin = isPin;
+	}
+
+	public boolean getTrash() {
+		return isTrash;
+	}
+
+	public void setTrash(boolean isTrash) {
+		this.isTrash = isTrash;
+	}
+
 	private long usr_id;
 	public int getId() {
 		return id;

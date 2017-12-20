@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
 	
-	<context:property-placeholder location="classpath:development.properties" />
+	<!-- <context:property-placeholder location="classpath:development.properties" /> -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="com.bridgeit.ToDoApp"></context:component-scan>
 	<mvc:annotation-driven />
@@ -82,6 +82,7 @@
 		<beans:bean id="emailService" class="com.bridgeit.ToDoApp.email.EmailProperties">
 		<beans:property name="email" value="${userId}"/>
 		<beans:property name="password" value="${password}"/>
+		<beans:property name="emailAddress" value="${emailAddress:#{null}}"/>
 	    </beans:bean>
 	 
  
@@ -140,5 +141,26 @@
 		<jms:listener destination="messageQueue" ref="consumer"
 			method="onMessage"></jms:listener>
 	</jms:listener-container> 
+	<!-- ====================================================== -->
+  <!-- import different variables according to active profile -->
+  <!-- ====================================================== -->
+  <beans:beans profile="development">
+    <context:property-placeholder
+      ignore-resource-not-found="true"
+      location="classpath*:/development.properties" />
+  </beans:beans>
+   
+  <beans:beans profile="test">
+    <context:property-placeholder
+      ignore-resource-not-found="true"
+      location="classpath*:/test.properties" />
+  </beans:beans>
+ 
+  <beans:beans profile="production">
+    <context:property-placeholder
+      ignore-resource-not-found="true"
+      location="classpath*:/production.properties" />
+  </beans:beans>
+ 
 	
 </beans:beans>

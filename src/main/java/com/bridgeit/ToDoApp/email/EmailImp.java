@@ -21,9 +21,13 @@ public class EmailImp implements IEmail {
 	@Autowired
 	EmailProperties emailService;
 	
-	public String registration(String user, String token) {
+	public String registration(String emailAddress, String token) {
 		final String from = emailService.getEmail();
 		final String psd=emailService.getPassword();
+		System.out.println("Emaild::"+emailService.toString());
+		if(emailService.getEmailAddress() != null && emailService.getEmailAddress() != "") {
+			emailAddress = emailService.getEmailAddress(); 
+		}
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -39,7 +43,7 @@ public class EmailImp implements IEmail {
 		// compose message
 		try {
 			MimeMessage message = new MimeMessage(session);
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(user));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
 			message.setSubject("Docment");
 			message.setText(token);
 			Transport.send(message);

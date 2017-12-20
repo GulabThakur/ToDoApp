@@ -264,7 +264,7 @@ public class UserController {
 			int id = user_arg.getId();
 			String token2 = token.genratedToken(id);
 			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
-			email.registration(emailService.getEmail(), url);
+			email.registration(user_arg.getEmail(), url);
 			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}

@@ -17,7 +17,7 @@ app.controller('homepageCrt', function($scope, homeService, $location,$state,$wi
 		nodes.then(function(response){
 			console.log("Note created ");
 			$scope.allNodes();
-		}, function(){
+		}, function(response){
 				console.log(response.data.message);
 		});
 
@@ -68,18 +68,42 @@ app.controller('homepageCrt', function($scope, homeService, $location,$state,$wi
 				console.log(response.data.message);
 		});
 	}
-	$scope.updateById=function($event){
-		var url="update/id";
+	$scope.updateById=function(note){
+		var url="update/"+note.id;
 		var method="put";
 		var token =localStorage.getItem('jwt');
-		var data=$scope.note;
+		var data=note;
+		console.log(note);
 		var nodes=homeService.getAllnode(url,method,token,data);
 		nodes.then(function(response){
-			console.log("delete the data sucessfull by id ");
-		}, function(){
-				console.log(response.data.message);
+			console.log("update the data sucessfull by id ");
+		}, function(response){
+				console.log(response.data.meResponse);
 		});
 	}
+	// archive on
+	$scope.archive=function(note)
+	{
+		if(note.archive==false){
+			note.archive = true;
+			
+		}else{
+			note.archive = false;
+		}
+		$scope.updateById(note);
+	console.log(note);
+	}
 	
-	
+	// delete note..
+	$scope.trash=function(note)
+	{
+		if(note.trash==false){
+			note.trash=true;
+		}
+		else{
+			note.trash=false;
+		}
+		$scope.updateById(note);
+		console.log("sucessfull...");
+	}
 });

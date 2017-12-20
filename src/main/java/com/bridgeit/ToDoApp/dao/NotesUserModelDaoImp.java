@@ -1,5 +1,6 @@
 package com.bridgeit.ToDoApp.dao;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,17 +53,11 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 	public boolean upadteNote(int id, Notes note_data) {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		Notes note = (Notes) session.byId(Notes.class).load(id);
-		note.setCurrenTime(note.getCurrenTime());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		String update_time = dateFormat.format(cal.getTime());
-		note.setUpdateTime(update_time);
-		note.setTitle(note_data.getTitle());
-		note.setDescription(note_data.getDescription());
-		note.setUpdateTime(update_time);
-		// note.setUsr_id(note_data.getUsr_id());
-		session.update(note);
+		note_data.setUpdateTime(update_time);
+		session.update(note_data);
 		transaction.commit();
 		session.close();
 		return true;
