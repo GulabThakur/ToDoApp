@@ -23,5 +23,12 @@ hs_err_pid*
 # development hidden
 development.properties
 
-#eclipse
-*.metadata/
+#eclipse files
+.metadata
+RemoteSystemsTempFiles
+target
+.project
+.settings
+
+#angular dependancy
+bower_components
