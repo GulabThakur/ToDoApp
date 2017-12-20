@@ -78,8 +78,8 @@
       </md-card>
         
     </div>
-    	
-    <div flex-gt-xs="50" layout="column"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}" class="content-class" ng-click="" flex >
+    	<div layout="row">
+    <div flex-gt-xs="50"   ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}" class="content-class" ng-click="" flex >
      	
       <md-card>
       	<div layout-align="center" flex="8" class="pin-div">
@@ -169,7 +169,7 @@
       </md-card>
      
       </div>
-    	
+    	</div>
   </md-content>
   <md-content >
   		

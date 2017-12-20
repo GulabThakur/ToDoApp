@@ -56,7 +56,7 @@ public class UserController {
 	 */
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> registere(@RequestBody UserModel user, HttpServletRequest request)
+	public ResponseEntity<Response> register(@RequestBody UserModel user, HttpServletRequest request)
 			throws JMSException {
 		Response message = new Response();
 		String status = valid.valid(user);
