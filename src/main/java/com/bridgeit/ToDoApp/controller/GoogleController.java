@@ -68,6 +68,7 @@ public class GoogleController {
 			 responseForMessage.setMessage("Hello "+user.getUserName()+" you are new user.");
 			return new ResponseEntity<Response>(responseForMessage,
 					HttpStatus.ACCEPTED);
+			
 		} else {
 			user = userModelService.getDataByEmail(user.getUserName());
 			String token1 = token.genratedToken(user.getId());

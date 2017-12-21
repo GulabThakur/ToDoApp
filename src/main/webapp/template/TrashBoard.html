@@ -1,0 +1,33 @@
+<!-- .............................this  trash board ........................ -->
+<md-content>
+  
+  	<div layout="row"  layout-wrap>
+    <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:true} |filter:{pin:false}" class="content-class" ng-click="" flex >
+     	<!-- <md-grid-tile> -->
+      <md-card>
+      	
+       </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="column" layout-align="start">
+      	<div><h4>{{note.title}}</h4></div> 
+      	<div><h2>{{note.description}}</h2></div>
+      	<br>     
+        </md-card-actions>
+        <div layout="row" layout-align="end end">
+        	<md-menu>
+        			<md-icon ng-click="$mdMenu.open($event)" aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
+        			<md-menu-content>
+        			<md-menu-item>
+        			<md-button ng-click="trash(note)" >Restore</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="deletebyId(note)">Delete</md-button>
+        			</md-menu-item>
+        			<md-menu-content>
+        			</md-menu>
+        	</div>
+        </div>
+      </md-card>
+      </div>
+    	</div>
+  </md-content>

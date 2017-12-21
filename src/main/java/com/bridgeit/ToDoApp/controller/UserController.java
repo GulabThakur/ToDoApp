@@ -240,7 +240,7 @@ public class UserController {
 	public ResponseEntity<Response> forgotpassword(@RequestBody UserModel user, HttpServletRequest request) {
 		Response message = new Response();
 		UserModel user_arg = userModelService.getDataByEmail(user.getEmail());
-
+		System.out.println(user.getEmail());
 		if (user_arg != null) {
 			String url = request.getRequestURI().toString();
 			int id = user_arg.getId();

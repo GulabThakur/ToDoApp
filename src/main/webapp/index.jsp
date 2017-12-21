@@ -4,8 +4,9 @@
 <link rel="stylesheet" ; href="css/navar.css">
 <link rel="stylesheet" ; href="css/sidebar.css">
 <link rel="stylesheet" ; href="css/login.css" />
-<link re="stylesheet" ; href="css/registration.css">
-<link rel="stylesheet" ;href="css/forgotpassword.css">
+<link re="stylesheet" ;  href="css/registration.css">
+<!-- <link rel="stylesheet" ; href="css/forgotpassword.css"> -->
+<link rel="stylesheet" ; href="css/deshboard.css">
 <link rel="stylesheet"
 	href="bower_components/angular-material/angular-material.min.css" />
 <!-- <script src = "bower_components/angular/angular.js"></script> -->
@@ -26,6 +27,8 @@
 <script type="text/javascript" src="directive/navbar.js"></script>
 <script type="text/javascript" src="directive/dashbar.js"></script>
 <script type="text/javascript" src="directive/sidebar.js"></script>
+<script type="text/javascript" src="directive/TrashBoard.js"></script>
+<script type="text/javascript" src="directive/Archive.js"></script>
 <!-- All Services are here -->
 
 <script type="text/javascript" src="service/registerService.js"></script>

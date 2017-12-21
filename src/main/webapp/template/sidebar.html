@@ -3,7 +3,7 @@
 <md-list>
 	<md-list-item>
 	<md-icon md-svg-icon="image/lightbulb_outline_black.svg" flex></md-icon>
-	<a href="">Notes</a></md-list-item>
+	<level ng-click="notesFunction()">Notes</level></md-list-item>
 	<md-list-item>
 	<md-icon md-svg-icon="image/touch_black.svg" flex></md-icon>
 	<a href="">Reminder</a></md-list-item>
@@ -17,10 +17,10 @@
 	<md-divider></md-divider>
 	<md-list-item>
 	<md-icon md-svg-icon="image/archive_black.svg" flex></md-icon>
-	<a href="">Archive</a></md-list-item>
+	<level ng-click="archiveFunction()">Archive</level></md-list-item>
 	<md-list-item>
 	<md-icon md-svg-icon="image/trash_black.svg" flex></md-icon>
-	<a href="">Trash</a></md-list-item>
+	<level ng-click="trashFunction()">Trash</level></md-list-item>
 	<md-divider></md-divider>
 	<md-list-item>
 	<md-icon md-svg-icon="image/setting.svg" flex></md-icon>

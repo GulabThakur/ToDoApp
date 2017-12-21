@@ -32,16 +32,18 @@
 	ng-model="loginController.error"
 	style="background: #233d38; width: 465px; align: center; margin-left: 3px;">Login</md-button>
 	
-	<div style="height: 15px; margin-bottom: 5px;">
-		<h6 style="; margin-top:6px; margin-bottom: 6px;">
-		<a href="#!/forgotPassword" style="color:blue; margin-left: 10px;">forgot password?</a>
-		<a href="#!/registration" style="color:blue; align: right; margin-left: 250px;">registration?</a>
-		</h6>
-	</div>
-     <h3>Social-Side </h3>
-	<button class="loginBtn loginBtn--facebook"><a href="#!/facebook.html">Facebook Login</a>
+	
+		<!-- <h6 style="; margin-top:6px; margin-bottom: 6px;"> -->
+		<div layout="row" layout-align="start" class="centerDivToSize" >
+		<div class="forgot-link" ng-click="redirectToForgotpassword()" flex>ForgotPassword</div>
+		<div class="register" ng-click="redirectToRegister()">registration</div>
+		</div>
+		<!-- </h6> -->
+	
+     
+	<button class="loginBtn loginBtn--facebook"><a style="text-decoration:none;color:white;" href="facebookLogin">Facebook Login</a>
 	</button><br/>
-	<button class="loginBtn loginBtn--google"><a href="#!/home.html">GoogleLogin</a>
+	<button class="loginBtn loginBtn--google" ><a style="text-decoration:none;color:white;" href="googleLogin">GoogleLogin</a>
 	</button>
 </form>
 	

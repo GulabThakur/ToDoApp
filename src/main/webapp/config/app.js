@@ -1,12 +1,12 @@
-/*****
+/*******************************************************************************
  * @author Gulab
  * @description
- * @created 
+ * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial']);
+var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ]);
 
-app.config(function($stateProvider, $urlRouterProvider ) {
+app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 	// this code will be use for login CrtL and load HtmL..
 	.state('login', {
@@ -31,14 +31,23 @@ app.config(function($stateProvider, $urlRouterProvider ) {
 	.state('resetpassword', {
 		url : '/resetpassword',
 		templateUrl : 'template/resetpassword.html',
-	    controller:'resetPsdCrtl'
+		controller : 'resetPsdCrtl'
+	}).state('homepage', {
+		url : "/homepage",
+		templateUrl : 'template/homepage.html',
+		controller : 'homepageCrt'
 	})
-	.state('homepage',{
-		url:"/homepage",
-		templateUrl:'template/homepage.html',
-		controller:'homepageCrt'
+
+	.state('TrashLoad', {
+		url : "/TrashLoad",
+		templateUrl : 'template/TrashLoad.html',
+		controller : 'homepageCrt'
+	})
+	
+	.state('ArchiveLoad', {
+		url : "/ArchiveLoad",
+		templateUrl : 'template/ArchiveLoad.html',
+		controller : 'homepageCrt'
 	})
 	$urlRouterProvider.otherwise('/login');
 });
-
-

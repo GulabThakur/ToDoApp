@@ -5,7 +5,7 @@
  * 
  */
 var app = angular.module('ToDo');
-app.controller('homepageCrt', function($scope, homeService, $location,$state,$window) {
+app.controller('homepageCrt',function($scope, homeService, $location,$state,$window,$mdToast, $document) {
 	 
 	$scope.addNode = function() {
 		$scope.allNodes();
@@ -55,8 +55,8 @@ app.controller('homepageCrt', function($scope, homeService, $location,$state,$wi
 				console.log(response.data.message);
 		});
 	}
-	$scope.deletebyId=function($event){
-		var url="delete/"+$event;
+	$scope.deletebyId=function(note){
+		var url="delete/"+note.id;
 		var method="delete";
 		var token =null;
 		var data=null;
@@ -84,6 +84,11 @@ app.controller('homepageCrt', function($scope, homeService, $location,$state,$wi
 	// archive on
 	$scope.archive=function(note)
 	{
+		$mdToast.show (
+                $mdToast.simple()
+                .textContent('Note Archived ..')                       
+                .hideDelay(3000)
+             )
 		if(note.archive==false){
 			note.archive = true;
 			
@@ -103,7 +108,53 @@ app.controller('homepageCrt', function($scope, homeService, $location,$state,$wi
 		else{
 			note.trash=false;
 		}
+		$mdToast.show (
+                $mdToast.simple()
+                .textContent('Note trashed ..')                       
+                .hideDelay(3000)
+             )
 		$scope.updateById(note);
 		console.log("sucessfull...");
 	}
+	
+	
+	// pin notes....
+	$scope.pin=function(note)
+	{
+		 
+		if(note.pin==false){
+			note.pin=true;
+		}else{
+			note.pin=false;
+		}
+		$scope.updateById(note);
+		console.log("sucessfull pined");
+	}
+	
+	// trashFunction....
+	$scope.trashFunction=function()
+	{
+		$state.go('TrashLoad');
+		console.log("come inside sucessfull")
+	}
+	//  call from notes..
+	$scope.notesFunction=function()
+	{
+		$state.go('homepage');
+		console.log("sucessfull come..");
+	}
+	
+	
+	// archiveFunction...
+	$scope.archiveFunction=function()
+	{
+		$state.go('ArchiveLoad');
+		console.log("sucessfull come..");
+	}
+	
+	$scope.Mydate=function(){
+		
+            
+	}
+	
 });

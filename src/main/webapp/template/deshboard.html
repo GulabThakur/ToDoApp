@@ -17,7 +17,7 @@
         		<md-menu-content>
         		<md-menu-item>
         			<level>Reminder</level>
-        		</md-menu-item>
+        		</md-menu-item>md-content
         		<md-menu-item>
         			<md-button ng-click="">Later today</md-button>
         		</md-menu-item>
@@ -78,12 +78,21 @@
       </md-card>
         
     </div>
-    	<div layout="row">
-    <div flex-gt-xs="50"   ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}" class="content-class" ng-click="" flex >
-     	
+    	
+  </md-content>
+  </div>
+  <!-- ....................note create here...................................................................... -->
+  <md-content>
+  
+  		<div layout="row"  layout-wrap>
+  		
+    <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
+     	<!-- <md-grid-tile> -->
       <md-card>
-      	<div layout-align="center" flex="8" class="pin-div">
-      		<md-icon ng-click="" md-svg-icon="image/touch_black.svg"  flex></md-icon>
+      	<div>
+      		<div  class="pin-class">
+      		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
+      		</div>
 		</div>
        </md-card-title-media>
         </md-card-title>
@@ -92,16 +101,17 @@
       	<div><h2>{{note.description}}</h2></div>
       	<br>     
         </md-card-actions>
-        <div layout="row" >
+        <div layout="row" layout-align="space-around">
+        
         	<div>
-        	<md-menu>
-        		<md-icon ng-click="$mdMenu.open($event)" md-svg-icon="image/touch_black.svg" flex></md-icon>
+        	<md-menu >
+        		<md-icon ng-click="$mdMenu.open($event)" md-svg-icon="image/touch_black.svg" ></md-icon>
         		<md-menu-content>
         		<md-menu-item>
         			<level>Reminder</level>
         		</md-menu-item>
         		<md-menu-item>
-        			<md-button ng-click="">Later today</md-button>
+        			<md-button ng-click="Mydate()">Later today</md-button>
         		</md-menu-item>
         		<md-menu-item>
         			<md-button ng-click="">Tomorrow</md-button>
@@ -119,16 +129,16 @@
         	</md-menu>
         	</div>
         	<div>
-					<md-icon ng-click="" md-svg-icon="image/collabroter.svg" flex></md-icon>
+					<md-icon ng-click="" md-svg-icon="image/collabroter.svg" ></md-icon>
 			</div>
 			<div>
-					<md-icon ng-click="" md-svg-icon="image/image.svg" flex></md-icon>
+					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
 			</div>
         	<div>
-				<md-icon ng-click="" md-svg-icon="image/colore.svg" flex></md-icon>
+				<md-icon ng-click="" md-svg-icon="image/colore.svg" ></md-icon>
 			</div>
         	<div>
-        	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" flex></md-icon>
+        	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
         	</div>
         	<div>
         	<md-menu>
@@ -155,23 +165,101 @@
         			<md-menu-content>
         			</md-menu>
         	</div>
-        	<div>
-        	<md-icon ng-click="" md-svg-icon="image/undo.svg" flex></md-icon>
-        	</div>
-        	<div>
-        	<md-icon ng-click="" md-svg-icon="image/redo.svg" flex></md-icon>
-        	</div>
-        	<div> 
-				  <md-button ng-click="editNote($index.note.id)" layout-align="start">Done</md-button>
-					<!-- <md-button ng-click="addNode()" layout-align="end end">done</md-button> -->
-			</div>
+        
         </div>
       </md-card>
-     
+    
       </div>
     	</div>
   </md-content>
-  <md-content >
-  		
+  <!-- ..........................this area use for pin...................... -->
+  <md-content>
+  <h3> Pined note </h3>
+  	<div layout="row"  layout-wrap>
+    <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}|filter:{pin:true}" class="content-class" ng-click="" flex >
+     	<!-- <md-grid-tile> -->
+      <md-card>
+      	<div>
+      		<div  class="pin-class">
+      		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
+      		</div>
+		</div>
+       </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="column" layout-align="start">
+      	<div><h4>{{note.title}}</h4></div> 
+      	<div><h2>{{note.description}}</h2></div>
+      	<br>     
+        </md-card-actions>
+        <div layout="row" layout-align="space-around">
+        
+        	<div>
+        	<md-menu >
+        		<md-icon ng-click="$mdMenu.open($event)" md-svg-icon="image/touch_black.svg" ></md-icon>
+        		<md-menu-content>
+        		<md-menu-item>
+        			<level>Reminder</level>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Later today</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Tomorrow</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Next-week</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Pick data & time</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Pick Place</md-button>
+        		</md-menu-item>
+        		</md-menu-content>
+        	</md-menu>
+        	</div>
+        	<div>
+					<md-icon ng-click="" md-svg-icon="image/collabroter.svg" ></md-icon>
+			</div>
+			<div>
+					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
+			</div>
+        	<div>
+				<md-icon ng-click="" md-svg-icon="image/colore.svg" ></md-icon>
+			</div>
+        	<div>
+        	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
+        	</div>
+        	<div>
+        	<md-menu>
+        			<md-icon ng-click="$mdMenu.open($event)" aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
+        			<md-menu-content>
+        			<md-menu-item>
+        			<md-button ng-click="trash(note)" >delete note</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="">add level</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="" ng-disabled="true">add drawing</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="addNode(note)">make copy</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="" ng-disabled="true">show checkboxes</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="" ng-disabled="true">copy to googleDocs</md-button>
+        			</md-menu-item>
+        			<md-menu-content>
+        			</md-menu>
+        	</div>
+        
+        </div>
+      </md-card>
+    
+      </div>
+    	</div>
   </md-content>
-</div>
+

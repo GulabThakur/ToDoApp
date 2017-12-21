@@ -1,6 +1,6 @@
 var app=angular.module('ToDo');
-app.directive('desBoard', function() {
+app.directive('deshBoard', function() {
     return {
-        templateUrl : "template/desboard.html"
+        templateUrl : "template/deshboard.html"
     };
 });

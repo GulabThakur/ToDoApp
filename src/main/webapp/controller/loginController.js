@@ -20,4 +20,11 @@ app.controller('loginController', function($scope, loginService, $location,
 		});
 
 	}
+	
+	$scope.redirectToRegister = function() {
+		$state.go('registration');
+	}
+	$scope.redirectToForgotpassword = function() {
+		$state.go('forgotPassword');
+	}
 });

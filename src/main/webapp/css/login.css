@@ -10,6 +10,29 @@
 	margin-top: 10px;
 }
  */
+ .forgot-link{
+ color:blue;
+ height:10px;
+ width:110px;
+
+ }
+ .set-size{
+  height: 15px;
+  width:24px; 
+ 
+ 
+ }
+ .centerDivToSize{
+ 	height: 22px;
+ 	width: 460px;
+ }
+ 
+ .register{
+ color:blue;
+ height:10px;
+ width:100px;
+
+ }
 
 .loginBtn {
   box-sizing: border-box;
