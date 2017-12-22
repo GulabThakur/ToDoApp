@@ -134,11 +134,12 @@
 			<div>
 					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
 			</div>
-        	<div>
-				<md-icon ng-click="" md-svg-icon="image/colore.svg" ></md-icon>
+        	<div ng-click="color(note)">
+				<md-icon  md-svg-icon="image/colore.svg"></md-icon>
+				<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
 			</div>
         	<div>
-        	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
+        	<md-icon ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
         	</div>
         	<div>
         	<md-menu>

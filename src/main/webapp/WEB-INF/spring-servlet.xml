@@ -22,6 +22,7 @@
 	<mvc:resources location="/service/" mapping="/service/**"/>
 	<mvc:resources location="/template/" mapping="/template/**"/>
 	<mvc:resources location="/directive/" mapping="/directive/**"/>
+	<!-- <mvc:resources location="/ColourePicker/" mapping="/ColourePicker/**"/> -->
 	<context:annotation-config/>
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

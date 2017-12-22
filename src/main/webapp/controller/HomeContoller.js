@@ -105,13 +105,14 @@ app.controller('homepageCrt',function($scope, homeService, $location,$state,$win
 		if(note.trash==false){
 			note.trash=true;
 		}
-		else{
+		else{	
 			note.trash=false;
 		}
 		$mdToast.show (
                 $mdToast.simple()
                 .textContent('Note trashed ..')                       
                 .hideDelay(3000)
+                
              )
 		$scope.updateById(note);
 		console.log("sucessfull...");
@@ -152,9 +153,16 @@ app.controller('homepageCrt',function($scope, homeService, $location,$state,$win
 		console.log("sucessfull come..");
 	}
 	
-	$scope.Mydate=function(){
-		
-            
-	}
 	
+	// for color picker...
+	
+	 $scope.options = ['transparent','#FF8A80', '#FFD180', '#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90'];
+	    $scope.color = '#FF8A80';
+
+	    	 $scope.colorChanged = function(newColor, notes) {
+	    		 notes.color = newColor;
+	 	        console.log("Hi........"+notes.color);
+	    }
+	   
+	    
 });

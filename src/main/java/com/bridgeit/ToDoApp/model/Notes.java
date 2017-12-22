@@ -12,7 +12,7 @@ import javax.persistence.Id;
  *
  */
 @Entity(name = "Note_user")
-public class Notes implements Serializable{
+public class Notes implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -23,6 +23,8 @@ public class Notes implements Serializable{
 	private boolean isArchive;
 	private boolean isPin;
 	private boolean isTrash;
+	private String color;
+
 	public boolean isArchive() {
 		return isArchive;
 	}
@@ -30,7 +32,7 @@ public class Notes implements Serializable{
 	public void setArchive(boolean isArchive) {
 		this.isArchive = isArchive;
 	}
-	
+
 	public boolean getArchive() {
 		return isArchive;
 	}
@@ -52,6 +54,7 @@ public class Notes implements Serializable{
 	}
 
 	private long usr_id;
+
 	public int getId() {
 		return id;
 	}
@@ -92,11 +95,19 @@ public class Notes implements Serializable{
 		this.currenTime = currentTime;
 	}
 
-	public String  getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
 
 	public void setUpdateTime(String currentTime) {
 		this.updateTime = currentTime;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

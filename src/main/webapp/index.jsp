@@ -5,6 +5,8 @@
 <link rel="stylesheet" ; href="css/sidebar.css">
 <link rel="stylesheet" ; href="css/login.css" />
 <link re="stylesheet" ;  href="css/registration.css">
+<link rel="stylesheet" ; href="css/colorPicker.css" />
+
 <!-- <link rel="stylesheet" ; href="css/forgotpassword.css"> -->
 <link rel="stylesheet" ; href="css/deshboard.css">
 <link rel="stylesheet"
@@ -29,13 +31,19 @@
 <script type="text/javascript" src="directive/sidebar.js"></script>
 <script type="text/javascript" src="directive/TrashBoard.js"></script>
 <script type="text/javascript" src="directive/Archive.js"></script>
-<!-- All Services are here -->
+<script type="text/javascript" src="directive/ColorPicker.js"></script>
+<!-- <script type="text/javascript" src="directive/colourePicker.js"></script> -->
 
+<!-- for color picker    -->
+<!-- <script type="text/javascript" src="ColourePicker/colourePicker.js"></script> -->
+
+<!-- All Services are here -->
 <script type="text/javascript" src="service/registerService.js"></script>
 <script type="text/javascript" src="service/loginService.js"></script>
 <script type="text/javascript" src="service/ForgotPsdService.js"></script>
 <script type="text/javascript" src="service/ResetService.js"></script>
 <script type="text/javascript" src="service/HomeService.js"></script>
+
 <!-- All Controllers are here -->
 <script type="text/javascript" src="controller/loginController.js"></script>
 <script type="text/javascript" src="controller/RegisterController.js"></script>

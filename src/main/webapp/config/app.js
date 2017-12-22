@@ -4,7 +4,7 @@
  * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ]);
+var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -49,5 +49,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'template/ArchiveLoad.html',
 		controller : 'homepageCrt'
 	})
+
 	$urlRouterProvider.otherwise('/login');
 });
