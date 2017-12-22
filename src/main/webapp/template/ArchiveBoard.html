@@ -5,7 +5,7 @@
   		
     <div flex="33"  ng-repeat="note in notes| filter:{archive:true}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
      	<!-- <md-grid-tile> -->
-      <md-card>
+      <md-card ng-style="{'background-color': note.color}">
       	<div>
       		<div  class="pin-class">
       		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
@@ -52,7 +52,7 @@
 					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
 			</div>
         	<div>
-				<md-icon ng-click="" md-svg-icon="image/colore.svg" ></md-icon>
+				<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
 			</div>
         	<div>
         	<md-icon  ng-click="archive(note)" md-svg-icon="image/unarchive.svg" ></md-icon>

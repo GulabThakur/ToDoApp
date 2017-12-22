@@ -155,14 +155,19 @@ app.controller('homepageCrt',function($scope, homeService, $location,$state,$win
 	
 	
 	// for color picker...
+	$scope.color=function(){
 	
-	 $scope.options = ['transparent','#FF8A80', '#FFD180', '#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90'];
-	    $scope.color = '#FF8A80';
+		
+		$scope.options = ['transparent','#FF8A80', '#FFD180','#FF8A80','#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90'];
+	    /*$scope.color = '#FF8A80';*/
 
-	    	 $scope.colorChanged = function(newColor, notes) {
-	    		 notes.color = newColor;
-	 	        console.log("Hi........"+notes.color);
+	    	 $scope.colorChanged = function(newColor, note) {
+	    		 note.color = newColor;
+	 	       $scope.updateById(note);
+	 	      console.log("Hi........"+note.color);
 	    }
-	   
+	
+	}
+	    
 	    
 });

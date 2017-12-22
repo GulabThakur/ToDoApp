@@ -17,17 +17,21 @@
         		<md-menu-content>
         		<md-menu-item>
         			<level>Reminder</level>
-        		</md-menu-item>md-content
+        		</md-menu-item>
         		<md-menu-item>
+        		<md-datepicker ng-model="demo"></md-datepicker>
         			<md-button ng-click="">Later today</md-button>
         		</md-menu-item>
         		<md-menu-item>
+        		<md-datepicker ng-model="demo"></md-datepicker>
         			<md-button ng-click="">Tomorrow</md-button>
         		</md-menu-item>
         		<md-menu-item>
+        		<md-datepicker ng-model="demo"></md-datepicker>
         			<md-button ng-click="">Next-week</md-button>
         		</md-menu-item>
         		<md-menu-item>
+        		<md-time-picker ng-model="time" message="message" read-only="readonly" mandatory="required" no-meridiem no-auto-switch></md-time-picker>
         			<md-button ng-click="">Pick data & time</md-button>
         		</md-menu-item>
         		<md-menu-item>
@@ -88,7 +92,7 @@
   		
     <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
      	<!-- <md-grid-tile> -->
-      <md-card>
+      <md-card  ng-style="{'background-color': note.color}" >
       	<div>
       		<div  class="pin-class">
       		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
@@ -134,9 +138,10 @@
 			<div>
 					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
 			</div>
-        	<div ng-click="color(note)">
-				<md-icon  md-svg-icon="image/colore.svg"></md-icon>
+        	<div>
+        	<md-menu>
 				<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
+			</md-menu>
 			</div>
         	<div>
         	<md-icon ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
@@ -179,7 +184,7 @@
   	<div layout="row"  layout-wrap>
     <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}|filter:{pin:true}" class="content-class" ng-click="" flex >
      	<!-- <md-grid-tile> -->
-      <md-card>
+      <md-card ng-style="{'background-color': note.color}">
       	<div>
       		<div  class="pin-class">
       		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
@@ -226,7 +231,7 @@
 					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
 			</div>
         	<div>
-				<md-icon ng-click="" md-svg-icon="image/colore.svg" ></md-icon>
+				<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
 			</div>
         	<div>
         	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>

@@ -4,7 +4,7 @@
   	<div layout="row"  layout-wrap>
     <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:true} |filter:{pin:false}" class="content-class" ng-click="" flex >
      	<!-- <md-grid-tile> -->
-      <md-card>
+      <md-card ng-style="{'background-color': note.color}">
       	
        </md-card-title-media>
         </md-card-title>
