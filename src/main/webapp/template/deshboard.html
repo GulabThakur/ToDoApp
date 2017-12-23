@@ -19,20 +19,23 @@
         			<level>Reminder</level>
         		</md-menu-item>
         		<md-menu-item>
-        		<md-datepicker ng-model="demo"></md-datepicker>
-        			<md-button ng-click="">Later today</md-button>
+        		<input mdc-datetime-picker="" name="reminder" ng-model="note.reminder" date="false" time="true" type="text" id="time" short-time="true"
+placeholder="Today" min-date="minDate" format="hh:mm a" ng-model="time" class=" md-input"
+readonly="readonly">
         		</md-menu-item>
         		<md-menu-item>
-        		<md-datepicker ng-model="demo"></md-datepicker>
-        			<md-button ng-click="">Tomorrow</md-button>
+        			
+        		<input time="false" date="true" mdc-datetime-picker="" type="text" id="date" name="reminder" ng-model="note.reminder" placeholder="Tomorrow"
+ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly="readonly">
         		</md-menu-item>
         		<md-menu-item>
-        		<md-datepicker ng-model="demo"></md-datepicker>
-        			<md-button ng-click="">Next-week</md-button>
+        			<input time="false" date="true" mdc-datetime-picker="" type="text" id="date" name="reminder" ng-model="note.reminder" placeholder="Next-week"
+ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly="readonly">
         		</md-menu-item>
         		<md-menu-item>
-        		<md-time-picker ng-model="time" message="message" read-only="readonly" mandatory="required" no-meridiem no-auto-switch></md-time-picker>
-        			<md-button ng-click="">Pick data & time</md-button>
+        		<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+name="reminder" ng-model="note.reminder" placeholder="Pick data & time" show-todays-date="" min-date="date" ng-model="dateTime" class=" md-input"
+readonly="readonly">	
         		</md-menu-item>
         		<md-menu-item>
         			<md-button ng-click="">Pick Place</md-button>
@@ -140,7 +143,7 @@
 			</div>
         	<div>
         	<md-menu>
-				<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
+			<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
 			</md-menu>
 			</div>
         	<div>

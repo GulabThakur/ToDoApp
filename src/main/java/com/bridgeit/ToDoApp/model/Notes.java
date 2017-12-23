@@ -24,6 +24,14 @@ public class Notes implements Serializable {
 	private boolean isPin;
 	private boolean isTrash;
 	private String color;
+	private String reminder;
+	public String getReminder() {
+		return reminder;
+	}
+
+	public void setReminder(String reminder) {
+		this.reminder = reminder;
+	}
 
 	public boolean isArchive() {
 		return isArchive;

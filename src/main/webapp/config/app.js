@@ -4,7 +4,7 @@
  * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker' ]);
+var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker','ngMaterialDatePicker']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -32,18 +32,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		url : '/resetpassword',
 		templateUrl : 'template/resetpassword.html',
 		controller : 'resetPsdCrtl'
-	}).state('homepage', {
+	})
+	// this code will come for home page
+	.state('homepage', {
 		url : "/homepage",
 		templateUrl : 'template/homepage.html',
 		controller : 'homepageCrt'
 	})
 
+	// this use for load TrashHtml file...
 	.state('TrashLoad', {
 		url : "/TrashLoad",
 		templateUrl : 'template/TrashLoad.html',
 		controller : 'homepageCrt'
 	})
-	
+	// this use for load ArchiveHtml file
 	.state('ArchiveLoad', {
 		url : "/ArchiveLoad",
 		templateUrl : 'template/ArchiveLoad.html',

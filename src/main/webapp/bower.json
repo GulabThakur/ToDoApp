@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular": "angularjs#^1.6.7",
-    "angular-material": "^1.1.5"
+    "angular-material": "^1.1.5",
+    "angular-material-datetimepicker": "^1.5.1"
   }
 }

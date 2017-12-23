@@ -1,7 +1,7 @@
 <div class="color-picker">
-    <!-- <div class="selected-color" ng-style="{'background-color': vm.color}"></div> -->
+    <div class="selected-color" ng-style="{'background-color': vm.color}"></div>
     <div class="color-palette">
-        <div ng-repeat="option in vm.options"
+        <div ng-repeat="option in vm.options track by $index"
               ng-style="{'background-color': option}"
               ng-class="{'palette-selected-color': option == vm.color, 'transparent-color': option == 'transparent'}"
               ng-click="vm.changeColor(option)"></div>

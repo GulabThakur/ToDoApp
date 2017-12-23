@@ -1,0 +1,10 @@
+<md-input-container flex-gt-md="30">
+        <label>Timepicker Only</label>
+        <input mdc-datetime-picker date="false" time="true" type="text" id="time" short-time="true"
+               show-todays-date
+               placeholder="Time"
+               min-date="minDate"
+               format="hh:mm a"
+               ng-change="vm.saveChange()"
+               ng-model="time">
+    </md-input-container>
