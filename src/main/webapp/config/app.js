@@ -4,7 +4,7 @@
  * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker','ngMaterialDatePicker']);
+var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker','ngMaterialDatePicker','dahr.ng-image-picker']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider

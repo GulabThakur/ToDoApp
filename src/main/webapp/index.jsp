@@ -33,6 +33,8 @@
 <script src="bower_components/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<!-- for uploading  image   -->
+<script src="bower_components/node_modules/ng-image-picker/ng-image-picker.js"></script>
 
 <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->
 

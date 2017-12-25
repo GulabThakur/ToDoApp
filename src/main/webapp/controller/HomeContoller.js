@@ -6,7 +6,7 @@
 // this this my home controller ....
 var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
-		$window, $mdToast, $document, mdcDateTimeDialog) {
+		$window, $mdToast, $document, mdcDateTimeDialog ,$filter,$interval) {
    // this is function  for create note
 	$scope.addNode = function() {
 		$scope.allNodes();
@@ -37,6 +37,27 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			$scope.notes = response.data;
 			console.log(response.data);
 			console.log("fetch the data sucessfull ");
+
+			$scope.data = response.data;
+			var notes = response.data;
+			
+			$interval(function() {
+				for (var i = 0; i < $scope.data.length; i++) {
+					if (notes[i].reminder!=null) {
+						reminderDate = $filter('date')(new Date(notes[i].reminder),
+								'MMM dd yyyy HH:mm');
+						var currentDate = $filter('date')(new Date(),
+								'MMM dd yyyy HH:mm');
+						
+						if (currentDate == reminderDate) {
+							alert(notes[i].description);
+							notes[i].reminder = null;
+							homeService.updateNote(notes[i]);
+						}
+					}
+				}
+			}, 50000);
+			$scope.notes = response.data;
 		}, function(response) {
 			var rep = response.data.meResponse;
 			console.log(rep);
@@ -199,10 +220,50 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	}
 	
 	// function to create reminder 
-	$scope.createFunction =function(note){
-		$scope.first=false;
-		console.log("it will come inside reminder create function");
-		console.log(note.reminder);
+    $scope.addReminder = function(note) {
+		
+		console.log("hello reminder : " + note.reminder);
+		var reminder = homeService.updateById(note);
+		reminder.then(function(response) {
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		}, function(response) {
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		});
+
+	}
+    
+   // This for image upload 
+	
+	$scope.type = {};
+	$scope.openHiddenButton = function(note) {
+		$('#image').trigger('click');
+		$scope.type = note;
+	}
+
+	$scope.stepsModel = [];
+	$scope.imageUpload = function(note) {
+		var reader = new FileReader();
+		console.log("note : " + note);
+		reader.onload = $scope.imageLoader;
+		reader.readAsDataURL(note.noteBackGround);
+		console.log(note.noteBackGround);
+	}
+
+	$scope.imageLoader = function(image) {
+		$scope.$apply(function() {
+			$scope.stepsModel.push(image.target.result);
+			var imageSrc = image.target.result;
+			$scope.type.noteBackGround = imageSrc;
+			var updateResponse = homeService.updateNote($scope.type);
+			updateResponse.then(function(response) {
+				console.log(response);
+				getNotes();
+			}, function(response) {
+				console.log(response);
+			});
+		});
 	}
 
 });

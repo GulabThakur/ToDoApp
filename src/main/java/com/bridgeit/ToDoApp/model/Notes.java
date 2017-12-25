@@ -3,10 +3,12 @@ package com.bridgeit.ToDoApp.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 /**
  * @author ThakurGulab
@@ -26,6 +28,19 @@ public class Notes implements Serializable {
 	private boolean isTrash;
 	private String color;
 	private Date reminder;
+	// here i am take as properties for image 
+	@Lob
+	@Column(name = "image", columnDefinition = "LONGBLOB")
+	private String imageNote;
+
+	public String getImageNote() {
+		return imageNote;
+	}
+
+	public void setImageNote(String imageNote) {
+		this.imageNote = imageNote;
+	}
+
 	public Date getReminder() {
 		return reminder;
 	}
