@@ -93,7 +93,7 @@ readonly="readonly">
   
   		<div layout="row"  layout-wrap>
   		
-    <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
+    <div flex="33"  ng-repeat="note in notes|  filter:{archive:false}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
      	<!-- <md-grid-tile> -->
       <md-card  ng-style="{'background-color': note.color}" >
       	<div>
@@ -105,7 +105,13 @@ readonly="readonly">
         </md-card-title>
         <md-card-actions layout="column" layout-align="start">
       	<div><h4>{{note.title}}</h4></div> 
-      	<div><h2>{{note.description}}</h2></div>
+      	<div><h2>{{note.description}}</h2>
+      		<h5>{{note.reminder}}</h5>
+      		<level> 
+      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
+      		<level>
+      	</div>
+      	
       	<br>     
         </md-card-actions>
         <div layout="row" layout-align="space-around">
@@ -118,7 +124,9 @@ readonly="readonly">
         			<level>Reminder</level>
         		</md-menu-item>
         		<md-menu-item>
-        			<md-button ng-click="Mydate()">Later today</md-button>
+        			<md-button ng-show='first' ng-click="createFunction(note)">Later today</md-button>
+        			<input time="false" date="true" mdc-datetime-picker="" type="text" id="date" name="reminder" ng-model="note.reminder" placeholder="Tomorrow"
+ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly="readonly">
         		</md-menu-item>
         		<md-menu-item>
         			<md-button ng-click="">Tomorrow</md-button>

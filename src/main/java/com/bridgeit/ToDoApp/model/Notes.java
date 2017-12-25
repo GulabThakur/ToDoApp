@@ -1,6 +1,7 @@
 package com.bridgeit.ToDoApp.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,12 +25,12 @@ public class Notes implements Serializable {
 	private boolean isPin;
 	private boolean isTrash;
 	private String color;
-	private String reminder;
-	public String getReminder() {
+	private Date reminder;
+	public Date getReminder() {
 		return reminder;
 	}
 
-	public void setReminder(String reminder) {
+	public void setReminder(Date reminder) {
 		this.reminder = reminder;
 	}
 
