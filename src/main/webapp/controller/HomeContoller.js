@@ -40,19 +40,20 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 			$scope.data = response.data;
 			var notes = response.data;
-			
+			console.log("Notes---->"+$scope.data.length);
 			$interval(function() {
 				for (var i = 0; i < $scope.data.length; i++) {
-					if (notes[i].reminder!=null) {
+					if (notes[i].reminder!="") {
 						reminderDate = $filter('date')(new Date(notes[i].reminder),
 								'MMM dd yyyy HH:mm');
 						var currentDate = $filter('date')(new Date(),
 								'MMM dd yyyy HH:mm');
-						
+						console.log("system Date----->"+currentDate);
+						console.log("Reminder Date------>"+reminderDate);
 						if (currentDate == reminderDate) {
 							alert(notes[i].description);
 							notes[i].reminder = null;
-							homeService.updateNote(notes[i]);
+							$scope.updateById(notes[i]);
 						}
 					}
 				}
@@ -101,6 +102,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		var nodes = homeService.getAllnode(url, method, token, data);
 		nodes.then(function(response) {
 			console.log("update the data sucessfull by id ");
+			$scope.allNodes();
 		}, function(response) {
 			console.log(response.data.meResponse);
 		});
@@ -192,19 +194,16 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 	// for reminder function......
 
-	$scope.reminderFunction = function(note, reminder) {
+	$scope.reminderFunction = function(note, reminderDate) {
 		// console.log("Inside Remainder..........");
 		console.log(note);
-		var date = new Date(reminder);
-		var dates = $filter('date')(new Date(date), 'MMM dd yyyy HH:mm');
+		note.reminder = reminderDate;
+		var date = new Date(reminderDate);
+		var dates = $filter('date')(newDate(), 'MMM dd yyyy HH:mm');
 		// var parseDate = Date.parse();
 		note.reminder = dates;
-		var updateReminderTime = notesService.updateNotes(note);
-
-		updateReminderTime.then(function(response) {
-			getNotes();
-		})
-		console.log("date------>" + note.reminderDate);
+		$scope.updateById($scope.type);
+		console.log("date------>" + note.reminder);
 	}
 
 	// function to delete the reminder date
@@ -212,7 +211,6 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		
 		console.log("it came inside delete reminder ")
 		note.reminder = "";
-		
 		// here i am calling my update  
 		$scope.updateById(note);
 		console.log("sucessfull update  note...");
@@ -220,50 +218,44 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	}
 	
 	// function to create reminder 
-    $scope.addReminder = function(note) {
-		
+    $scope.createFunction = function(note,date) {
 		console.log("hello reminder : " + note.reminder);
-		var reminder = homeService.updateById(note);
-		reminder.then(function(response) {
-			$scope.errormessage = response.data.message;
-			console.log(response.data);
-		}, function(response) {
-			$scope.errormessage = response.data.message;
-			console.log(response.data);
-		});
-
+		note.reminder=date;
+		updateById(note);
 	}
     
    // This for image upload 
 	
 	$scope.type = {};
 	$scope.openHiddenButton = function(note) {
+		console.log("helllo trigger");
 		$('#image').trigger('click');
 		$scope.type = note;
+		console.log("helllo trigger after");
 	}
 
 	$scope.stepsModel = [];
 	$scope.imageUpload = function(note) {
+		console.log("hello we r in imageUpload");
 		var reader = new FileReader();
 		console.log("note : " + note);
 		reader.onload = $scope.imageLoader;
-		reader.readAsDataURL(note.noteBackGround);
-		console.log(note.noteBackGround);
+		reader.readAsDataURL(note.image);
+		console.log("note.image : "+note.imageNote);
 	}
 
 	$scope.imageLoader = function(image) {
-		$scope.$apply(function() {
+		
+		$scope.$apply(function() 
+		{
 			$scope.stepsModel.push(image.target.result);
 			var imageSrc = image.target.result;
-			$scope.type.noteBackGround = imageSrc;
-			var updateResponse = homeService.updateNote($scope.type);
-			updateResponse.then(function(response) {
-				console.log(response);
-				getNotes();
-			}, function(response) {
-				console.log(response);
-			});
+			$scope.type.imageNote = imageSrc;
+			$scope.updateById($scope.type);
+			
 		});
 	}
+
+    // this complete image loader....
 
 });

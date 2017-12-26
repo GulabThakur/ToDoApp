@@ -10,31 +10,33 @@
 <link rel="stylesheet" ; href="css/navar.css"/>
 <link rel="stylesheet" ; href="css/sidebar.css"/>
 <link rel="stylesheet" ; href="css/login.css" />
-<link re="stylesheet" ;  href="css/registration.css"/>
+<!-- <link re="stylesheet" ;  href="css/registration.css"/> -->
 <link rel="stylesheet"; href="css/colorPicker.css"/>
 
 <!-- <link rel="stylesheet" ; href="css/forgotpassword.css"> -->
 <link rel="stylesheet" ; href="css/deshboard.css"/>
 
 
-
-
-
-
-
 <!-- <script src = "bower_components/angular/angular.js"></script> -->
+<script src="https://code.jquery.com/jquery-1.6.1.min.js"></script>	
+<!-- <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script src="bower_components/angular/angular.js"></script>
 <script
 	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-material/angular-material.min.js"></script>
+<script type="text/javascript" src="bower_components/bower_components/angular/angular.min.js"></script>
+<script src="bower_components/bower_components/ng-file-upload/ng-file-upload.js"></script> 
+<script type="text/javascript" src="bower_components/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+ 
 <script src="bower_components/angular-messages/angular-messages.min.js"></script>
 <script src="bower_components/moment/moment.js"></script> 
 <script src="bower_components/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
 <!-- for uploading  image   -->
-<script src="bower_components/node_modules/ng-image-picker/ng-image-picker.js"></script>
+
 
 <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->
 

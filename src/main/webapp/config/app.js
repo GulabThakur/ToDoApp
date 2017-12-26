@@ -1,10 +1,10 @@
 /*******************************************************************************
- * @author Gulab
+ * @author ThakurGulab
  * @description
  * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker','ngMaterialDatePicker','dahr.ng-image-picker']);
+var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker','ngMaterialDatePicker','ngFileUpload']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
