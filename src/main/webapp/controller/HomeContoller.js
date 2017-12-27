@@ -6,8 +6,9 @@
 // this this my home controller ....
 var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
-		$window, $mdToast, $document, mdcDateTimeDialog ,$filter,$interval) {
-   // this is function  for create note
+		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval) {
+	
+	// this is function for create note
 	$scope.addNode = function() {
 		$scope.allNodes();
 		var url = "create";
@@ -23,7 +24,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		});
 
 	}
-	// get all note with help this function  ....
+	// get all note with help this function ....
 	$scope.allNodes = function() {
 		console.log("inside all note");
 		var url = "all";
@@ -40,16 +41,17 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 			$scope.data = response.data;
 			var notes = response.data;
-			console.log("Notes---->"+$scope.data.length);
+			console.log("Notes---->" + $scope.data.length);
 			$interval(function() {
 				for (var i = 0; i < $scope.data.length; i++) {
-					if (notes[i].reminder!="") {
-						reminderDate = $filter('date')(new Date(notes[i].reminder),
+					if (notes[i].reminder !=null) {
+						reminderDate = $filter('date')(
+								new Date(notes[i].reminder),
 								'MMM dd yyyy HH:mm');
 						var currentDate = $filter('date')(new Date(),
 								'MMM dd yyyy HH:mm');
-						console.log("system Date----->"+currentDate);
-						console.log("Reminder Date------>"+reminderDate);
+						console.log("system Date----->" + currentDate);
+						console.log("Reminder Date------>" + reminderDate);
 						if (currentDate == reminderDate) {
 							alert(notes[i].description);
 							notes[i].reminder = null;
@@ -78,7 +80,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log(response.data.message);
 		});
 	}
-	// note will be delete by id 
+	// note will be delete by id
 	$scope.deletebyId = function(note) {
 		var url = "delete/" + note.id;
 		var method = "delete";
@@ -92,13 +94,13 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log(response.data.message);
 		});
 	}
-	// note will be update by id.... 
+	// note will be update by id....
 	$scope.updateById = function(note) {
 		var url = "update/" + note.id;
 		var method = "put";
 		var token = localStorage.getItem('jwt');
 		var data = note;
-		console.log(note);
+		// console.log(note);
 		var nodes = homeService.getAllnode(url, method, token, data);
 		nodes.then(function(response) {
 			console.log("update the data sucessfull by id ");
@@ -193,42 +195,38 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	}
 
 	// for reminder function......
-
 	$scope.reminderFunction = function(note, reminderDate) {
-		// console.log("Inside Remainder..........");
+		console.log("Inside Remainder..........");
 		console.log(note);
 		note.reminder = reminderDate;
 		var date = new Date(reminderDate);
-		var dates = $filter('date')(newDate(), 'MMM dd yyyy HH:mm');
+
+		var dates = $filter('date')(new Date(), 'MMM dd yyyy HH:mm');
+		console.log(dates);
 		// var parseDate = Date.parse();
 		note.reminder = dates;
-		$scope.updateById($scope.type);
-		console.log("date------>" + note.reminder);
+		console.log(" notes obj" + note);
+		$scope.updateById(note);
+		$scope.allNodes();
+		// console.log("date-----hjgbhjhbgjhkjhgkhjgkjhfjh->" + note.reminder);
 	}
 
 	// function to delete the reminder date
 	$scope.deleteReminder = function(note) {
-		
+
 		console.log("it came inside delete reminder ")
 		note.reminder = "";
-		// here i am calling my update  
+		// here i am calling my update
 		$scope.updateById(note);
 		console.log("sucessfull update  note...");
-	
+
 	}
-	
-	// function to create reminder 
-    $scope.createFunction = function(note,date) {
-		console.log("hello reminder : " + note.reminder);
-		note.reminder=date;
-		updateById(note);
-	}
-    
-   // This for image upload 
-	
+
+	// This for image upload
+
 	$scope.type = {};
 	$scope.openHiddenButton = function(note) {
-		console.log("helllo trigger");
+		console.log("welcome to open hidden function...");
 		$('#image').trigger('click');
 		$scope.type = note;
 		console.log("helllo trigger after");
@@ -241,21 +239,19 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("note : " + note);
 		reader.onload = $scope.imageLoader;
 		reader.readAsDataURL(note.image);
-		console.log("note.image : "+note.imageNote);
+		console.log("note.image : " + note.imageNote);
 	}
 
 	$scope.imageLoader = function(image) {
-		
-		$scope.$apply(function() 
-		{
+
+		$scope.$apply(function() {
 			$scope.stepsModel.push(image.target.result);
 			var imageSrc = image.target.result;
 			$scope.type.imageNote = imageSrc;
 			$scope.updateById($scope.type);
-			
+
 		});
 	}
 
-    // this complete image loader....
 
 });

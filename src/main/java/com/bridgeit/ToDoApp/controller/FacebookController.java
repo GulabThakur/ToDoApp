@@ -60,21 +60,25 @@ public class FacebookController {
 		JsonNode profile = FaceBook.getUserProfile(fbAccessToken);
 		
 		String email= profile.get("email").asText();
-		
+		System.out.println("Profile :"+profile);
 		UserModel user = userModelService.getDataByEmail(email);
 		
 		if(user==null) {
 			user = new UserModel();
 			user.setUserName((profile.get("name").asText()));
 			user.setEmail(profile.get("email").asText());
+			System.out.println(profile.get("email").asText());
+			System.out.println("value"+profile.get("picture").get("data").get("url").toString());
 			user.setPassword("");
+			user.setProFile(profile.get("picture").get("data").get("url").asText());
 			user.setActive(1);
 			int userId=userModelService.registration(user);
 			if(userId>0) {
 				String token1 = token.genratedToken(userId);
     			response.setHeader("Authorization", token1);
     			session.setAttribute("token", token1);
-    			message.setMessage("User Successfully registered.");
+    			 message.setMessage("User Successfully registered.");
+    			response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
     			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
  			}
 			else

@@ -17,8 +17,15 @@ public class UserModel {
 	private String userName;
 	private String email;
 	private String password;
+	private String proFile;
 	@Transient
 	private String conform_psd;
+	public String getProFile() {
+		return proFile;
+	}
+	public void setProFile(String proFile) {
+		this.proFile = proFile;
+	}
 	private int isActive;
 	
 	public int getId() {

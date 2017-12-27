@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class GoogleController {
 	}
 
 	@RequestMapping(value = "/connectgoogle")
-	public ResponseEntity<Response> redirectFromGoogle(HttpServletRequest request,
+	public ResponseEntity<Response> redirectFromGoogle(HttpSession session,HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		Response responseForMessage=new Response();
 		String sessionState = (String) request.getSession().getAttribute("STATE");
@@ -61,11 +62,17 @@ public class GoogleController {
 			user = new UserModel();
 			user.setUserName(profile.get("displayName").asText());
 			user.setEmail(profile.get("emails").get(0).get("value").asText());
+			System.out.println(profile.get("image").get("url").asText());
+			user.setProFile(profile.get("image").get("url").asText());
 			user.setActive(1);
 			/* user.setPicUrl(profile.get("image").get("url")); */
 			user.setPassword("");
-			userModelService.registration(user);
+			int id=userModelService.registration(user);
+			String jwtToken=token.genratedToken(id);
+		/*	 responseForMessage.setMessage(jwtToken);*/
+			 session.setAttribute("jwt", jwtToken);
 			 responseForMessage.setMessage("Hello "+user.getUserName()+" you are new user.");
+			 response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
 			return new ResponseEntity<Response>(responseForMessage,
 					HttpStatus.ACCEPTED);
 			

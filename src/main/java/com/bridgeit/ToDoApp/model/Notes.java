@@ -27,7 +27,7 @@ public class Notes implements Serializable {
 	private boolean isPin;
 	private boolean isTrash;
 	private String color;
-	private Date reminder;
+	private String reminder;
 	// here i am take as properties for image 
 	@Lob
 	@Column(name = "image", columnDefinition = "LONGBLOB")
@@ -41,11 +41,11 @@ public class Notes implements Serializable {
 		this.imageNote = imageNote;
 	}
 
-	public Date getReminder() {
+	public String getReminder() {
 		return reminder;
 	}
 
-	public void setReminder(Date reminder) {
+	public void setReminder(String reminder) {
 		this.reminder = reminder;
 	}
 
