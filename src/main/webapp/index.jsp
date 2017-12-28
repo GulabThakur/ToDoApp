@@ -63,6 +63,7 @@
 <script type="text/javascript" src="service/ForgotPsdService.js"></script>
 <script type="text/javascript" src="service/ResetService.js"></script>
 <script type="text/javascript" src="service/HomeService.js"></script>
+<script type="text/javascript" src="service/DummyService.js"></script>
 
 <!-- All Controllers are here -->
 <script type="text/javascript" src="controller/loginController.js"></script>
@@ -70,6 +71,7 @@
 <script type="text/javascript" src="controller/ForgotPassword.js"></script>
 <script type="text/javascript" src="controller/ResetPasswordController.js"></script>
 <script type="text/javascript" src="controller/HomeContoller.js"></script>
+<script type="text/javascript" src="controller/DummyHome.js"></script>
 
 </head>
 <body ng-app='ToDo'>

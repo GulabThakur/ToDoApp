@@ -52,6 +52,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'template/ArchiveLoad.html',
 		controller : 'homepageCrt'
 	})
-
+	
+	// this user for Dummy Home
+	.state('DummyHome',{
+		url :"/DummyHome",
+		templateUrl :'template/DummyHome.html',
+		controller :'dummyHomeCrt'
+	})
 	$urlRouterProvider.otherwise('/login');
 });

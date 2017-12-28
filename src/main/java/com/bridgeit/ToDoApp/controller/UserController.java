@@ -272,21 +272,20 @@ public class UserController {
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
+	
 	/*........................................this API use for get user detail  ........................*/
-	@RequestMapping(value="userData",method=RequestMethod.POST)
-	public ResponseEntity<Response> userProfile(HttpSession session)
+
+	
+	@RequestMapping(value="/userData",method=RequestMethod.POST)
+	public ResponseEntity<UserModel> userProfile(HttpServletRequest request)
 	{
-		Response message=new Response();
-		String jwtToken=(String) session.getAttribute("jwt");
+		String jwtToken=request.getHeader("jwt");
 		int id=token.varifyToken(jwtToken);
 		if(id>0) {
-			UserModel userData=userModelService.getDataById(id);
-			message.setObject(userData);
-			return new ResponseEntity<Response>(message ,HttpStatus.ACCEPTED);
+			UserModel newUser=userModelService.getDataById(id);
+			System.out.println(newUser);
+			return new ResponseEntity<UserModel>(newUser, HttpStatus.ACCEPTED);
 		}
-		return new ResponseEntity<Response>(message ,HttpStatus.BAD_REQUEST);
-		
-		
-		
+		return new ResponseEntity<UserModel>(HttpStatus.BAD_REQUEST);
 	}
 }

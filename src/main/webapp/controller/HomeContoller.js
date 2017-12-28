@@ -8,6 +8,26 @@ var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval) {
 	
+	
+	
+	// this method using for call profile..
+	$scope.profileData = function() {
+		var url = "userData";
+		var method = "post";
+		var token = localStorage.getItem('jwt');
+		var data = null;
+		var nodes = homeService.getAllnode(url, method, token, data);
+		nodes.then(function(response) {
+			$scope.user=response.data;
+			console.log($scope.user);
+		}, function(response) {
+			console.log(response.data);
+		});
+
+	}
+	
+	$scope.profileData();
+	
 	// this is function for create note
 	$scope.addNode = function() {
 		$scope.allNodes();

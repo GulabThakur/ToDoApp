@@ -2,6 +2,8 @@ package com.bridgeit.ToDoApp.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +30,10 @@ public class Notes implements Serializable {
 	private boolean isTrash;
 	private String color;
 	private String reminder;
+	
+	// this property use for Collaborator  
+	private Set<UserModel> collaboratorSet= new HashSet<UserModel>();
+	
 	// here i am take as properties for image 
 	@Lob
 	@Column(name = "image", columnDefinition = "LONGBLOB")
@@ -133,5 +139,13 @@ public class Notes implements Serializable {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public Set<UserModel> getCollaboratorSet() {
+		return collaboratorSet;
+	}
+
+	public void setCollaboratorSet(Set<UserModel> collaboratorSet) {
+		this.collaboratorSet = collaboratorSet;
 	}
 }

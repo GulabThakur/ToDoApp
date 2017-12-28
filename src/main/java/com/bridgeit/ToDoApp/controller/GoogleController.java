@@ -72,17 +72,27 @@ public class GoogleController {
 		/*	 responseForMessage.setMessage(jwtToken);*/
 			 session.setAttribute("jwt", jwtToken);
 			 responseForMessage.setMessage("Hello "+user.getUserName()+" you are new user.");
-			 response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
+			 response.sendRedirect("http://localhost:8080/ToDoApp/#!/DummyHome");
 			return new ResponseEntity<Response>(responseForMessage,
 					HttpStatus.ACCEPTED);
 			
 		} else {
-			user = userModelService.getDataByEmail(user.getUserName());
+			user = userModelService.getDataByEmail(user.getEmail());
 			String token1 = token.genratedToken(user.getId());
+			user.setUserName(profile.get("displayName").asText());
+			user.setEmail(profile.get("emails").get(0).get("value").asText());
+			System.out.println(profile.get("image").get("url").asText());
+			user.setProFile(profile.get("image").get("url").asText());
+			user.setActive(1);
+			/* user.setPicUrl(profile.get("image").get("url")); */
+			user.setPassword("");
+			userModelService.update(user);
 			response.setHeader("Authentication", token1);
 			Cookie accCookie = new Cookie("socialaccessToken", token1);
 			response.addCookie(accCookie);
+			session.setAttribute("jwt", token1);
 			responseForMessage.setMessage("Hello " + user.getUserName() + " you are alredy visited here.");
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/DummyHome");
 			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
 	}

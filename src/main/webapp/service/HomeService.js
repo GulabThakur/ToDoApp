@@ -12,5 +12,4 @@ app.factory('homeService', function($http ) {
 		})
 	}
 	return notes;
-	
 });
