@@ -1,16 +1,19 @@
 package com.bridgeit.ToDoApp.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 
 /**
  * @author ThakurGulab
@@ -18,6 +21,12 @@ import javax.persistence.Lob;
  */
 @Entity(name = "Note_user")
 public class Notes implements Serializable {
+	/**
+	 * @category Universal Identifier when Implement Serializable interface it use
+	 *           for manage serializable interface
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -30,11 +39,14 @@ public class Notes implements Serializable {
 	private boolean isTrash;
 	private String color;
 	private String reminder;
+
 	
-	// this property use for Collaborator  
-	private Set<UserModel> collaboratorSet= new HashSet<UserModel>();
-	
-	// here i am take as properties for image 
+	// this property use for Collaborator
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "collaborator", joinColumns = @JoinColumn(name = "note_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private Set<UserModel> collaboratorSet = new HashSet<UserModel>();
+
+	// here i am take as properties for image
 	@Lob
 	@Column(name = "image", columnDefinition = "LONGBLOB")
 	private String imageNote;

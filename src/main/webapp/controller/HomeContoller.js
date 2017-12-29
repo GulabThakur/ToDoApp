@@ -6,9 +6,23 @@
 // this this my home controller ....
 var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
-		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval) {
+		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval, $mdDialog) {
 	
-	
+	$scope.showAlert = function($event) {
+		 var parentEl = angular.element(document.body);
+		 console.log("comint inside show alert");
+		 $mdDialog.show({
+	    		parent: parentEl,
+	            targetEvent: $event,
+	            template:'template/collaboratore.html',
+	            locals: {
+	            /*  items: $scope.items*/
+	            }
+	           
+	        
+	     });
+		 console.log("comint complete show alert");
+	  };
 	
 	// this method using for call profile..
 	$scope.profileData = function() {

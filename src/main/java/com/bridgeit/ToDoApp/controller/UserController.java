@@ -1,6 +1,7 @@
 package com.bridgeit.ToDoApp.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.jms.JMSException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.bridgeit.ToDoApp.email.EmailProperties;
 import com.bridgeit.ToDoApp.email.IEmail;
 import com.bridgeit.ToDoApp.jms.MessageProducer;
 import com.bridgeit.ToDoApp.model.EmailSet;
+import com.bridgeit.ToDoApp.model.Notes;
 import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.security.IPasswordencode;
@@ -287,5 +289,12 @@ public class UserController {
 			return new ResponseEntity<UserModel>(newUser, HttpStatus.ACCEPTED);
 		}
 		return new ResponseEntity<UserModel>(HttpStatus.BAD_REQUEST);
+	}
+	
+	/* ............................this Use for get .............................................*/
+	
+	@RequestMapping(value="/collabratore",method=RequestMethod.POST)
+	public ResponseEntity<Response> sendNoteUser(@RequestBody List<UserModel> list,@RequestBody int noteId,String email){
+		return null;
 	}
 }
