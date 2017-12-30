@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.ToDoApp.model.Notes;
 import com.bridgeit.ToDoApp.model.Response;
+import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.service.INoteService;
+import com.bridgeit.ToDoApp.service.IuserService;
+import com.bridgeit.ToDoApp.token.IToken;
 
 /**
  * @author ThakurGulab
  */
 @RestController
 public class NoteController {
+	@Autowired
+	private IuserService userModelService;
 	@Autowired
 	private INoteService noteService;
 
@@ -87,5 +92,14 @@ public class NoteController {
 		}
 		return new ResponseEntity<List<Notes>>(HttpStatus.BAD_REQUEST);
 
+	}
+	
+	// get owner ..................................................................................
+	
+	@RequestMapping(value="/getOwner", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserModel> getOwner(@RequestBody Notes note){
+		UserModel user=userModelService.getDataById((int) note.getUsr_id());
+		System.out.println(user.getUserName());
+			return new ResponseEntity<UserModel>(user,HttpStatus.ACCEPTED);	
 	}
 }

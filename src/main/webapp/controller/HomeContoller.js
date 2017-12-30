@@ -8,22 +8,43 @@ var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval, $mdDialog) {
 	
-	$scope.showAlert = function($event) {
+	var userData=null;
+	$scope.showAlert = function(event, note) {
 		 var parentEl = angular.element(document.body);
 		 console.log("comint inside show alert");
 		 $mdDialog.show({
 	    		parent: parentEl,
-	            targetEvent: $event,
-	            template:'template/collaboratore.html',
+	            targetEvent: event,
+	            templateUrl : 'template/collaboratore.html',
 	            locals: {
-	            /*  items: $scope.items*/
-	            }
-	           
-	        
+	            	data : note,
+	            	owner : $scope.ownerdetails
+	            },
+	            clickOutsideToClose : true,
+	            controller : function($scope, data ,owner){
+	            	$scope.note = data;
+	            	$scope.user=owner
+	            	console.log(user);
+	            	$scope.closeDialog=function(){
+	            		console.log("close dilog box");
+	            		$mdDialog.cancel();
+	            	}
+            }
 	     });
 		 console.log("comint complete show alert");
-	  };
+	  }
 	
+	// this method is get owner...
+	var owner = function(note){
+		var nodes =homeService.getAllnode("getOwner","post",localStorage.getItem('jwt'),note);
+		nodes.then(function(response){
+			$scope.ownerdetails = response.data;
+		} ,function(response){
+			consol.log(response.data.message)
+		});
+	}
+	 
+	/*$scope.ownerdetails = {};*/
 	// this method using for call profile..
 	$scope.profileData = function() {
 		var url = "userData";
@@ -33,7 +54,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		var nodes = homeService.getAllnode(url, method, token, data);
 		nodes.then(function(response) {
 			$scope.user=response.data;
-			console.log($scope.user);
+			
 		}, function(response) {
 			console.log(response.data);
 		});
