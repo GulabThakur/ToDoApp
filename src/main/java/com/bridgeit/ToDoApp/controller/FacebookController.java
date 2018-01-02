@@ -21,6 +21,10 @@ import com.bridgeit.ToDoApp.service.IuserService;
 import com.bridgeit.ToDoApp.token.IToken;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/**
+ * @author ThakurGulab
+ *
+ */
 @RestController
 public class FacebookController {
 
@@ -94,6 +98,7 @@ public class FacebookController {
 		}
 	}
 
+	/*  ===================================get token===========================================================  */
 	@RequestMapping(value = "/getToken")
 	public ResponseEntity<Response> getToken(HttpSession session) {
 		//System.out.println("welcome....");

@@ -6,46 +6,51 @@
 // this this my home controller ....
 var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
-		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval, $mdDialog) {
-	
-	var userData=null;
+		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
+		$mdDialog) {
+
+	var userData = null;
 	$scope.showAlert = function(event, note) {
-		 var parentEl = angular.element(document.body);
-		 console.log("comint inside show alert");
-		 $mdDialog.show({
-	    		parent: parentEl,
-	            targetEvent: event,
-	            templateUrl : 'template/collaboratore.html',
-	            locals: {
-	            	data : note,
-	            	owner : $scope.ownerdetails
-	            },
-	            clickOutsideToClose : true,
-	            controller : function($scope, data ,owner){
-	            	$scope.note = data;
-	            	$scope.user=owner
-	            	console.log(user);
-	            	$scope.closeDialog=function(){
-	            		console.log("close dilog box");
-	            		$mdDialog.cancel();
-	            	}
-            }
-	     });
-		 console.log("comint complete show alert");
-	  }
-	
-	// this method is get owner...
-	var owner = function(note){
-		var nodes =homeService.getAllnode("getOwner","post",localStorage.getItem('jwt'),note);
-		nodes.then(function(response){
-			$scope.ownerdetails = response.data;
-		} ,function(response){
-			consol.log(response.data.message)
-		});
+		var parentEl = angular.element(document.body);
+		/*$scope.owner(note);*/
+		$mdDialog
+				.show({
+					parent : parentEl,
+					targetEvent : event,
+					templateUrl : 'template/collaboratore.html',
+					locals : {
+						data : note,
+						owner : $scope.ownerdetails
+					},
+					clickOutsideToClose : true,
+					controller : function($scope, data, owner, homeService) {
+						$scope.note = data;
+						$scope.user = owner
+						
+						/* console.log(user); */
+						$scope.closeDialog = function(note, email) {
+							console.log("close dilog box");
+							console.log(email);
+							$mdDialog.cancel();
+						}
+					}
+				});
+		console.log("comint complete show alert");
 	}
-	 
-	/*$scope.ownerdetails = {};*/
+
+	// this method is get owner...
+	
+	
+
+	$scope.collabratoreFunction = function(note, email) {
+		
+		var data=homeService.collobratore(
+				"collabratore", "post", localStorage
+						.setItem('email', email), note);
+
+	}
 	// this method using for call profile..
+	$scope.ownerdetails = {};
 	$scope.profileData = function() {
 		var url = "userData";
 		var method = "post";
@@ -53,16 +58,16 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		var data = null;
 		var nodes = homeService.getAllnode(url, method, token, data);
 		nodes.then(function(response) {
-			$scope.user=response.data;
-			
+			$scope.user = response.data;
+			$scope.ownerdetails=response.data;
 		}, function(response) {
 			console.log(response.data);
 		});
 
 	}
-	
+
 	$scope.profileData();
-	
+
 	// this is function for create note
 	$scope.addNode = function() {
 		$scope.allNodes();
@@ -99,7 +104,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log("Notes---->" + $scope.data.length);
 			$interval(function() {
 				for (var i = 0; i < $scope.data.length; i++) {
-					if (notes[i].reminder !=null) {
+					if (notes[i].reminder != null) {
 						reminderDate = $filter('date')(
 								new Date(notes[i].reminder),
 								'MMM dd yyyy HH:mm');
@@ -307,6 +312,5 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 		});
 	}
-
 
 });

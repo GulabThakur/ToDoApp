@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.ToDoApp.dao.InotesUserModelDao;
 import com.bridgeit.ToDoApp.model.Notes;
+import com.bridgeit.ToDoApp.model.UserModel;
 
 /**
  * @author ThakurGulab
@@ -32,8 +33,14 @@ public class NodeServiceImp implements INoteService {
 		return note;
 	}
 
-	public List<Notes> allNotes() {
-		return noteDao.getNotes();
+	public List<Notes> allNotes(UserModel user) {
+		System.out.println(user.getUserName());
+		return noteDao.getNotes(user);
+	}
+
+	public Notes shareNote(String email, int noteId, int id) {
+		Notes notes=noteDao.getNode(noteId);
+		return notes;
 	}
 
 }

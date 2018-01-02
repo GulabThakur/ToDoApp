@@ -10,11 +10,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.ToDoApp.model.Notes;
+import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.token.IToken;
 
 /**
@@ -84,12 +86,13 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Notes> getNotes() {
-
+	public List<Notes> getNotes(UserModel user) {
+			 System.out.println(user.getId());
 		try {
 
 			List<Notes> list = new ArrayList<Notes>();
-			list = sessionFactory.getCurrentSession().createCriteria(Notes.class).list();
+			list = sessionFactory.getCurrentSession().createCriteria(Notes.class).add(Restrictions.eq("usr_id", user.getId())).list();
+			System.out.println(list.size());
 			return list;
 		} catch (Exception e) {
 			return new ArrayList<Notes>();

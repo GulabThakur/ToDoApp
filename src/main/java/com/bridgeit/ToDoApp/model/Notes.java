@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * @author ThakurGulab
@@ -39,8 +42,21 @@ public class Notes implements Serializable {
 	private boolean isTrash;
 	private String color;
 	private String reminder;
-
 	
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="user_id")
+	private UserModel user;
+	private long usr_id;
+	public UserModel getUser() {
+		return user;
+	}
+
+	public void setUser(UserModel user) {
+		this.user = user;
+	}
+
 	// this property use for Collaborator
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "collaborator", joinColumns = @JoinColumn(name = "note_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -95,7 +111,7 @@ public class Notes implements Serializable {
 		this.isTrash = isTrash;
 	}
 
-	private long usr_id;
+	
 
 	public int getId() {
 		return id;

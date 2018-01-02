@@ -3,7 +3,7 @@
 <!-- All css files are here -->
 <link rel="stylesheet"
 	href="bower_components/node_modules/angular-material/angular-material.min.css" />
-<!-- <link rel="bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css"/> -->
+<link rel="bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css"/>
  <link rel="bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"/>
 
 
@@ -20,20 +20,22 @@
 <!-- <script src = "bower_components/angular/angular.js"></script> -->
 <script src="https://code.jquery.com/jquery-1.6.1.min.js"></script>	
 
-<script src="bower_components/bower_components/angular/angular.js"></script>
+<!-- <script src="bower_components/bower_components/angular/angular.js"></script> -->
+
+	<!-- =====================================this changes by sir========================== -->
+<script type="text/javascript" src="bower_components/bower_components/angular/angular.min.js"></script>
 <script
 	src="bower_components/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/node_modules/angular-material/angular-material.min.js"></script>
-<script type="text/javascript" src="bower_components/bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 <script src="bower_components/bower_components/ng-file-upload/ng-file-upload.js"></script> 
 <script type="text/javascript" src="bower_components/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="bower_components/node_modules/angular-animate/angular-animate.min.js"></script>
  
 <script src="bower_components/node_modules/angular-messages/angular-messages.min.js"></script>
 <script src="bower_components/moment/moment.js"></script> 
-<script src="bower_components/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 
 <script src="bower_components/node_modules/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/node_modules/angular-material/angular-material.min.js"></script>
 <!-- for uploading  image   -->
 
 

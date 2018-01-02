@@ -1,18 +1,26 @@
 
-<md-dialog> 
+<md-dialog layout="column"> 
 		<level>Collobratore</level>
-           <p>{{user.userName}} (Owner)</p>
+           <div layout="row">
+           		<div>
+           		<img style="border-radius: 30px;max-width: 120%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>
+           		</div>
+           		<div>
+           		<p>{{user.userName}}(Owner)</p><br>
+                <p>{{user.email}}</p>
+           		</div>
+           </div>
              <div>
              <md-card>
              	<md-dialog-content>
            		
-               <input ng-model="note.title" placeholder="Email" name="email"></nput>
+               <input  placeholder="Email" name="email" type="email" ng-module="email"></nput>
            	
 	           	</md-dialog-content>
            	  </md-card>
            	  </div>
             <md-dialog-actions>
-              <md-button ng-click="closeDialog()" class="md-primary">
+              <md-button ng-click="closeDialog(note,email)">
                Done
               </md-button>
             </md-dialog-actions>

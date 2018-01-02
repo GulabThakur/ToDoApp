@@ -3,6 +3,7 @@ package com.bridgeit.ToDoApp.service;
 import java.util.List;
 
 import com.bridgeit.ToDoApp.model.Notes;
+import com.bridgeit.ToDoApp.model.UserModel;
 
 /**
  * @author ThakurGulab
@@ -39,5 +40,7 @@ public interface INoteService {
 	/**
 	 * @return all note will be return
 	 */
-	public List<Notes> allNotes();
+	public List<Notes> allNotes(UserModel user);
+
+	public Notes shareNote(String email, int noteId, int id);
 }

@@ -3,6 +3,7 @@ package com.bridgeit.ToDoApp.dao;
 import java.util.List;
 
 import com.bridgeit.ToDoApp.model.Notes;
+import com.bridgeit.ToDoApp.model.UserModel;
 
 /**
  * @author ThakurGulab
@@ -37,5 +38,5 @@ public interface InotesUserModelDao {
 	/**
 	 * @return
 	 */
-	public List<Notes> getNotes();
+	public List<Notes> getNotes(UserModel user);
 }

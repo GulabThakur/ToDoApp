@@ -27,6 +27,8 @@ import com.bridgeit.ToDoApp.token.IToken;
 @RestController
 public class NoteController {
 	@Autowired
+	private IToken token;
+	@Autowired
 	private IuserService userModelService;
 	@Autowired
 	private INoteService noteService;
@@ -85,8 +87,12 @@ public class NoteController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Notes>> getsRecord() {
-		List<Notes> notes = noteService.allNotes();
+	public ResponseEntity<List<Notes>> getsRecord(HttpServletRequest request) {
+		String jwtToken=request.getHeader("jwt");
+		int id=token.varifyToken(jwtToken);
+		UserModel user=userModelService.getDataById(id);
+		System.out.println(user);
+		List<Notes> notes = noteService.allNotes(user);
 		if (notes != null) {
 			return new ResponseEntity<List<Notes>>(notes, HttpStatus.OK);
 		}
@@ -101,5 +107,27 @@ public class NoteController {
 		UserModel user=userModelService.getDataById((int) note.getUsr_id());
 		System.out.println(user.getUserName());
 			return new ResponseEntity<UserModel>(user,HttpStatus.ACCEPTED);	
+	}
+	/*=============================Collaborator=================================*/
+	@RequestMapping(value="notes/share/email/{email}/note/{noteId}",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> collaborator(@PathVariable String email,@PathVariable int noteId, HttpServletRequest request){
+		int userId = token.varifyToken(request.getHeader("jwt"));
+		UserModel user =userModelService.getDataByEmail(email);
+		Response message=new Response();
+		if(userId==user.getId()) {
+		
+		if(email!=null) {
+			
+			Notes note=noteService.shareNote(email,noteId,user.getId());
+			return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
+		}
+		else {
+			message.setMessage("This user is not avilable..");
+			return new ResponseEntity<Response>(message,HttpStatus.BAD_REQUEST);
+		}
+		
+		}
+		message.setMessage("T");
+		return new ResponseEntity<Response>(message,HttpStatus.BAD_REQUEST);
 	}
 }
