@@ -1,16 +1,16 @@
 package com.bridgeit.ToDoApp.dao;
 
-import java.sql.Date;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,16 +88,14 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 	@SuppressWarnings("unchecked")
 	public List<Notes> getNotes(UserModel user) {
 			 System.out.println(user.getId());
-		try {
-
-			List<Notes> list = new ArrayList<Notes>();
-			list = sessionFactory.getCurrentSession().createCriteria(Notes.class).add(Restrictions.eq("usr_id", user.getId())).list();
-			System.out.println(list.size());
-			return list;
-		} catch (Exception e) {
-			return new ArrayList<Notes>();
-		}
-
+			 long userId=user.getId();
+			 Session session=sessionFactory.openSession();
+			 String hql = "FROM Note_user N WHERE N.usr_id = :usr_id";
+			 Query query = session.createQuery(hql);
+			 query.setParameter("usr_id",userId);
+			 List<Notes> results = query.list();
+			 System.out.println(results.size());
+			 return results;
 	}
 
 }

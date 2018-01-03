@@ -291,10 +291,10 @@ public class UserController {
 		return new ResponseEntity<UserModel>(HttpStatus.BAD_REQUEST);
 	}
 	
-	/* ............................this Use for get .............................................*/
+	/* ............................this Use for get .............................................
 	
 	@RequestMapping(value="/collabratore",method=RequestMethod.POST)
 	public ResponseEntity<Response> sendNoteUser(@RequestBody List<UserModel> list,@RequestBody int noteId,String email){
 		return null;
-	}
+	}*/
 }

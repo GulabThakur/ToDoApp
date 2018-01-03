@@ -3,8 +3,8 @@
 <!-- All css files are here -->
 <link rel="stylesheet"
 	href="bower_components/node_modules/angular-material/angular-material.min.css" />
-<link rel="bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css"/>
- <link rel="bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"/>
+<link rel="stylesheet"
+	href="bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css"/>
 
 
 <link rel="stylesheet" ; href="css/navar.css"/>

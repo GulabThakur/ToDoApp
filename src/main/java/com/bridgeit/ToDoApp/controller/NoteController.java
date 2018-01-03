@@ -51,8 +51,8 @@ public class NoteController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> update_note1(@RequestBody Notes note, @PathVariable("id") int id) {
 		Response meResponse = new Response();
-		
-		System.out.println("Updating...................."+note.getArchive());
+
+		System.out.println("Updating...................." + note.getArchive());
 		boolean status = noteService.update_note(id, note);
 		if (status) {
 			meResponse.setMessage("sucessfully Update");
@@ -88,9 +88,9 @@ public class NoteController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Notes>> getsRecord(HttpServletRequest request) {
-		String jwtToken=request.getHeader("jwt");
-		int id=token.varifyToken(jwtToken);
-		UserModel user=userModelService.getDataById(id);
+		String jwtToken = request.getHeader("jwt");
+		int id = token.varifyToken(jwtToken);
+		UserModel user = userModelService.getDataById(id);
 		System.out.println(user);
 		List<Notes> notes = noteService.allNotes(user);
 		if (notes != null) {
@@ -99,35 +99,40 @@ public class NoteController {
 		return new ResponseEntity<List<Notes>>(HttpStatus.BAD_REQUEST);
 
 	}
-	
-	// get owner ..................................................................................
-	
-	@RequestMapping(value="/getOwner", method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserModel> getOwner(@RequestBody Notes note){
-		UserModel user=userModelService.getDataById((int) note.getUsr_id());
+
+	// get owner
+	// ..................................................................................
+
+	@RequestMapping(value = "/getOwner", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserModel> getOwner(@RequestBody Notes note) {
+		UserModel user = userModelService.getDataById((int) note.getUsr_id());
 		System.out.println(user.getUserName());
-			return new ResponseEntity<UserModel>(user,HttpStatus.ACCEPTED);	
+		return new ResponseEntity<UserModel>(user, HttpStatus.ACCEPTED);
 	}
-	/*=============================Collaborator=================================*/
-	@RequestMapping(value="notes/share/email/{email}/note/{noteId}",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> collaborator(@PathVariable String email,@PathVariable int noteId, HttpServletRequest request){
+
+	/*
+	 * =========================================Collaborator========================
+	 */
+	@RequestMapping(value = "/notesShare/{email}/{noteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> notesShare(@PathVariable String email, @PathVariable int noteId,
+			HttpServletRequest request) {
+		Response message = new Response();
+		System.out.println("email "+email);
+		System.out.println("email "+noteId);
 		int userId = token.varifyToken(request.getHeader("jwt"));
-		UserModel user =userModelService.getDataByEmail(email);
-		Response message=new Response();
-		if(userId==user.getId()) {
+		UserModel user = userModelService.getDataByEmail(email);
+		System.out.println("email "+userId);
+		System.out.println("email "+user.getId());
 		
-		if(email!=null) {
-			
-			Notes note=noteService.shareNote(email,noteId,user.getId());
-			return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
-		}
-		else {
-			message.setMessage("This user is not avilable..");
-			return new ResponseEntity<Response>(message,HttpStatus.BAD_REQUEST);
-		}
-		
-		}
-		message.setMessage("T");
-		return new ResponseEntity<Response>(message,HttpStatus.BAD_REQUEST);
+				Notes note = noteService.shareNote(email, noteId, user.getId());
+				System.out.println("notes"+note);
+				if (note != null) {
+					return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
+				} else {
+					message.setMessage("Email id is not exits");
+					return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+				
+			}
+
 	}
 }

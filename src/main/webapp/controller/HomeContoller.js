@@ -28,9 +28,13 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 						$scope.user = owner
 						
 						/* console.log(user); */
-						$scope.closeDialog = function(note, email) {
-							console.log("close dilog box");
+						$scope.closeDialog = function(note,email) {
+							var token = localStorage.getItem('jwt');
+							   var nodes = homeService.getAllnode("notesShare/"+email+"/"+note.id+"", "post", token, null);
+							console.log(note.id);
 							console.log(email);
+							console.log("close dilog box");
+							
 							$mdDialog.cancel();
 						}
 					}
@@ -41,14 +45,19 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	// this method is get owner...
 	
 	
-
-	$scope.collabratoreFunction = function(note, email) {
-		
-		var data=homeService.collobratore(
-				"collabratore", "post", localStorage
-						.setItem('email', email), note);
-
+    // this function use for share note 
+	$scope.shareNote = function(note, email) {
+	   var token = localStorage.getItem('jwt');
+	   var nodes = homeService.getAllnode("notesShare/"+email+"/"+note.id+"", "post", token, null);
+	   nodes.then(function(response) {
+			//$scope.user = response.data;
+			//$scope.ownerdetails=response.data;
+		   console.log("welcome to share note");
+		}, function(response) {
+			console.log(response.data);
+		});
 	}
+
 	// this method using for call profile..
 	$scope.ownerdetails = {};
 	$scope.profileData = function() {
