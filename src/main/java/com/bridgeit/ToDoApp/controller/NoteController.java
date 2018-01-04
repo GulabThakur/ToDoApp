@@ -117,22 +117,52 @@ public class NoteController {
 	public ResponseEntity<Response> notesShare(@PathVariable String email, @PathVariable int noteId,
 			HttpServletRequest request) {
 		Response message = new Response();
-		System.out.println("email "+email);
-		System.out.println("email "+noteId);
+		System.out.println("email " + email);
+		System.out.println("email " + noteId);
 		int userId = token.varifyToken(request.getHeader("jwt"));
 		UserModel user = userModelService.getDataByEmail(email);
-		System.out.println("email "+userId);
-		System.out.println("email "+user.getId());
-		
-				Notes note = noteService.shareNote(email, noteId, user.getId());
-				System.out.println("notes"+note);
-				if (note != null) {
-					return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
-				} else {
-					message.setMessage("Email id is not exits");
-					return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
-				
-			}
+		System.out.println("email " + userId);
+		System.out.println("email " + user.getId());
 
+		Notes note = noteService.shareNote(email, noteId, user.getId());
+		System.out.println("notes" + note);
+		if (note != null) {
+			return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
+		} else {
+			message.setMessage("Email id is not exits");
+			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+
+		}
+	}
+
+	/*
+	 * ================================collabUser=============================================
+	 */
+	@RequestMapping(value = "collabUser")
+	public ResponseEntity<Object> collabUser(@RequestBody Notes noteId) {
+		System.out.println("noteID value "+noteId.getId());
+		Notes notes = noteService.get_note(noteId.getId());
+		System.out.println("Total size of user"+notes.getCollaboratorSet().size());
+		return new ResponseEntity<Object>(notes.getCollaboratorSet(), HttpStatus.ACCEPTED);
+	}
+	
+	/*
+	 * ================================collabUserDelete=============================================
+	 */
+	@RequestMapping(value="/deleteUser/{email}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> collabDeleteUser(@RequestBody Notes noteId,@PathVariable("email") String emailId){
+		System.out.println("ghjhkjhkjhkhkju");	
+		System.out.println(emailId);
+		System.out.println(noteId.getId());
+		boolean status=noteService.removeShareUser(noteId.getId(),emailId);
+		
+			System.out.println(status);
+			Response message=new Response();
+			if(status) {
+				message.setMessage("Delete SucessFull");
+				return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED); 
+			}
+			message.setMessage("fall Delete process");
+		return new ResponseEntity<Response>(message,HttpStatus.BAD_REQUEST);
 	}
 }

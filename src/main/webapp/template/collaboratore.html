@@ -11,7 +11,19 @@
            		<span>{{user.userName}}(Owner)</span>
                 <div>{{user.email}}</div>
            		</div>
+           		<div>{{userData.userName}}</div>
            </div>
+            <div ng-repeat="user_info in note.collaboratorSet">
+           	  <div layout="column">
+           	  	<div>
+           	  	<img style="border-radius: 15px;max-width: 60%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user_info.proFile}}"/>
+           	  	</div>
+           	  	  <div>
+           	  		<level>{{user_info.email}}</level>
+           	  		<div>
+           	  	    <md-icon ng-click="removeCollab(note,user_info.email)" md-svg-icon="image/delete.svg" layout-align="end start"></md-icon>
+           	  	   </div>
+           	  	</div>
              <div>
              <md-card>
              	<md-dialog-content>
@@ -19,10 +31,13 @@
 	           	</md-dialog-content>
            	  </md-card>
            	  </div>
+           	  
+           	 
+           	  
             <md-dialog-actions layout="row">
 			  <md-button ng-click="cancelDialog()">Cancel</md-button> 
               <md-button ng-click="closeDialog(note,input)">Done</md-button>
             </md-dialog-actions>
            
-          </md-dialog>'
+          </md-dialog>
           

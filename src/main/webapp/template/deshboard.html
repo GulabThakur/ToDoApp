@@ -101,9 +101,14 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
       	<div><h4>{{note.title}}</h4></div> 
       	<div><h2>{{note.description}}</h2>
       		<div>{{note.reminder}}</div>
-      		<level> 
-      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
+      		<level ng-hide="true"> 
+      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start"></md-icon>
       		<level>
+      	</div>
+      	<div layout="row">
+      		<div  ng-repeat="user_info in note.collaboratorSet" >
+      		<img ng-click="showAlert($event, note)" style="border-radius: 15px;max-width: 60%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user_info.proFile}}"/>
+      		</div>
       	</div>
       	
       	<br>     

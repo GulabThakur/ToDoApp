@@ -41,20 +41,6 @@ public class NodeServiceImp implements INoteService {
 		return note;
 	}
 	
-	/*public Note shareNote(String email, int noteId, int userId) {
-		if(userDao.emailValidaton(email)) {
-			Note note=noteDao.read(noteId);
-			User user=userDao.getUserByEmailId(email);
-			Set<User> userSet=new HashSet<>();
-			userSet.add(user);
-			note.setSharedUser(userSet);
-			noteDao.update(note);
-			return note;
-		}else {
-			return null;
-		}*/
-
-
 
 	public List<Notes> allNotes(UserModel user) {
 		System.out.println(user.getUserName());
@@ -74,6 +60,21 @@ public class NodeServiceImp implements INoteService {
 		}
 		
 		return null;
+	}
+
+	public boolean removeShareUser(int id, String emailId) {
+			UserModel user =userModelDao.checkExits(emailId);
+			if(user!=null) {
+				Notes notes=noteDao.getNode(id);
+				Set<UserModel> userSet= new HashSet<UserModel>();
+				userSet=notes.getCollaboratorSet();
+				userSet.remove(user);
+				notes.setCollaboratorSet(userSet);
+				noteDao.upadteNote(id, notes);
+				return true;
+			}
+			return false;
+		
 	}
 
 }

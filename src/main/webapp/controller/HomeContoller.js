@@ -9,10 +9,15 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
 		$mdDialog) {
 
+	
+	
+	/*================================================================================================================*/
+	
 	var userData = null;
 	$scope.showAlert = function(event, note) {
 		var parentEl = angular.element(document.body);
 		/*$scope.owner(note);*/
+		$scope.getUser(note);
 		$mdDialog
 				.show({
 					parent : parentEl,
@@ -20,7 +25,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 					templateUrl : 'template/collaboratore.html',
 					locals : {
 						data : note,
-						owner : $scope.ownerdetails
+						owner : $scope.ownerdetails,
+						userListData:$scope.userList
 					},
 					clickOutsideToClose : true,
 					controller : function($scope, data, owner, homeService) {
@@ -30,20 +36,57 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 						/* console.log(user); */
 						$scope.closeDialog = function(note,email) {
 							var token = localStorage.getItem('jwt');
-							   var nodes = homeService.getAllnode("notesShare/"+email+"/"+note.id+"", "post", token, null);
+							var nodes = homeService.getAllnode("notesShare/"+email+"/"+note.id+"", "post", token, null);
 							console.log(note.id);
 							console.log(email);
 							console.log("close dilog box");
+							 $mdDialog.hide();
+						}
+						$scope.removeCollab=function(note,email){
+							 $mdDialog.hide();
+							var token =localStorage.getItem('jwt');
+							var deleteUser = homeService.getAllnode("deleteUser/"+email+"", "post", token, note);
+							deleteUser.then(function(response){
+								console.log("Remove User");
+							},function(response){
+								console.log("helllo "+response.data.message)
+							});
 							
-							$mdDialog.cancel();
 						}
 					}
 				});
 		console.log("comint complete show alert");
 	}
+	
+	/*================================================================================================================*/
+	
+	$scope.removeUser=function(note,email){
+		var token =localStorage.getItem('jwt');
+		var deleteUser = homeService.getAllnode("deleteUser/"+email+"", "post", token, note);
+		deleteUser.then(function(response){
+			console.log("Remove User");
+		},function(response){
+			console.log("helllo "+response.data.message)
+		});
+	}
 
+	/*================================================================================================================*/
+	
+	$scope.getUser=function(note){
+		var token=localStorage.getItem('jwt');
+		var userData=homeService.getAllnode("collabUser","post",token,note);
+		userData.then(function(response){
+			$scope.userList=response.data;
+			console.log(response.data);
+		},function(response){
+			console.log("hello"+response.data.message);
+		});
+	}
+	
 	// this method is get owner...
 	
+	
+	/*================================================================================================================*/
 	
     // this function use for share note 
 	$scope.shareNote = function(note, email) {
@@ -58,6 +101,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		});
 	}
 
+	/*================================================================================================================*/
+	
 	// this method using for call profile..
 	$scope.ownerdetails = {};
 	$scope.profileData = function() {
@@ -75,6 +120,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 	}
 
+	/*================================================================================================================*/
+	
+	
 	$scope.profileData();
 
 	// this is function for create note
@@ -93,6 +141,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		});
 
 	}
+	
+	/*================================================================================================================*/
+	
 	// get all note with help this function ....
 	$scope.allNodes = function() {
 		console.log("inside all note");
@@ -131,10 +182,13 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			}, 50000);
 			$scope.notes = response.data;
 		}, function(response) {
-			var rep = response.data.meResponse;
+			var rep = response.data.message;
 			console.log(rep);
 		});
 	}
+	
+	/*================================================================================================================*/
+	
 	// here i am call automatically allnodes();
 	$scope.allNodes();
 	$scope.getById = function() {
@@ -149,6 +203,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log(response.data.message);
 		});
 	}
+	
+	/*================================================================================================================*/
+	
 	// note will be delete by id
 	$scope.deletebyId = function(note) {
 		var url = "delete/" + note.id;
@@ -163,6 +220,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log(response.data.message);
 		});
 	}
+	
+	/*================================================================================================================*/
+	
 	// note will be update by id....
 	$scope.updateById = function(note) {
 		var url = "update/" + note.id;
@@ -178,6 +238,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log(response.data.meResponse);
 		});
 	}
+	
+	/*================================================================================================================*/
+	
 	// archive on
 	$scope.archive = function(note) {
 		$mdToast.show($mdToast.simple().textContent('Note Archived ..')
@@ -191,7 +254,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$scope.updateById(note);
 		console.log(note);
 	}
-
+	
+	/*================================================================================================================*/
+	
 	// delete note..
 	$scope.trash = function(note) {
 		if (note.trash == false) {
@@ -207,6 +272,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("sucessfull...");
 	}
 
+	/*================================================================================================================*/
+	
 	// pin notes....
 	$scope.pin = function(note) {
 
@@ -218,24 +285,29 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$scope.updateById(note);
 		console.log("sucessfull pined");
 	}
-
+	/*================================================================================================================*/
 	// trashFunction....
 	$scope.trashFunction = function() {
 		$state.go('TrashLoad');
 		console.log("come inside sucessfull")
 	}
+	
+	/*================================================================================================================*/
 	// call from notes..
 	$scope.notesFunction = function() {
 		$state.go('homepage');
 		console.log("sucessfull come..");
 	}
+	
+	/*================================================================================================================*/
 
 	// archiveFunction...
 	$scope.archiveFunction = function() {
 		$state.go('ArchiveLoad');
 		console.log("sucessfull come..");
 	}
-
+	
+	/*================================================================================================================*/
 	// for color picker...
 	$scope.color = function() {
 		$scope.options = [ 'transparent', '#FF8A80', '#FFD180', '#FFFF8D',
@@ -248,7 +320,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		}
 
 	}
-
+/*================================================================================================================*/
 	// for using date time piker....
 
 	$scope.displayDialog = function() {
@@ -262,7 +334,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			console.log('Selection canceled');
 		});
 	}
-
+	/*================================================================================================================*/
 	// for reminder function......
 	$scope.reminderFunction = function(note, reminderDate) {
 		console.log("Inside Remainder..........");
@@ -277,8 +349,10 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log(" notes obj" + note);
 		$scope.updateById(note);
 		$scope.allNodes();
-		// console.log("date-----hjgbhjhbgjhkjhgkhjgkjhfjh->" + note.reminder);
+		
 	}
+	
+	/*================================================================================================================*/
 
 	// function to delete the reminder date
 	$scope.deleteReminder = function(note) {
@@ -290,7 +364,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("sucessfull update  note...");
 
 	}
-
+	/*================================================================================================================*/
 	// This for image upload
 
 	$scope.type = {};
@@ -301,6 +375,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("helllo trigger after");
 	}
 
+	/*================================================================================================================*/
+	
 	$scope.stepsModel = [];
 	$scope.imageUpload = function(note) {
 		console.log("hello we r in imageUpload");
@@ -311,6 +387,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("note.image : " + note.imageNote);
 	}
 
+	
+	/*================================================================================================================*/
+	
 	$scope.imageLoader = function(image) {
 
 		$scope.$apply(function() {
@@ -321,5 +400,5 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 		});
 	}
-
+	/*================================================================================================================*/
 });

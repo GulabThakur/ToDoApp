@@ -43,4 +43,6 @@ public interface INoteService {
 	public List<Notes> allNotes(UserModel user);
 
 	public Notes shareNote(String email, int noteId, int id);
+
+	public boolean removeShareUser(int id, String emailId);
 }
