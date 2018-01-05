@@ -80,6 +80,10 @@
 		class="com.bridgeit.ToDoApp.validation.ValidationImp">
 	</beans:bean>
 	  
+	  <beans:bean id="levelDao" class="com.bridgeit.ToDoApp.dao.LevelImp">
+	  </beans:bean>
+	  <beans:bean id="lavelservice" class="com.bridgeit.ToDoApp.service.LablesServiceImp">
+	  </beans:bean>
 		<beans:bean id="emailService" class="com.bridgeit.ToDoApp.email.EmailProperties">
 		<beans:property name="email" value="${userId}"/>
 		<beans:property name="password" value="${password}"/>

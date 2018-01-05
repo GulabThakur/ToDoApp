@@ -9,6 +9,25 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
 		$mdDialog) {
 
+	/*================================================================================================================*/
+	$scope.lablesAlert=function(event ,note){
+		var parentEl=angular.element(document.body);
+		$mdDialog
+				.show({
+					parent:parentEl,
+					targetEvent:event,
+					templateUrl:'template/LablesDilog.html',
+					locals:{
+						//data:lable
+					},
+					clickOutsideToClose : true,
+					//controller : function($scope,data,homeService){
+						
+					//}
+				})
+		
+	}
+	
 	
 	
 	/*================================================================================================================*/
@@ -42,8 +61,10 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 							console.log("close dilog box");
 							 $mdDialog.hide();
 						}
+						
+						
 						$scope.removeCollab=function(note,email){
-							 $mdDialog.hide();
+					 $mdDialog.hide();
 							var token =localStorage.getItem('jwt');
 							var deleteUser = homeService.getAllnode("deleteUser/"+email+"", "post", token, note);
 							deleteUser.then(function(response){

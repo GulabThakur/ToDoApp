@@ -6,11 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,10 +85,8 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 		session.close();
 		return note;
 	}
-
 	@SuppressWarnings("unchecked")
 	public List<Notes> getNotes(UserModel user) {
-			 System.out.println(user.getId());
 			 long userId=user.getId();
 			 Session session=sessionFactory.openSession();
 			 String hql = "FROM Note_user N WHERE N.usr_id = :usr_id";
@@ -95,6 +94,12 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 			 query.setParameter("usr_id",userId);
 			 List<Notes> results = query.list();
 			 System.out.println(results.size());
+			 Criteria criteria=session.createCriteria(Notes.class);
+			 criteria.createAlias("collaboratorSet", "user");
+			 criteria.add(Restrictions.eq("user.id", user.getId()));
+			 criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			 List<Notes> notes1 = criteria.list();
+			 results.addAll(notes1);
 			 return results;
 	}
 

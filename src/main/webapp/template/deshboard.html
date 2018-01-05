@@ -53,7 +53,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         			<md-icon ng-click="$mdMenu.open($event)" aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
         			<md-menu-content>
         			<md-menu-item>
-        			<md-button>add level</md-button>
+        			<md-button ng-click="lablesAlert()">add level</md-button>
         			</md-menu-item>
         			<md-menu-item>
         			<md-button ng-click="" ng-disabled="true">add drawing</md-button>
@@ -177,7 +177,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         			<md-button ng-click="trash(note)" >delete note</md-button>
         			</md-menu-item>
         			<md-menu-item>
-        			<md-button ng-click="">add level</md-button>
+        			<md-button ng-click="lablesAlert($event)">add level</md-button>
         			</md-menu-item>
         			<md-menu-item>
         			<md-button ng-click="" ng-disabled="true">add drawing</md-button>

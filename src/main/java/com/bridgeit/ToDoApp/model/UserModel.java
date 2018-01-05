@@ -11,6 +11,11 @@ import javax.persistence.Transient;
  */
 @Entity(name="ToDoApp_user")
 public class UserModel {
+	@Override
+	public String toString() {
+		return "UserModel [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password
+				+ ", proFile=" + proFile + ", conform_psd=" + conform_psd + ", isActive=" + isActive + "]";
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

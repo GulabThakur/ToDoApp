@@ -93,6 +93,7 @@ public class NoteController {
 		UserModel user = userModelService.getDataById(id);
 		System.out.println(user);
 		List<Notes> notes = noteService.allNotes(user);
+		
 		if (notes != null) {
 			return new ResponseEntity<List<Notes>>(notes, HttpStatus.OK);
 		}
@@ -113,7 +114,7 @@ public class NoteController {
 	/*
 	 * =========================================Collaborator========================
 	 */
-	@RequestMapping(value = "/notesShare/{email}/{noteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/notesShare/{email:.+}/{noteId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> notesShare(@PathVariable String email, @PathVariable int noteId,
 			HttpServletRequest request) {
 		Response message = new Response();
@@ -149,20 +150,14 @@ public class NoteController {
 	/*
 	 * ================================collabUserDelete=============================================
 	 */
-	@RequestMapping(value="/deleteUser/{email}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> collabDeleteUser(@RequestBody Notes noteId,@PathVariable("email") String emailId){
-		System.out.println("ghjhkjhkjhkhkju");	
-		System.out.println(emailId);
-		System.out.println(noteId.getId());
-		boolean status=noteService.removeShareUser(noteId.getId(),emailId);
+	@RequestMapping(value = "/deleteUser/{email:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> collabDeleteUser(@PathVariable String email,@RequestBody Notes noteId){
+		Response message=new Response();
+		boolean status=noteService.removeShareUser(noteId.getId(),email);
 		
-			System.out.println(status);
-			Response message=new Response();
-			if(status) {
-				message.setMessage("Delete SucessFull");
-				return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED); 
-			}
-			message.setMessage("fall Delete process");
-		return new ResponseEntity<Response>(message,HttpStatus.BAD_REQUEST);
+			message.setMessage("Delete SucessFull");
+	
+		return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED);
+			
 	}
 }

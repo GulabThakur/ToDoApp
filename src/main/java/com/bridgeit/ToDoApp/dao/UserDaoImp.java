@@ -1,6 +1,7 @@
 package com.bridgeit.ToDoApp.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -87,16 +88,20 @@ public class UserDaoImp implements IUserDao {
 		return note;
 	}
 
+	/*Criteria criteria = session.createCriteria(UserModel.class);
+	Criterion emial1 = Restrictions.eq("email", email);
+	System.out.println("criterition "+emial1);
+	criteria.add(emial1);
+	UserModel user = (UserModel) criteria.uniqueResult();
+	
+	Transaction transaction = session.beginTransaction();
+	transaction.commit();
+	session.close();*/
+	
 	public UserModel checkExits(String email) {
-		Session session = sessionFactory.openSession();
-		//String persion = null;
-		Criteria criteria = session.createCriteria(UserModel.class);
-		Criterion emial1 = Restrictions.eq("email", email);
-		criteria.add(emial1);
-		UserModel user = (UserModel) criteria.uniqueResult();
-		Transaction transaction = session.beginTransaction();
-		transaction.commit();
-		session.close();
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from ToDoApp_user where email='"+email+"'");
+		UserModel user=(UserModel) query.uniqueResult();
 		return user;
 	}
 
