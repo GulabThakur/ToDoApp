@@ -9,8 +9,47 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
 		$mdDialog) {
 
+	var token = localStorage.getItem('jwt');
+	
+	$scope.labelNote =function(event){
+		var parentEl=angular.element(document.body);
+		$mdDialog
+				.show({
+					parent:parentEl,
+					targetEvent:event,
+					templateUrl:'template/LabelDialogNote.html',
+					locals:{
+						data:$scope.labels
+					},
+					clickOutsideToClose : true,
+					controller : function($scope,homeService,data){
+						$scope.labels=data;
+						$scope.selected=[];
+						$scope.toggle=function(label, list){
+							console.log(list);
+							
+							/*console.log(label);*/
+							 var idx = list.indexOf(label);
+						        if (idx > -1) {
+						          list.splice(idx, 1);
+						        }
+						        else {
+						          list.push(label);
+						        }
+						};
+						
+						$scope.exists=function(label, list){
+							/*console.log(list);*/
+							/*console.log(label); */
+							list.indexOf(label) > -1;
+							 
+						};
+					}
+				})
+	}
+	
 	/*================================================================================================================*/
-	$scope.lablesAlert=function(event ,note){
+	$scope.lablesAlert=function(event){
 		var parentEl=angular.element(document.body);
 		$mdDialog
 				.show({
@@ -18,18 +57,51 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 					targetEvent:event,
 					templateUrl:'template/LablesDilog.html',
 					locals:{
-						//data:lable
+						data:$scope.labels
 					},
 					clickOutsideToClose : true,
-					//controller : function($scope,data,homeService){
+					controller : function($scope,homeService,data){
+						$scope.labels=data;
 						
-					//}
+						/*=======================================================================*/
+						$scope.addLabel=function(label){
+							$mdDialog.hide();
+							var addLabel=homeService.getAllnode("createLabel","post",token,label);
+						}
+						/*=======================================================================*/
+						$scope.updateLabel=function(label){
+							$mdDialog.hide();
+							var updateLabel=homeService.getAllnode("updateLables","post",token,label);
+							
+						}
+						
+						/*=======================================================================*/
+						
+						$scope.deleteLabel=function(label){
+							$mdDialog.hide();
+							var deleteLabel=homeService.getAllnode("deleteLable","post",token,label);
+						}
+						/*=======================================================================*/
+					}
 				})
 		
 	}
 	
 	
 	
+	/*================================================================================================================*/
+	$scope.labels={};
+	$scope.getLabels=function(){
+		var labels=homeService.getAllnode("fetchLabls","post",token,null);
+		labels.then(function(response){
+			$scope.labels=response.data;
+			console.log(response.data);
+		},function(response){
+			console.log(response.data)
+		});
+	}
+	
+	$scope.getLabels();
 	/*================================================================================================================*/
 	
 	var userData = null;
@@ -70,7 +142,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 							deleteUser.then(function(response){
 								console.log("Remove User");
 							},function(response){
-								console.log("helllo "+response.data.message)
+								console.log("helllo ")
 							});
 							
 						}
@@ -87,7 +159,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		deleteUser.then(function(response){
 			console.log("Remove User");
 		},function(response){
-			console.log("helllo "+response.data.message)
+			console.log("helllo")
 		});
 	}
 

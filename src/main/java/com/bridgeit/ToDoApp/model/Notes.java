@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +44,19 @@ public class Notes implements Serializable {
 	private String color;
 	private String reminder;
 	
+	@JoinTable(name = "NoteLabel", joinColumns = {@JoinColumn(name = "noteId")}, inverseJoinColumns = {@JoinColumn(name = "labelId")})
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<Labels> labels;
 	
+	
+	public Set<Labels> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(Set<Labels> labels) {
+		this.labels = labels;
+	}
+
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name="user_id")

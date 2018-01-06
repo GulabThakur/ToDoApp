@@ -43,6 +43,7 @@
 				</beans:value>
 				<beans:value>com.bridgeit.ToDoApp.model.Notes
 				</beans:value>
+				<beans:value>com.bridgeit.ToDoApp.model.Labels</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

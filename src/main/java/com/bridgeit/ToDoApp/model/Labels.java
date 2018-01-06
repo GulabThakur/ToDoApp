@@ -19,11 +19,12 @@ public class Labels {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int labelsId; 
 	private String labelsName;
-	private UserModel userId;
-	
+
 	@JsonIgnore
 	@JoinColumn(name="userId")
     @ManyToOne(cascade=CascadeType.ALL)
+	private UserModel userId;
+	
 	public int getLabelsId() {
 		return labelsId;
 	}

@@ -1,0 +1,22 @@
+<div>
+<md-card>
+<md-card-content>
+<div layout="row" layout-align="start star">
+   <h3>Label Note</h3>
+ </div>
+    <div>
+    	  <input ng-model="label.labelsName" type="text" placeholder="Create new label">
+          <md-icon ng-click="addLabel(label)" md-svg-src="image/check.svg"></md-icon></md-input-container>
+    </div>
+    <div ng-repeat="label in labels" layout="row">
+    	<div>
+        	<label>
+                <input type="checkbox" ng-checked="exists(label, selected)"
+                       ng-click="toggle(label, selected)"/>
+                {{label.labelsName}}
+              </label>
+    	</div>
+    </div>
+</md-card-content>
+</md-card>
+</div>

@@ -21,47 +21,41 @@ public class LevelImp implements Ilabels{
 
 	public void create(Labels label) {
 		Session session =sessionFactory.openSession();
-		Transaction transaction=session.beginTransaction();
-		Integer id= (Integer) session.save(label);
-		session.close();
-		transaction.commit();
-		
+		session.save(label);
 	}
 
 	public void update(Labels label) {
 		Session session=sessionFactory.openSession();
+		System.out.println("value......................................."+label.getLabelsName());
 		Transaction transaction=session.beginTransaction();
 		session.update(label);
-		session.close();
 		transaction.commit();
+		session.close();
+		
 	}
 
 	public Labels getLebel(int labelId) {
 		Session session=sessionFactory.openSession();
-		Transaction transaction =session.beginTransaction();
 		Query query=session.createQuery("from Labels where labelsId='"+labelId+"'");
 		Labels label=(Labels) query.uniqueResult();
-		session.close();
-		transaction.commit();
 		return label;
 	}
 
 	public List<Labels> getLabels(UserModel user) {
 		Session session =sessionFactory.openSession();
-		Transaction transaction =session.beginTransaction();
 		Query query=session.createQuery("from Labels where userId='"+user.getId()+"'");
+		@SuppressWarnings("unchecked")
 		List<Labels> labels=(List<Labels>) query.list();
-		session.close();
-		transaction.commit();
 		return labels;
 	}
 
 	public void delete(Labels label) {
 		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
+		Transaction transaction =session.beginTransaction();
 		session.delete(label);
-		session.close();
 		transaction.commit();
+		session.close();
+		
 	}
 
 }

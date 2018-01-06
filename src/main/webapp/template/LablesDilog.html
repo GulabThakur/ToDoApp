@@ -1,19 +1,26 @@
+<div>
 <md-card>
-
-<md-card-title>Label </md-card-title>
 <md-card-content>
+<div layout="row" layout-align="start star">
+<h3>Edit Label</h3>
 
+ </div>
   <md-input-container md-no-float class="md-block">
-      <md-icon md-svg-src="img/icons/cross.svg"></md-icon>
-      <input ng-model="label.labelName" type="text" placeholder="Create new label">
+      <md-icon md-svg-src=""></md-icon>
+      <input ng-model="label.labelsName" type="text" placeholder="Create new label">
          <md-icon ng-click="addLabel(label)" md-svg-src="image/check.svg"></md-icon></md-input-container>
 
- <div ng-repeat="label in readLabel"  layout="row">
-     
-     <md-icon ng-click="deleteLabel(label)" md-svg-src="img/icons/delete.svg"></md-icon>
-      <div ng-model="label.labelName" type="text" ></div>
-     		<div contenteditable="true" ng-bind-html="label.labelName" ng-model="label.labelName" style="border: 0px; outline: 0px"></div>
-         <md-icon ng-click="updateLabel(label)" md-svg-src="img/icons/write.svg"></md-icon>
+ <div ng-repeat="label in labels"  layout="row">
+  
+     <md-icon ng-click="deleteLabel(label)" md-svg-src="image/delete.svg"></md-icon>
+      <input ng-model="label.labelsName" type="text" style="border:0px;outline:none">
+     		<div ng-model="label.labelsName"></div>
+         <md-icon ng-click="updateLabel(label)" md-svg-src="image/editlabel.svg"></md-icon>
 </div>
 </md-card-content>
 </md-card>
+</div>
+
+
+
+
