@@ -20,11 +20,21 @@ public class Labels {
 	private int labelsId; 
 	private String labelsName;
 
+	// merge for use noorg.hibernate.NonUniqueObjectException: for solve
 	@JsonIgnore
 	@JoinColumn(name="userId")
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE) 
 	private UserModel userId;
 	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Labels label=(Labels) obj;
+		if(label.labelsId==this.getLabelsId())
+			return true;
+		else
+			return false;
+	}
 	public int getLabelsId() {
 		return labelsId;
 	}

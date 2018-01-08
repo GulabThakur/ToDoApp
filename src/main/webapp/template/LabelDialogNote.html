@@ -11,8 +11,8 @@
     <div ng-repeat="label in labels" layout="row">
     	<div>
         	<label>
-                <input type="checkbox" ng-checked="exists(label, selected)"
-                       ng-click="toggle(label, selected)"/>
+                <input type="checkbox" ng-checked="exists(label,note)"
+                       ng-click="toggle(label, selected,note)"/>
                 {{label.labelsName}}
               </label>
     	</div>

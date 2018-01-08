@@ -1,6 +1,8 @@
 package com.bridgeit.ToDoApp.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgeit.ToDoApp.model.Labels;
 import com.bridgeit.ToDoApp.model.Notes;
 import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;
@@ -50,6 +53,8 @@ public class NoteController {
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> update_note1(@RequestBody Notes note, @PathVariable("id") int id) {
+		
+		System.out.println("label ................."+note.getLabels());
 		Response meResponse = new Response();
 
 		System.out.println("Updating...................." + note.getArchive());
@@ -159,5 +164,33 @@ public class NoteController {
 	
 		return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED);
 			
+	}
+	
+	/*
+	 * ================================LsbelsAdd=============================================
+	 */
+	
+	@RequestMapping(value="/setLabels/{noteId}/{lableId}" , method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> setLabels(@PathVariable("lableId") int lableId,@PathVariable("noteId") int noteId ){
+		Response message=new Response();
+		noteService.addLavel(noteId,lableId);
+		message.setMessage("lavel added");
+		return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED);
+		
+		
+	} 
+	
+	/*
+	 * ================================LableDelete=============================================
+	 */
+	
+	@RequestMapping(value="/lavelDelete/{noteId}/{lableId}",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> deleteLables(@PathVariable("noteId") int noteId,@PathVariable("lableId") int lableId){
+		System.out.println("note id ....................:"+noteId);
+		System.out.println("Lables ID...................:"+lableId);
+		Response message=new Response();
+		noteService.deleteLable(noteId,lableId);
+		message.setMessage("DeleteLabel");
+		return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
 	}
 }

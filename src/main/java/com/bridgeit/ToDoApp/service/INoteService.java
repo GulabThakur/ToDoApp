@@ -45,4 +45,8 @@ public interface INoteService {
 	public Notes shareNote(String email, int noteId, int id);
 
 	public boolean removeShareUser(int id, String emailId);
+
+	public void addLavel(int noteId, int lableId);
+
+	public void deleteLable(int noteId, int lableId);
 }

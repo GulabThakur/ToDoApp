@@ -7,7 +7,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.ToDoApp.dao.IUserDao;
+import com.bridgeit.ToDoApp.dao.Ilabels;
 import com.bridgeit.ToDoApp.dao.InotesUserModelDao;
+import com.bridgeit.ToDoApp.model.Labels;
 import com.bridgeit.ToDoApp.model.Notes;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.validation.IValidation;
@@ -23,6 +25,9 @@ public class NodeServiceImp implements INoteService {
 	private IValidation valid;
 	@Autowired
 	private IUserDao userModelDao;
+	
+	@Autowired
+	Ilabels levelDao;
 
 	public boolean create_note(Notes note, String token) {
 		return noteDao.createNote(note, token);
@@ -70,17 +75,53 @@ public class NodeServiceImp implements INoteService {
 				Notes notes=noteDao.getNode(id);
 				Set<UserModel> userSet= new HashSet<UserModel>();
 				userSet=notes.getCollaboratorSet();
-			
+				
 				System.out.println("before remove data :"+userSet.size());
 				userSet.remove(user);
 				for (UserModel s : userSet) {
-				    System.out.println(" value.............."+s);
+					if(s.equals(user)) {
+						userSet.remove(s);
+						break;
+					}
 				}
 				System.out.println("after Remove :"+userSet.size());
 				notes.setCollaboratorSet(userSet);
 				noteDao.upadteNote(id, notes);
 				
 				return true;
+	}
+
+	public void addLavel(int noteId, int lableId) {
+		Notes notes=noteDao.getNode(noteId);
+		System.out.println("note id ......."+notes.getId());
+		Labels labels=levelDao.getLebel(lableId);
+		
+		System.out.println("lavel id ....."+labels.getLabelsId());
+		   Set setLable=new HashSet();
+		
+		    setLable=notes.getLabels();
+		   
+			setLable.add(labels);
+			notes.setLabels(setLable);
+			noteDao.upadteNote(noteId, notes);
+		
+	}
+
+	public void deleteLable(int noteId, int lableId) {
+		Notes notes=noteDao.getNode(noteId);
+		Labels labels=levelDao.getLebel(lableId);
+		Set<Labels> setLable =new HashSet();
+		setLable=notes.getLabels();
+		for(Labels lable:setLable) {
+			if(lable.equals(labels)) {
+				setLable.remove(lable);
+				break;
+			}
+		}
+		System.out.println("size of Label"+setLable.size());
+		System.out.println("size of Label"+setLable.size());
+		notes.setLabels(setLable);
+		noteDao.upadteNote(noteId, notes);
 	}
 
 }

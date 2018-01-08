@@ -60,6 +60,7 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 		Calendar cal = Calendar.getInstance();
 		String update_time = dateFormat.format(cal.getTime());
 		note_data.setUpdateTime(update_time);
+		session.clear();
 		session.update(note_data);
 		transaction.commit();
 		session.close();

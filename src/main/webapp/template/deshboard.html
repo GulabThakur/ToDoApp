@@ -109,6 +109,10 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
       		<div  ng-repeat="user_info in note.collaboratorSet" >
       		<img ng-click="showAlert($event, note)" style="border-radius: 15px;max-width: 60%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user_info.proFile}}"/>
       		</div>
+      		<div ng-repeat="user_info in note.labels">
+      			<lavel>{{user_info.labelsName}}</lavel>
+      			<md-icon ng-click="deleteLavel(note.id,user_info.labelsId)" md-svg-icon="image/cancel.svg" ></md-icon>
+      		</div>
       	</div>
       	
       	<br>     
@@ -177,7 +181,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         			<md-button ng-click="trash(note)" >delete note</md-button>
         			</md-menu-item>
         			<md-menu-item>
-        			<md-button ng-click="labelNote($event)">add level</md-button>
+        			<md-button ng-click="labelNote($event, note)">add level</md-button>
         			</md-menu-item>
         			<md-menu-item>
         			<md-button ng-click="" ng-disabled="true">add drawing</md-button>

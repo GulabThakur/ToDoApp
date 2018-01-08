@@ -11,41 +11,62 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 	var token = localStorage.getItem('jwt');
 	
-	$scope.labelNote =function(event){
+	$scope.labelNote =function(event,note){
+		
 		var parentEl=angular.element(document.body);
+		console.log(note);
 		$mdDialog
 				.show({
 					parent:parentEl,
 					targetEvent:event,
 					templateUrl:'template/LabelDialogNote.html',
 					locals:{
-						data:$scope.labels
+						data:$scope.labels,
+						noteData : note
 					},
 					clickOutsideToClose : true,
-					controller : function($scope,homeService,data){
+					controller : function($scope,homeService,data,noteData){
 						$scope.labels=data;
+						$scope.labels[0].checked = true;
 						$scope.selected=[];
-						$scope.toggle=function(label, list){
-							console.log(list);
+
+						$scope.note=noteData;
+						var selectedLabels = noteData.labels.map(function(data){
+							return data.labelsId;
+						});
+//						$scope.labels = $scope.labels.ma
+						$scope.toggle=function(label,list,note){
 							
-							/*console.log(label);*/
 							 var idx = list.indexOf(label);
 						        if (idx > -1) {
 						          list.splice(idx, 1);
 						        }
 						        else {
-						          list.push(label);
+						        	
+						          console.log(label);
+						          $scope.selected=list;
+						          var lables=homeService.getAllnode("setLabels/"+note.id+"/"+label.labelsId+"","post",token,null);
 						        }
 						};
 						
 						$scope.exists=function(label, list){
-							/*console.log(list);*/
-							/*console.log(label); */
-							list.indexOf(label) > -1;
+							return selectedLabels.indexOf(label.labelsId) > -1
+//							list.indexOf(label) > -1;
 							 
 						};
 					}
 				})
+	}
+	
+	/*================================================================================================================*/
+	
+	$scope.deleteLavel=function(noteId,labelsId){
+		var lableDel=homeService.getAllnode("lavelDelete/"+noteId+"/"+labelsId+"","post",token,null);
+		lableDel.then(function(response){
+			console.log(response.data.message);
+		},function(response){
+			console.log(response.data.message)
+		});
 	}
 	
 	/*================================================================================================================*/
@@ -86,7 +107,6 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 				})
 		
 	}
-	
 	
 	
 	/*================================================================================================================*/
