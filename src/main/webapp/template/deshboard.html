@@ -1,13 +1,15 @@
-<div flex layout="column"
-	layout-align="space-around center" >
-	 <md-content layout-xs="column" layout="column" class="first-card">
+<div layout="column"
+	layout-align="space-around center">
+	 <!-- <md-content layout-xs="column" layout="column"> -->
     <div flex-gt-xs="50" layout="column"  flex>
-      <md-card class="mdcardfirst" layout-align="star center">
-       	<form layout=column>
-            <md-content>
-             <input  placeholder="Tittle" name="title" ng-model="note.title"></input><br>
-             <input placeholder="Note create " name="description"  ng-model="note.description" ></input>
-             </md-content>
+      <md-card  layout-align="star center">
+       	<form layout=column >
+            <div contenteditable="true">
+             <input  placeholder="Tittle" name="title" ng-model="note.title" style="border: 0px;outline :0;"></input>
+             </div >
+             <div id="Div1">
+             <input placeholder="Note create " name="description"  ng-model="note.description" style="border: 0px;outline :0;" ></input>
+             </div>
 			
 			</form>	    
 			<div layout="row" layout-align="start">
@@ -79,16 +81,21 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         
     </div>
     	
-  </md-content>
+ <!--  </md-content> -->
   </div>
-  <!-- ....................note create here...................................................................... -->
-  <md-content>
+ 
+
+  <card-drective data="note" ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false} |filter:{pin:false}"></card-drective>
+ 
   
-  		<div layout="row"  layout-wrap>
+  <!-- ....................note create here...................................................................... -->
+ <!-- 
+  
+  		<div layout="row"  layout-wrap layout-xs="column">
   		
     <div flex="33"  ng-repeat="note in notes|  filter:{archive:false}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
-     	<!-- <md-grid-tile> -->
-      <md-card  ng-style="{'background-color': note.color}" >
+     	<md-grid-tile>
+      <md-card  ng-style="{'background-color': note.color}" ng-click="editNote($event,note)" >
       	<div>
       		<div  class="pin-class">
       		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
@@ -152,10 +159,10 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 					<md-icon ng-click="showAlert($event, note)" md-svg-icon="image/collabroter.svg" ></md-icon>
 					
 			</div>
-			<!-- <div>
+			<div>
 					<md-icon ng-click="uploadImage(note)" md-svg-icon="image/image.svg" ></md-icon>
 					<input ng-show="false" id="image" type='file' ng-model-instant ng-model="file" onchange="angular.element(this).scope().imageUpload(this)" />
-			</div> -->
+			</div>
 			<div>
 					<md-tooltip md-direction="bottom">Add Image</md-tooltip>
 						<img md-card-image ng-src="image/image.svg" 
@@ -184,7 +191,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         			<md-button ng-click="labelNote($event, note)">add level</md-button>
         			</md-menu-item>
         			<md-menu-item>
-        			<md-button ng-click="" ng-disabled="true">add drawing</md-button>
+        			<md-button ng-click="socialShare(note)" ng-disabled="false">FaceBookshare</md-button>
         			</md-menu-item>
         			<md-menu-item>
         			<md-button ng-click="addNode(note)">make copy</md-button>
@@ -204,9 +211,9 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
     
       </div>
     	</div>
-  </md-content>
+  -->
   <!-- ..........................this area use for pin...................... -->
-  <md-content>
+ 
   <h3> Pined note </h3>
   	<div layout="row"  layout-wrap>
   	
@@ -295,5 +302,5 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
     
       </div>
     	</div>
-  </md-content>
+
 

@@ -37,7 +37,7 @@
 <script src="bower_components/node_modules/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/node_modules/angular-material/angular-material.min.js"></script>
 <!-- for uploading  image   -->
-
+<script src="https://connect.facebook.net/enUS/all.js"></script>
 
 <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->
 
@@ -54,6 +54,7 @@
 <script type="text/javascript" src="directive/TrashBoard.js"></script>
 <script type="text/javascript" src="directive/Archive.js"></script>
 <script type="text/javascript" src="directive/ColorPicker.js"></script>
+<script type="text/javascript" src="directive/CustomCard.js"></script>
 <!-- <script type="text/javascript" src="directive/colourePicker.js"></script> -->
 
 <!-- for color picker    -->

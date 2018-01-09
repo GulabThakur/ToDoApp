@@ -8,7 +8,19 @@ var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
 		$mdDialog) {
-
+	
+	$(function(){
+		 $("#Div1 input").keypress(function (e) {
+		    if (e.keyCode == 13) {
+		    	 alert('You pressed enter!');
+		    }
+		 });
+		});
+	
+	/*================================================================================================================*/
+	
+	var allNotes=[];
+	
 	var token = localStorage.getItem('jwt');
 	
 	$scope.labelNote =function(event,note){
@@ -249,6 +261,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		nodes.then(function(response) {
 			console.log("Note created ");
 			$scope.allNodes();
+			$scope.note.title='';
+			$scope.note.description='';
 		}, function(response) {
 			console.log(response.data.message);
 		});
@@ -271,7 +285,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			$scope.notes = response.data;
 			console.log(response.data);
 			console.log("fetch the data sucessfull ");
-
+			$scope.allNotes=response.data;
 			$scope.data = response.data;
 			var notes = response.data;
 			console.log("Notes---->" + $scope.data.length);
@@ -338,6 +352,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	
 	// note will be update by id....
 	$scope.updateById = function(note) {
+		
 		var url = "update/" + note.id;
 		var method = "put";
 		var token = localStorage.getItem('jwt');
@@ -514,4 +529,107 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		});
 	}
 	/*================================================================================================================*/
+	
+
+	$scope.socialShare = function(note) {
+		console.log("facebook share");
+		FB.init({
+			appId : '1976981345893014',
+			status : true,
+			cookie : true,
+			xfbml : true,
+			version : 'v2.4'
+		});
+		FB.ui({
+			method : 'share_open_graph',
+			action_type : 'og.likes',
+			action_properties : JSON.stringify({
+				object : {
+					'og:title' : note.title,
+					'og:description' : note.description
+				}
+			})
+		}, function(response) {
+			alert('Posting Successfull..');
+		}, function(error) {
+			alert('Somthing went Wrong,Posting of fb Unsuccessfull..');
+		});
+     };
+     
+     
+     /*================================================================================================================*/
+     
+
+		$scope.searchAll=function(text){
+			var result=[];
+			$scope.searchNotes=result;
+			if(text.length>0){
+			var notes=allNotes;
+			var index=0;
+			var result=[];
+			for(var i=0;i<notes.length;i++){
+				if((notes[i].title.toLowerCase()).search(text)>-1){
+				result[index++]=notes[i];
+				}
+				else if((notes[i].description.toLowerCase()).search(text)>-1){
+					result[index++]=notes[i];
+				}
+				else if(notes[i].label){
+					var label=notes[i].label;
+					for(var j=0;j<label.length;j++){
+						if((label[j].labelName.toLowerCase()).search(text)>-1){
+							result[index++]=notes[i];
+						}
+					}
+				}else if(notes[i].sharedUser){
+					console.log("inside share");
+					var shared=notes[i].sharedUser;
+					for(var k=0;j<shared.length;k++){
+						if((shared[k].email.toLowerCase()).search(text)>-1){
+							result[index++]=notes[i];
+						}else if((shared[k].userName.toLowerCase()).search(text)>-1){
+							result[index++]=notes[i];
+						}
+					}
+				}
+			}
+			console.log(result);
+			$scope.searchNotes=result;
+			}
+			return result;
+		}
+		
+		
+		
+		/*================================================================================================================*/
+		$scope.editNote =function(event,note){
+			var parentEl=angular.element(document.body);
+			$mdDialog
+					.show({
+						parent:parentEl,
+						targetEvent:event,
+						templateUrl:'template/EditNote.html',
+						locals:{
+							data : note
+						},
+						clickOutsideToClose : true,
+						controller : function($scope,data,homeService){
+							$scope.note=data;
+							$scope.updateNote =function(note){
+								var data=note;
+								$mdDialog.hide();
+								$scope.updateById(data);
+							}
+							
+							
+						}
+					})
+		}
+		/*================================================================================================================*/	
+		$scope.logout=function(){
+			localStorage.clear();
+			$state.go('login');
+			
+	}
+
 });

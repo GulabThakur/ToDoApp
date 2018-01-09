@@ -41,8 +41,24 @@
 				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
 			</div>
 			<div>
-			  <img style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>  
-			
+			 <md-menu>
+			   <level ng-click="$mdMenu.open($event)"><img  style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>  
+				</level>
+				<md-menu-content>
+				<md-menu-item>
+				 <div>
+				 	<img  style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>
+				 </div>
+					{{user.userName}}
+				</md-menu-item>
+				<!-- <md-menu-item>
+					{{user.email}}
+				</md-menu-item> -->
+				<md-menu-item layout-align="end end">
+					<button ng-click="logout()">LogOut</button>
+				</md-menu-item>
+				</md-menu-content>
+				</md-menu>
 			</div>
 		</div>
 	

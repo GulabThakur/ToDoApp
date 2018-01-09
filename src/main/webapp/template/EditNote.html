@@ -1,0 +1,116 @@
+<md-card  ng-style="{'background-color': note.color}" ng-click="editNote($event,note)" >
+      	<div>
+      		<div  class="pin-class">
+      		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
+      		</div>
+		</div>
+		  <div ng-if="note.imageNote"><img ng-src={{note.imageNote}} style=" max-width: 100%;"></div>
+       </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="column" layout-align="start">
+      	<div><h4><input ng-model="note.title" type="text" style="border:0px;outline:none"></h4></div> 
+      	
+      	<div><h2><input ng-model="note.description" type="text" style="border:0px;outline:none"></h2>
+      		<div><input ng-model="note.reminder" type="text" style="border:0px;outline:none"></div>
+      		<level ng-hide="true"> 
+      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start"></md-icon>
+      		<level>
+      	</div>
+      	<div layout="row">
+      		<div  ng-repeat="user_info in note.collaboratorSet" >
+      		<img ng-click="showAlert($event, note)" style="border-radius: 15px;max-width: 60%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user_info.proFile}}"/>
+      		</div>
+      		<div ng-repeat="user_info in note.labels">
+      			<lavel>{{user_info.labelsName}}</lavel>
+      			<md-icon ng-click="deleteLavel(note.id,user_info.labelsId)" md-svg-icon="image/cancel.svg" ></md-icon>
+      		</div>
+      	</div>
+      	
+      	<br>     
+        </md-card-actions>
+        <div layout="row" layout-align="space-around">
+        
+        	<div>
+        	<md-menu >
+        		<md-icon ng-click="$mdMenu.open($event)" md-svg-icon="image/touch_black.svg" ></md-icon>
+        		<md-menu-content>
+        		<md-menu-item>
+        			<level>Reminder</level>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-show='first' >Later today</md-button>
+        			<input mdc-datetime-picker="" date="false" time="true" type="text" id="datetime"
+									placeholder="Date" show-todays-date="" min-date="date" ng-model="reminder" class=" md-input"
+										readonly="readonly" ng-change="reminderFunction(note,reminder)">
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Tomorrow</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Next-week</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Pick data & time</md-button>
+        		</md-menu-item>
+        		<md-menu-item>
+        			<md-button ng-click="">Pick Place</md-button>
+        		</md-menu-item>
+        		</md-menu-content>
+        	</md-menu>
+        	</div>
+        	<div>
+        			<md-tooltip md-direction="bottom">Collabratore</md-tooltip>
+					<md-icon ng-click="showAlert($event, note)" md-svg-icon="image/collabroter.svg" ></md-icon>
+					
+			</div>
+			<!-- <div>
+					<md-icon ng-click="uploadImage(note)" md-svg-icon="image/image.svg" ></md-icon>
+					<input ng-show="false" id="image" type='file' ng-model-instant ng-model="file" onchange="angular.element(this).scope().imageUpload(this)" />
+			</div> -->
+			<div>
+					<md-tooltip md-direction="bottom">Add Image</md-tooltip>
+						<img md-card-image ng-src="image/image.svg" 
+						class="profile-img" ng-click="openHiddenButton(note)"/>
+						
+        				<input id="image" type="file" ng-model="note.image" ngf-select="imageUpload(note)" ngf-multiple="false" 
+        				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
+			</div>
+        	<div>
+        	<md-menu>
+			<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
+			</md-menu>
+			</div>
+        	<div>
+        	<md-icon ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
+        	</div>
+        	<div>
+        	<md-menu>
+        	
+        			<md-icon ng-click="$mdMenu.open($event)" aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
+        			<md-menu-content>
+        			<md-menu-item>
+        			<md-button ng-click="trash(note)" >delete note</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="labelNote($event, note)">add level</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="socialShare(note)" ng-disabled="false">FaceBookshare</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="addNode(note)">make copy</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="" ng-disabled="true">show checkboxes</md-button>
+        			</md-menu-item>
+        			<md-menu-item>
+        			<md-button ng-click="" ng-disabled="true">copy to googleDocs</md-button>
+        			</md-menu-item>
+        			<md-menu-content>
+        			</md-menu>
+        	</div>
+        
+        </div>
+      		  <level ng-click="updateNote(note)" flex>Save
+                    </level>
+      </md-card>

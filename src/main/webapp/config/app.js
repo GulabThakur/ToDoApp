@@ -59,5 +59,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl :'template/DummyHome.html',
 		controller :'dummyHomeCrt'
 	})
+	
+	/*.state('cardDriective',{
+		url:"/cardDriective",
+		templateUrl :'template/deshboard.html',
+		controller :'homepageCrt'
+	})*/
+	
 	$urlRouterProvider.otherwise('/login');
 });
