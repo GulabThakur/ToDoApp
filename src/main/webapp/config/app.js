@@ -60,11 +60,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		controller :'dummyHomeCrt'
 	})
 	
-	/*.state('cardDriective',{
-		url:"/cardDriective",
-		templateUrl :'template/deshboard.html',
+	.state('Search',{
+		url:"/Search",
+		templateUrl :'template/Search.html',
 		controller :'homepageCrt'
-	})*/
+	})
 	
 	$urlRouterProvider.otherwise('/login');
 });

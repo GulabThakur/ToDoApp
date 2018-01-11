@@ -7,7 +7,9 @@
 var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
-		$mdDialog) {
+		$mdDialog,$timeout) {
+	
+	
 	
 	$(function(){
 		 $("#Div1 input").keypress(function (e) {
@@ -23,14 +25,14 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	
 	var token = localStorage.getItem('jwt');
 	
-	$scope.labelNote =function(event,note){
+	$scope.labelNote =function(note){
 		
 		var parentEl=angular.element(document.body);
 		console.log(note);
 		$mdDialog
 				.show({
 					parent:parentEl,
-					targetEvent:event,
+					/*targetEvent:event,*/
 					templateUrl:'template/LabelDialogNote.html',
 					locals:{
 						data:$scope.labels,
@@ -82,12 +84,12 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	}
 	
 	/*================================================================================================================*/
-	$scope.lablesAlert=function(event){
+	$scope.lablesAlert=function(){
 		var parentEl=angular.element(document.body);
 		$mdDialog
 				.show({
 					parent:parentEl,
-					targetEvent:event,
+					/*targetEvent:event,*/
 					templateUrl:'template/LablesDilog.html',
 					locals:{
 						data:$scope.labels
@@ -137,14 +139,14 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	/*================================================================================================================*/
 	
 	var userData = null;
-	$scope.showAlert = function(event, note) {
+	$scope.showAlert = function(note) {
 		var parentEl = angular.element(document.body);
 		/*$scope.owner(note);*/
 		$scope.getUser(note);
 		$mdDialog
 				.show({
 					parent : parentEl,
-					targetEvent : event,
+					/*targetEvent : event,*/
 					templateUrl : 'template/collaboratore.html',
 					locals : {
 						data : note,
@@ -231,11 +233,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	// this method using for call profile..
 	$scope.ownerdetails = {};
 	$scope.profileData = function() {
-		var url = "userData";
-		var method = "post";
-		var token = localStorage.getItem('jwt');
-		var data = null;
-		var nodes = homeService.getAllnode(url, method, token, data);
+		var nodes = homeService.getAllnode("userData", "post", token, null);
 		nodes.then(function(response) {
 			$scope.user = response.data;
 			$scope.ownerdetails=response.data;
@@ -253,11 +251,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	// this is function for create note
 	$scope.addNode = function() {
 		$scope.allNodes();
-		var url = "create";
-		var method = "post";
-		var token = localStorage.getItem('jwt');
 		var data = $scope.note;
-		var nodes = homeService.getAllnode(url, method, token, data);
+		var nodes = homeService.getAllnode("create", "post", token, data);
 		nodes.then(function(response) {
 			console.log("Note created ");
 			$scope.allNodes();
@@ -269,18 +264,18 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 	}
 	
+	
+	$scope.addCopy=function(note){
+		$scope.allNodes();
+		var nodes = homeService.getAllnode("create", "post", token, note);
+	}
 	/*================================================================================================================*/
 	
 	// get all note with help this function ....
 	$scope.allNodes = function() {
 		console.log("inside all note");
-		var url = "all";
-		var method = "post";
 		$scope.notes = [];
-		var token = localStorage.getItem('jwt');
-		var data = null;
-		console.log("inside all note")
-		var nodes = homeService.getAllnode(url, method, token, data);
+		var nodes = homeService.getAllnode("all",  "post", token, null);
 		nodes.then(function(response) {
 			$scope.notes = response.data;
 			console.log(response.data);
@@ -319,11 +314,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	// here i am call automatically allnodes();
 	$scope.allNodes();
 	$scope.getById = function() {
-		var url = "record";
-		var method = "get";
-		var token = localStorage.getItem('jwt');
+	
 		// var data=$scope.note;
-		var nodes = homeService.getAllnode(url, method, token, data);
+		var nodes = homeService.getAllnode( "record", "get", token, data);
 		nodes.then(function(response) {
 			console.log("fetch the data sucessfull by id ");
 		}, function() {
@@ -404,7 +397,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	
 	// pin notes....
 	$scope.pin = function(note) {
-
+		console.log("gdfgfhfhghhhhh");
 		if (note.pin == false) {
 			note.pin = true;
 		} else {
@@ -504,13 +497,14 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	}
 
 	/*================================================================================================================*/
-	
+	$timeout(function() {$scope.imageUpload();}, 3000);
 	$scope.stepsModel = [];
 	$scope.imageUpload = function(note) {
-		console.log("hello we r in imageUpload");
+		console.log("hello we r in imageUpload",note);
 		var reader = new FileReader();
-		console.log("note : " + note);
+		console.log("note : " ,note );
 		reader.onload = $scope.imageLoader;
+		
 		reader.readAsDataURL(note.image);
 		console.log("note.image : " + note.imageNote);
 	}
@@ -631,5 +625,41 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			$state.go('login');
 			
 	}
+		
+		$scope.searchFunction=function(){
+			$state.go('Search');
+		}
 
+		
+		
+		/*================================================================================================================*/
+		 $scope.showNav=true;
+		    $scope.hideNav=function(){
+		    	$scope.showNav=!$scope.showNav;
+	     } 
+		
+		
+		/*================================================================================================================*/
+		// for list and grid view
+		$scope.view = "true";
+
+		$scope.flex = "33";
+		$scope.align1 = "row";
+		/*$scope.align2 = "start";*/
+
+		/*================================================================================================================*/	
+		$scope.changeView = function() {
+			if ($scope.view) {
+				$scope.flex = "66";
+				$scope.align1 = "column";
+				/*$scope.align2 = "center";*/
+				$scope.view = !$scope.view;
+			} else {
+				$scope.flex = "33";
+				$scope.align1 = "row";
+				/*$scope.align2 = "start";*/
+				$scope.view = !$scope.view;
+			}
+
+}
 });

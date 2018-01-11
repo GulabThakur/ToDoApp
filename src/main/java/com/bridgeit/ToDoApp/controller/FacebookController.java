@@ -81,7 +81,7 @@ public class FacebookController {
 				response.setHeader("Authorization", token1);
 				session.setAttribute("jwt", token1);
 				message.setMessage("User Successfully registered.");
-				response.sendRedirect("http://localhost:8080/ToDoApp/#!/DummyHome");
+				response.sendRedirect("/ToDoApp/#!/DummyHome");
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			} else {
 				message.setMessage("User is not registered.");
@@ -93,7 +93,7 @@ public class FacebookController {
 			userModelService.update(user);
 			session.setAttribute("jwt", token2);
 			message.setMessage("User already exist.");
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/DummyHome");
+			response.sendRedirect("/ToDoApp/#!/DummyHome");
 			return new ResponseEntity<Response>(message, HttpStatus.ALREADY_REPORTED);
 		}
 	}
