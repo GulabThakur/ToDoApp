@@ -430,11 +430,14 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	
 	/*================================================================================================================*/
 	// for color picker...
+	
 	$scope.color = function() {
+		//console.log("color calll");
 		$scope.options = [ 'transparent', '#FF8A80', '#FFD180', '#FFFF8D',
 				'#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90' ];
-
+		
 		$scope.colorChanged = function(newColor, note) {
+			console.log("COLORE CHANGE KKLKKJJJJJJ");
 			note.color = newColor;
 			$scope.updateById(note);
 			console.log("Hi........" + note.color);
@@ -488,7 +491,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	/*================================================================================================================*/
 	// This for image upload
 
-	$scope.type = {};
+	$scope.type = [];
 	$scope.openHiddenButton = function(note) {
 		console.log("welcome to open hidden function...");
 		$('#image').trigger('click');
@@ -500,13 +503,15 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	$timeout(function() {$scope.imageUpload();}, 3000);
 	$scope.stepsModel = [];
 	$scope.imageUpload = function(note) {
+		//localStorage.setItem('noteData',note);
 		console.log("hello we r in imageUpload",note);
 		var reader = new FileReader();
-		console.log("note : " ,note );
+		console.log("" ,note );
 		reader.onload = $scope.imageLoader;
+		//var notedata=localStorage.getItem('noteData');
 		
 		reader.readAsDataURL(note.image);
-		console.log("note.image : " + note.imageNote);
+		console.log("note.image : " ,note.imageNote);
 	}
 
 	

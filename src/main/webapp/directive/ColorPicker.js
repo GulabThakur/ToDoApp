@@ -1,7 +1,7 @@
 angular.module('tb-color-picker', [])
     .run(['$templateCache', function($templateCache) {
         $templateCache.put('ColorePicker.html', '<div class="color-picker">'+
-            '<div ><md-icon ng-click="color(note)" aria-label="Open some menu" md-svg-icon="image/colore.svg"></md-icon></div>' +
+            '<div ><md-icon ng-click="color()" aria-label="Open some menu" md-svg-icon="image/colore.svg"></md-icon></div>' +
             '<div class="color-palette">'+
                 '<div ng-repeat="option in vm.options"'+
                 'ng-style="{\'background-color\': option}"'+
@@ -20,18 +20,17 @@ angular.module('tb-color-picker', [])
             bindToController: {
                 color: '=',
                 options: '=',
-                onColorChanged: '&'
+                colorChanged: '&'
             }
         };
 
-        function colorPickerDirectiveController() {
+        function colorPickerDirectiveController($scope) {
             var vm = this;
-            
             vm.changeColor = function (option) {
-                if(vm.color != option) {
-                    var old = vm.color;
-                    vm.color = option;
-                    vm.onColorChanged({newColor: option, oldColor: old});
+                if(vm.color1 != option) {
+                    var old = vm.color1;
+                    vm.color1 = option;
+                    $scope.colorChanged({newColor: option, oldColor: old});
                 }
             }
 

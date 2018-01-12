@@ -18,7 +18,11 @@ app.directive('cardDrective', function(){
 			 socialShare:'&',
 			 addCopy:'&',
 			 archive:'&',
-			 labelNote:'&'
+			 labelNote:'&',
+			 color:'&',
+			 option:'=',
+			 col:'=',
+			 colorChanged:'&'
 			 },
 		 templateUrl:"template/cardDriective.html",
 	};

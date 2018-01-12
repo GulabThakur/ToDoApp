@@ -72,10 +72,9 @@
         				<input id="image" type="file" ng-model="data.image" ngf-select="imageUpload(note)" ngf-multiple="false" 
         				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
 			</div>
+			
         	<div>
-        	<md-menu>
-			<color-picker ng-model="data.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
-			</md-menu>
+			<color-picker  ng-model="data.color" on-color-changed="colorChanged(newColor, note)" color="col" options="option"></color-picker>
 			</div>
         	<div>
         	<md-icon ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>

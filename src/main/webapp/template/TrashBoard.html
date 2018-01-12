@@ -1,9 +1,17 @@
 <!-- .............................this  trash board ........................ -->
 <md-content>
   
-  	<div layout="row"  layout-wrap>
+  
+  <div id="div4" layout="{{align1}}" layout-xs="column" layout-wrap>
+ 
+ <card-drective flex="{{flex}}" flex-xs="100" data="note" user-data="user"
+           
+			ng-repeat="note in notes | filter:{archive:false}| filter:{trash:true} |filter:{pin:false}"></card-drective> 
+ </div>
+  
+  	<!-- <div layout="row"  layout-wrap>
     <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:true} |filter:{pin:false}" class="content-class" ng-click="" flex >
-     	<!-- <md-grid-tile> -->
+     	<md-grid-tile>
       <md-card ng-style="{'background-color': note.color}">
       	
        </md-card-title-media>
@@ -29,5 +37,5 @@
         </div>
       </md-card>
       </div>
-    	</div>
+    	</div> -->
   </md-content>

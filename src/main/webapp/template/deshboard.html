@@ -77,7 +77,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
    
  <div id="div2" layout="{{align1}}" layout-xs="column" layout-wrap>
  
- <card-drective flex="{{flex}}" flex-xs="100" data="note" userData="user"
+ <card-drective flex="{{flex}}" flex-xs="100" data="note" user-data="user"
              pin="pin(note)"
 			 delete-reminder="deleteReminder(note)"
 			 show-alert="showAlert(note)"
@@ -89,10 +89,14 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 			 archive="archive(note)"
 			 add-copy="addCopy(note)"
 			 label-note="labelNote(note)"
-			 
-  ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false} |filter:{pin:false}"></card-drective> 
+			 color="color()"
+			 col="color"
+			 option="options"
+			 color-changed="colorChanged(newColor, note)"
+			
+			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false} |filter:{pin:false}"></card-drective> 
  </div>
-  
+
   <!-- ....................note create here...................................................................... -->
  <!-- 
  <div id="div2" layout="row" layout-xs="column" layout-wrap>
@@ -221,7 +225,29 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 <md-divider></md-divider>
  <p>==============================================PIN==================================================================</p>
  
- <div id="div4" layout="row" layout-xs="column" layout-wrap>
+  <div id="div4" layout="{{align1}}"  layout-wrap>
+ 
+ <card-drective  flex-gt-xs="{{flex}}" flex-xs="100" data="note" user-data="user"
+             pin="pin(note)"
+			 delete-reminder="deleteReminder(note)"
+			 show-alert="showAlert(note)"
+			 reminder-function="reminderFunction(note)"
+			 image-upload="imageUpload(note)"
+			 open-hidden-button="openHiddenButton(note)"
+			 trash="trash(note)"
+			 social-share="socialShare(note)"
+			 archive="archive(note)"
+			 add-copy="addCopy(note)"
+			 label-note="labelNote(note)"
+			 color="color()"
+			 col="color"
+			 option="options"
+			 color-changed="colorChanged(newColor, note)"
+			
+			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false}|filter:{pin:true}"></card-drective> 
+ </div>
+ 
+ <!-- <div id="div4" layout="row" layout-xs="column" layout-wrap>
     <div flex="{{flex}}" flex-xs="100" ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}|filter:{pin:true}" class="content-class" ng-click="" flex >
      	
  	 <md-card ng-style="{'background-color': note.color}">
@@ -247,7 +273,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         			<level>Reminder</level>
         		</md-menu-item>
         		<md-menu-item>
-        			<md-button ng-click="">Later today</md-button>
+        			<md-button ng-click="">Later today</mvmd-button>
         		</md-menu-item>
         		<md-menu-item>
         			<md-button ng-click="">Tomorrow</md-button>
@@ -271,7 +297,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
 			</div>
         	<div>
-				<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
+				<color-picker ng-model="note.color" color-changed="colorChanged(newColor, note)" color="note.color" options="options"></color-picker>
 			</div>
         	<div>
         	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
@@ -305,6 +331,6 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         </div>
       </md-card>
  	</div>    
-    </div>
+    </div> -->
     
 </div>
