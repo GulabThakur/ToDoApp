@@ -413,6 +413,12 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("come inside sucessfull")
 	}
 	
+	// reminderFunction....
+	$scope.reminderLoad=function(){
+		$state.go('Reminder');
+		console.log("come in side reminder....");
+	}
+	
 	/*================================================================================================================*/
 	// call from notes..
 	$scope.notesFunction = function() {
@@ -462,6 +468,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	// for reminder function......
 	$scope.reminderFunction = function(note, reminderDate) {
 		console.log("Inside Remainder..........");
+		console.log("time is current :",reminderDate);
 		console.log(note);
 		note.reminder = reminderDate;
 		var date = new Date(reminderDate);
@@ -470,7 +477,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log(dates);
 		// var parseDate = Date.parse();
 		note.reminder = dates;
-		console.log(" notes obj" + note);
+		console.log(" notes obj" , note.reminder);
 		$scope.updateById(note);
 		$scope.allNodes();
 		
@@ -563,7 +570,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			var result=[];
 			$scope.searchNotes=result;
 			if(text.length>0){
-			var notes=allNotes;
+			var notes=$scope.allNotes;
 			var index=0;
 			var result=[];
 			for(var i=0;i<notes.length;i++){

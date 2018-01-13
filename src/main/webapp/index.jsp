@@ -55,6 +55,7 @@
 <script type="text/javascript" src="directive/Archive.js"></script>
 <script type="text/javascript" src="directive/ColorPicker.js"></script>
 <script type="text/javascript" src="directive/CustomCard.js"></script>
+<script type="text/javascript" src="directive/Reminder.js"></script>
 <!-- <script type="text/javascript" src="directive/colourePicker.js"></script> -->
 
 <!-- for color picker    -->
@@ -67,6 +68,7 @@
 <script type="text/javascript" src="service/ResetService.js"></script>
 <script type="text/javascript" src="service/HomeService.js"></script>
 <script type="text/javascript" src="service/DummyService.js"></script>
+
 
 <!-- All Controllers are here -->
 <script type="text/javascript" src="controller/loginController.js"></script>

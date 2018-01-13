@@ -11,9 +11,10 @@
         <md-card-actions layout="column" layout-align="start">
       	<div><h4>{{data.title}}</h4></div> 
       	<div><h2>{{data.description}}</h2>
-      		<div>{{data.reminder}}</div>
-      		<level ng-hide="true"> 
-      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start"></md-icon>
+      		
+      		<level ng-if="data.reminder"> 
+      		{{data.reminder}}
+      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start" nf-if="data.reminder"></md-icon>
       		<level>
       	</div>
       	<div layout="row">

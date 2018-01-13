@@ -65,6 +65,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl :'template/Search.html',
 		controller :'homepageCrt'
 	})
+	// THIS FUNCTION ....
+	.state('Reminder',{
+		url:"/Reminder",
+		templateUrl :'template/ReminderLoad.html',
+		controller :'homepageCrt'
+	})
 	
 	$urlRouterProvider.otherwise('/login');
 });
