@@ -31,7 +31,7 @@
 
 		<md-input-container class="md-block"> <label>Password</label>
 			<input type="password" name="password" class="form-control"
-			ng-model="user.password" ng-minlength="6" ng-maxlength="16" required>
+			ng-model="user.password" ng-minlength="6" ng-maxlength="16" ng-pattern="password" required >
 			<div ng-messages="userForm.password.$error">
 				<div ng-message="required">This is required.</div>
 			</div>
@@ -44,6 +44,9 @@
 			<div ng-messages="userForm.conform_psd.$error">
 				<div ng-message="required">This is required.</div>
 			</div>
+			<center>
+			<font color="red"><p ng-bind="errorMissMatch" ng-disable></p></font>
+		</center>
 		</md-input-container>
 		
 		

@@ -4,15 +4,42 @@
  * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router', 'ngMaterial' ,'tb-color-picker','ngMaterialDatePicker','ngFileUpload']);
-
-app.config(function($stateProvider, $urlRouterProvider) {
+var app = angular.module('ToDo', [ 'ui.router','angular-img-cropper','ngMaterial' ,'satellizer','tb-color-picker','ngMaterialDatePicker','ngFileUpload' ]);
+/*
+var skipIfAuthenticated=function($q, $state, $auth) {
+	  var defer = $q.defer();
+  if($auth.isAuthenticated()) {
+	    defer.reject(); 
+	  } else {
+	    defer.resolve();
+	  }
+	  return defer.promise;
+	}
+	
+ var redirectIfNotAuthenticated =function($q, $state, $auth ,$timeout) {
+		  var defer = $q.defer();
+	  if($auth.isAuthenticated()) {
+	    defer.resolve();
+		  } else {
+		    $timeout(function () {
+		      $state.go('/login'); 
+		    }, 3000);
+		    defer.reject();
+		  }
+		  return defer.promise;
+	  
+		}*/
+app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 	$stateProvider
+	
 	// this code will be use for login CrtL and load HtmL..
 	.state('login', {
 		url : '/login',
 		// template: 'login',
 		templateUrl : 'template/login.html',
+		/*resolve: {
+		        skipIfAuthenticated: skipIfAuthenticated
+		      },*/
 		controller : 'loginController'
 	})
 	// this code will be use for register CrtL and load HtmL..
@@ -37,6 +64,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	.state('homepage', {
 		url : "/homepage",
 		templateUrl : 'template/homepage.html',
+		/*resolve: {
+	        redirectIfNotAuthenticated: redirectIfNotAuthenticated
+	      },*/
 		controller : 'homepageCrt'
 	})
 
@@ -71,6 +101,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl :'template/ReminderLoad.html',
 		controller :'homepageCrt'
 	})
+	
+	
 	
 	$urlRouterProvider.otherwise('/login');
 });

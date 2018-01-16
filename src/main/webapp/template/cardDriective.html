@@ -40,9 +40,14 @@
         		</md-menu-item>
         		<md-menu-item>
         			<md-button ng-show='first' >Later today</md-button>
-        			<input mdc-datetime-picker="" date="false" time="true" type="text" id="datetime"
+        			</md-input-container>
+        			 <label>Select Date and Time</label>
+<input name="reminder" mdc-datetime-picker date="true" time="true" type="text" id="datetime"
+placeholder="Date" show-todays-date="" min-date="date" ng-model="data.reminder"  ng-change="reminderFunction(data,reminder)" class=" md-input" readonly="readonly">
+</md-input-container>
+        			<!-- <input name="reminder" mdc-datetime-picker="" date="false" time="true" type="text" id="datetime"
 									placeholder="Date" show-todays-date="" min-date="date" ng-model="reminder" class=" md-input"
-										readonly="readonly" ng-change="reminderFunction(note,reminder)">
+										readonly="readonly" ng-change="reminderFunction(note,reminder)"> -->
         		</md-menu-item>
         		<md-menu-item>
         			<md-button ng-click="">Tomorrow</md-button>

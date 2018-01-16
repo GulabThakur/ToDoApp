@@ -98,7 +98,7 @@ public class FacebookController {
 		}
 	}
 
-	/*  ===================================get token===========================================================  */
+	/*===================================get token===========================================================  */
 	@RequestMapping(value = "/getToken")
 	public ResponseEntity<Response> getToken(HttpSession session) {
 		//System.out.println("welcome....");

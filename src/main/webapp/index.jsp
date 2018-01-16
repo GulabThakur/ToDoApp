@@ -39,6 +39,10 @@
 <!-- for uploading  image   -->
 <script src="https://connect.facebook.net/enUS/all.js"></script>
 
+
+<script src="bower_components/node_modules/angular-img-cropper/src/angular-img-cropper.js"></script>
+<script src="bower_components/node_modules/satellizer/dist/satellizer.js"></script>
+<script src="bower_components/node_modules/satellizer/dist/satellizer.min.js"></script>
 <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->
 
 

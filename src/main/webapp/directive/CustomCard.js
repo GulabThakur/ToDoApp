@@ -5,7 +5,7 @@ app.directive('cardDrective', function(){
 	return {
 		 restrict: 'E',
 		
-		 scope: { 
+		 scope: {
 			 data: '=',
 			 userData:'=',
 			 pin:'&',
@@ -22,9 +22,11 @@ app.directive('cardDrective', function(){
 			 color:'&',
 			 option:'=',
 			 col:'=',
-			 colorChanged:'&'
+			 colorChanged:'&',
+			 deleteLavel:'&',
+			 lables:'='
 			 },
-		 templateUrl:"template/cardDriective.html",
+		 templateUrl:"template/cardDriective.html"
 	};
 });
 

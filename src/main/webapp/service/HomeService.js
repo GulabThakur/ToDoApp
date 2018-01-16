@@ -1,5 +1,7 @@
 var app = angular.module('ToDo');
-app.factory('homeService', function($http ) {
+app.factory('homeService',  
+	 
+	function($http ) {
 	var notes = {};
 	console.log("asdhasdasd");
 	// this is my generic method accepted all method 

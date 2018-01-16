@@ -2,7 +2,7 @@
   
   		<div layout="row"  layout-wrap>
   		
-    <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false} |filter:{pin:false} | filter:{reminder:'null'}"  class="content-class" ng-click="" flex >
+    <div flex="33"  ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false} |filter:{pin:false} | filter:{reminder:' '}"  class="content-class" ng-click="" flex >
      	<!-- <md-grid-tile> -->
       <md-card ng-style="{'background-color': note.color}">
       	<div>

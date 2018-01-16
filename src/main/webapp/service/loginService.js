@@ -1,5 +1,7 @@
 var app=angular.module('ToDo');
-app.factory("loginService",function($http,$location)
+app.factory("loginService",
+	
+	function($http,$location)
 		{
 	console.log("response will come");
 			var login={};
@@ -19,5 +21,7 @@ app.factory("loginService",function($http,$location)
 					url:'getToken'
 				});
 			}
+			
 		return login;
+		
 		});

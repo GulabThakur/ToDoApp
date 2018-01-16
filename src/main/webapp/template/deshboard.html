@@ -81,7 +81,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
              pin="pin(note)"
 			 delete-reminder="deleteReminder(note)"
 			 show-alert="showAlert(note)"
-			 reminder-function="reminderFunction(note)"
+			 reminder-function="reminderFunction(note,reminder)"
 			 image-upload="imageUpload(note)"
 			 open-hidden-button="openHiddenButton(note)"
 			 trash="trash(note)"
@@ -89,11 +89,12 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 			 archive="archive(note)"
 			 add-copy="addCopy(note)"
 			 label-note="labelNote(note)"
+			
 			 color="color()"
 			 col="color"
 			 option="options"
 			 color-changed="colorChanged(newColor, note)"
-			
+			 delete-lavel="deleteLavel(note.id,labels.labelsId)"
 			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false} |filter:{pin:false}"></card-drective> 
  </div>
 

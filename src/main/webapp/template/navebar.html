@@ -47,7 +47,7 @@
 				<md-menu-content>
 				<md-menu-item>
 				 <div>
-				 	<img  style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>
+				   <img ng-click="changeImage()" style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>
 				 </div>
 					{{user.userName}}
 				</md-menu-item>
@@ -64,4 +64,5 @@
 	
 </md-navbar>
  
+
 

@@ -11,6 +11,21 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	
 	
 	
+	// FOR Image crop
+	
+	
+	  $scope.cropper = {};
+      $scope.cropper.sourceImage = null;
+      $scope.cropper.croppedImage = null;
+      $scope.bounds = {};
+      $scope.bounds.left = 0;
+      $scope.bounds.right = 0;
+      $scope.bounds.top = 0;
+      $scope.bounds.bottom = 0;
+	
+	//
+	
+	
 	$(function(){
 		 $("#Div1 input").keypress(function (e) {
 		    if (e.keyCode == 13) {
@@ -75,6 +90,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	/*================================================================================================================*/
 	
 	$scope.deleteLavel=function(noteId,labelsId){
+		console.log("    ILU hutyu    :",noteId,labelsId);
 		var lableDel=homeService.getAllnode("lavelDelete/"+noteId+"/"+labelsId+"","post",token,null);
 		lableDel.then(function(response){
 			console.log(response.data.message);
@@ -243,6 +259,10 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 	}
 
+	$scope.cropImage = function(userPic){
+		console.log("welcome.....imageCrop....Function");
+		
+	}
 	/*================================================================================================================*/
 	
 	
@@ -472,9 +492,10 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log(note);
 		note.reminder = reminderDate;
 		var date = new Date(reminderDate);
-
-		var dates = $filter('date')(new Date(), 'MMM dd yyyy HH:mm');
-		console.log(dates);
+		//var date=Date.parse(reminderDate);
+		//console.log("......................:",date);
+		var dates = $filter('datetime')(date, 'MM dd yyyy HH:mm');
+		console.log("tiem will cahge",dates);
 		// var parseDate = Date.parse();
 		note.reminder = dates;
 		console.log(" notes obj" , note.reminder);
@@ -672,6 +693,18 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 				/*$scope.align2 = "start";*/
 				$scope.view = !$scope.view;
 			}
-
-}
+         }
+		
+		
+		$scope.changeImage=function(){
+			
+			var parentEl=angular.element(document.body);
+			$mdDialog
+					.show({
+						parent:parentEl,
+						templateUrl:'template/imgeCrop.html',
+						locals:{
+							data:$scope.labels
+						}})
+		}
 });
