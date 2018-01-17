@@ -1,5 +1,5 @@
 var app = angular.module('ToDo');
-app.controller('registerController',function($scope,registrationService,$location){
+app.controller('registerController',function($scope,registrationService,$location,$state){
 
 	$scope.registerUser= function(){
 		var objectUser=$scope.user;
@@ -13,8 +13,7 @@ app.controller('registerController',function($scope,registrationService,$locatio
 			.then(function(response){
 			console.log(response.data.message);
 			localStorage.setItem('token',response.data.message);
-			
-			$location.path();
+			$state.go('login');
 		},function(response){
 			if(response.status==409)
 				{

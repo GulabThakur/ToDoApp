@@ -78,10 +78,11 @@ public class UserController {
 				data.setEmail(user.getEmail());
 				data.setToken(url);
 				// This use for for jms technology.....
-				messageProducer.send(data);
+				/*messageProducer.send(data);*/
 				// if you want to email process in your project remove in blow line then use
 				// email process
-				// email.registration(user.getEmail(), url);
+				 email.registration(user.getEmail(), url);
+				
 				message.setMessage("sucessfull ragister");
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			}
@@ -99,12 +100,12 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> login(@RequestBody UserModel user, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		Response message = new Response();
+		Response resp = new Response();
 		System.out.println("value ...." + user.getEmail());
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
-			message.setMessage("You dont have account plesse register first");
-			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+			resp.setMessage("You dont have account plesse register first");
+			return new ResponseEntity<Response>(resp, HttpStatus.BAD_REQUEST);
 		}
 		String token2 = token.genratedToken(user1.getId());
 		int condition = user1.isActive();
@@ -116,16 +117,16 @@ public class UserController {
 			boolean status=userModelService.login(user.getEmail(), user.getPassword());
 			if(status) 
 			{
-				message.setMessage(token2);
-				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
+				resp.setToken(token2);
+				return new ResponseEntity<Response>(resp, HttpStatus.ACCEPTED);
 			}
 			// calling home page.......
 			//response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
-			message.setMessage("wrong password");
-			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+			resp.setMessage("wrong password");
+			return new ResponseEntity<Response>(resp, HttpStatus.BAD_REQUEST);
 		}
-		message.setMessage("please acivate your ragistration chech mail");
-		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
+		resp.setMessage("please acivate your ragistration chech mail");
+		return new ResponseEntity<Response>(resp, HttpStatus.BAD_REQUEST);
 	}
 
 	/*

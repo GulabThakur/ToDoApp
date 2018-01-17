@@ -1,14 +1,20 @@
 //for using login 
 var app = angular.module('ToDo');
 app.controller('loginController', function($scope, loginService, $location,
-		$state) {
+		$state,$auth) {
+	 $scope.authenticate = function(provider) {
+		 $auth.authenticate(provider);
+	      console.log("welcome to login page");
+	    };
 	$scope.loginClick = function() {
+		 
 		var a = loginService.loginUser($scope.user);
+		 
 		// when you password and email is correct
 		a.then(function(response) {
 			console.log(response.data.message);
 			// localStorage.setItem('token',response.data.message);
-			localStorage.setItem('jwt',response.data.message);
+			localStorage.setItem('jwt',response.data.token);
 		
 			console.log("loginsucessfull");
 			// $location.path('homepage');

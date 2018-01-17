@@ -5,10 +5,13 @@
  */
 
 var app = angular.module('ToDo', [ 'ui.router','angular-img-cropper','ngMaterial' ,'satellizer','tb-color-picker','ngMaterialDatePicker','ngFileUpload' ]);
-/*
-var skipIfAuthenticated=function($q, $state, $auth) {
+
+var skipIfAuthenticated=function($q, $state, $auth,$timeout) {
 	  var defer = $q.defer();
   if($auth.isAuthenticated()) {
+	    $timeout(function () {
+	    	$state.go('homepage'); 
+	    },500);
 	    defer.reject(); 
 	  } else {
 	    defer.resolve();
@@ -17,29 +20,30 @@ var skipIfAuthenticated=function($q, $state, $auth) {
 	}
 	
  var redirectIfNotAuthenticated =function($q, $state, $auth ,$timeout) {
+	
 		  var defer = $q.defer();
-	  if($auth.isAuthenticated()) {
+	  if($auth.authenticate()) {
 	    defer.resolve();
 		  } else {
 		    $timeout(function () {
-		      $state.go('/login'); 
-		    }, 3000);
+		      $state.go('login'); 
+		    });
 		    defer.reject();
 		  }
 		  return defer.promise;
 	  
-		}*/
+		}
 app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
+	$authProvider.tokenName = 'token';
 	$stateProvider
-	
 	// this code will be use for login CrtL and load HtmL..
 	.state('login', {
 		url : '/login',
 		// template: 'login',
 		templateUrl : 'template/login.html',
-		/*resolve: {
+		resolve: {
 		        skipIfAuthenticated: skipIfAuthenticated
-		      },*/
+		      },
 		controller : 'loginController'
 	})
 	// this code will be use for register CrtL and load HtmL..

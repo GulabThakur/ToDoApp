@@ -30,7 +30,7 @@
 		</md-input-container>
 
 		<md-input-container class="md-block"> <label>Password</label>
-			<input type="password" name="password" class="form-control"
+			<input type="password" name="password" class="form-control" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,16}$/"
 			ng-model="user.password" ng-minlength="6" ng-maxlength="16" ng-pattern="password" required >
 			<div ng-messages="userForm.password.$error">
 				<div ng-message="required">This is required.</div>
@@ -39,7 +39,7 @@
 		
 		
 				<md-input-container class="md-block"> <label>Conform-password</label>
-			<input type="password" name="conform_psd" class="form-control"
+			<input type="password" name="conform_psd" class="form-control" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
 			ng-model="user.conform_psd" ng-minlength="6" ng-maxlength="16" required>
 			<div ng-messages="userForm.conform_psd.$error">
 				<div ng-message="required">This is required.</div>

@@ -1,5 +1,5 @@
 var app =angular.module('ToDo');
-app.factory('dummyService',function($http)
+app.factory('dummyService',function($http,$auth)
 		{
 	console.log("coming servive");
 			var token ={};

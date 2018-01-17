@@ -25,7 +25,6 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	
 	//
 	
-	
 	$(function(){
 		 $("#Div1 input").keypress(function (e) {
 		    if (e.keyCode == 13) {
@@ -695,6 +694,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			}
          }
 		
+	
+		var scopepicImage;
 		
 		$scope.changeImage=function(){
 			
@@ -704,7 +705,24 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 						parent:parentEl,
 						templateUrl:'template/imgeCrop.html',
 						locals:{
-							data:$scope.labels
-						}})
+
+							 cropper: $scope.cropper = {},
+						     sourceImage:$scope.cropper.sourceImage = null,
+						     croppedImage: $scope.cropper.croppedImage = null,
+						     bounds:$scope.bounds = {},
+						     left :$scope.bounds.left = 0,
+						     right :$scope.bounds.right = 0,
+						     top:$scope.bounds.top = 0,
+						     bottom : $scope.bounds.bottom = 0,
+						},
+						clickOutsideToClose : true,
+						controller: function($scope,cropper,sourceImage,croppedImage,bounds,left,right,top,bottom){
+							 $scope.imageCrop= function(imageUrl){
+								  scopepicImage=$scope.cropper.croppedImage;
+								  console.log(" Image Url  :", scopepicImage);
+									$mdDialog.hide();
+									 }
+						}
+					})
 		}
 });

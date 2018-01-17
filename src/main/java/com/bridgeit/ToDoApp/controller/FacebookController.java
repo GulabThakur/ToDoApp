@@ -105,7 +105,7 @@ public class FacebookController {
 		Response responseMessage = new Response();
 		//System.out.println(session.getAttribute("jwt"));
 		responseMessage.setMessage((String) session.getAttribute("jwt"));
-		session.removeAttribute("jwt");
+		
 		return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED); 
 	}
 }

@@ -7,6 +7,15 @@ package com.bridgeit.ToDoApp.model;
 public class Response {
 	private String message;
 	private Object object;
+	private String token;
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public Object getObject() {
 		return object;
