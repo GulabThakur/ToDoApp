@@ -77,8 +77,9 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
    
  <div layout="{{align1}}" layout-xs="column" layout-wrap>
  
- <card-drective flex="{{flex}}" flex-xs="100" data="note" user-data="user"
+<!--  <card-drective flex="{{flex}}" flex-xs="100" data="note" user-data="user"
              pin="pin(note)"
+             edit-note="editNote(note)"
 			 delete-reminder="deleteReminder(note)"
 			 show-alert="showAlert(note)"
 			 reminder-function="reminderFunction(note,reminder)"
@@ -96,10 +97,10 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 			 color-changed="colorChanged(newColor, note)"
 			 delete-lavel="deleteLavel(note.id,labels.labelsId)"
 			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false} |filter:{pin:false}"></card-drective> 
- </div>
+ </div> -->
 
   <!-- ....................note create here...................................................................... -->
- <!-- 
+ 
  <div id="div2" layout="row" layout-xs="column" layout-wrap>
  
  			
@@ -219,7 +220,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
     	
  
  </div>
-   -->
+  
   	
  
   <!-- ..........................this area use for pin......................................................... -->

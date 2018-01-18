@@ -8,10 +8,10 @@
        </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="column" layout-align="start">
-      	<div><h4><input ng-model="note.title" type="text" style="border:0px;outline:none"></h4></div> 
+      	<div><h4><input   ng-style="{'background-color': note.color}" ng-model="note.title" type="text" style="border:0px;outline:none"></h4></div> 
       	
-      	<div><h2><input ng-model="note.description" type="text" style="border:0px;outline:none"></h2>
-      		<div><input ng-model="note.reminder" type="text" style="border:0px;outline:none"></div>
+      	<div><h2><textarea id="linky-filter" ng-bind-html="note.description | linky" ng-style="{'background-color': note.color}" ng-model="note.description" type="text" style="border:0px;outline:none"></textarea></h2>
+      		<div><input  ng-style="{'background-color': note.color}" ng-model="note.reminder" type="text" style="border:0px;outline:none"></div>
       		<level ng-hide="true"> 
       		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start"></md-icon>
       		<level>

@@ -311,8 +311,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 								'MMM dd yyyy HH:mm');
 						var currentDate = $filter('date')(new Date(),
 								'MMM dd yyyy HH:mm');
-						console.log("system Date----->" + currentDate);
-						console.log("Reminder Date------>" + reminderDate);
+						//console.log("system Date----->" + currentDate);
+						//console.log("Reminder Date------>" + reminderDate);
 						if (currentDate == reminderDate) {
 							alert(notes[i].description);
 							notes[i].reminder = null;
@@ -536,7 +536,6 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		console.log("" ,note );
 		reader.onload = $scope.imageLoader;
 		//var notedata=localStorage.getItem('noteData');
-		
 		reader.readAsDataURL(note.image);
 		console.log("note.image : " ,note.imageNote);
 	}
@@ -628,7 +627,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		
 		
 		/*================================================================================================================*/
-		$scope.editNote =function(event,note){
+		$scope.editNote =function(note){
 			var parentEl=angular.element(document.body);
 			$mdDialog
 					.show({
@@ -714,15 +713,30 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 						     right :$scope.bounds.right = 0,
 						     top:$scope.bounds.top = 0,
 						     bottom : $scope.bounds.bottom = 0,
+						     userData:$scope.user
 						},
 						clickOutsideToClose : true,
-						controller: function($scope,cropper,sourceImage,croppedImage,bounds,left,right,top,bottom){
+						controller: function($scope,cropper,sourceImage,croppedImage,bounds,left,right,top,bottom,userData){
 							 $scope.imageCrop= function(imageUrl){
-								  scopepicImage=$scope.cropper.croppedImage;
-								  console.log(" Image Url  :", scopepicImage);
+								 // scopepicImage=$scope.cropper.croppedImage;
+								    userData.proFile=$scope.cropper.croppedImage;
+									var profile= homeService.getAllnode("profilChage", "post", token, userData);
 									$mdDialog.hide();
 									 }
 						}
 					})
 		}
+		$scope.profileUpdate=function(){
+			if($scope.scopepicImage!=null){
+				$scope.user.proFile=$scope.scopepicImage;
+				var profile= homeService.getAllnode("profilChage", "post", token, user);
+				console.log("change Image",scopepicImage);
+			}
+		}
+		
+		$scope.profileUpdate();
+		
+		$scope.urlScript=function(){
+			
+		} 
 });

@@ -1,13 +1,12 @@
        <div style="width: 700px;height: 450px;">
        	<input type="file" img-cropper-fileread image="cropper.sourceImage" />
         <div>
-             <canvas width="200" height="150" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="200" crop-height="100" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+             <canvas width="700" height="200" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="50" crop-height="50" keep-aspect="true" touch-radius="15" crop-area-bounds="bounds"></canvas>
         </div>
         <div>Cropped Image (Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</div>
         <div ng-show="cropper.croppedImage!=null"><img ng-src="{{$scope.cropper}}" /></div>
         
         </div>
         <div>
-        {file}
         <button ng-click="imageCrop($scope.cropper)"> done</button>
         </div>

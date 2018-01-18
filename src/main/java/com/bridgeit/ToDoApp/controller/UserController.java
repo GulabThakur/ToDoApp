@@ -292,6 +292,26 @@ public class UserController {
 		return new ResponseEntity<UserModel>(HttpStatus.BAD_REQUEST);
 	}
 	
+	@RequestMapping(value="/profilChage",method=RequestMethod.POST)
+	public ResponseEntity<Response> updateProfile(@RequestBody UserModel user,HttpServletRequest request){
+		String jwtToken=request.getHeader("jwt");
+		System.out.println("..........................prfile update:"+user.getProFile());
+		int userId=token.varifyToken(jwtToken);
+		System.out.println("token id :"+userId );
+		if(userId>0) {
+		UserModel userUpdate =userModelService.getDataById(userId);
+		System.out.println("user Data"+userUpdate.getId());
+		userUpdate.setProFile(user.getProFile());
+		userModelService.update(userUpdate);
+		return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
+		}
+		else {
+			return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+	}
+	
 	/* ............................this Use for get .............................................
 	
 	@RequestMapping(value="/collabratore",method=RequestMethod.POST)

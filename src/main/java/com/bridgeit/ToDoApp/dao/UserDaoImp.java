@@ -24,6 +24,7 @@ public class UserDaoImp implements IUserDao {
 	private SessionFactory sessionFactory;
 
 	public int register(UserModel user) {
+		user.setProFile("https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50");
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		int id = (Integer) session.save(user);
@@ -80,6 +81,7 @@ public class UserDaoImp implements IUserDao {
 		UserModel note = (UserModel) session.byId(UserModel.class).load(user.getId());
 		System.out.println(note.getEmail());
 		note.setActive(1);
+		note.setProFile(user.getProFile());
 		note.setConform_psd(user.getConform_psd());
 		note.setPassword(user.getPassword());
 		session.update(note);

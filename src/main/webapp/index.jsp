@@ -44,6 +44,9 @@
 <script src="bower_components/node_modules/satellizer/dist/satellizer.js"></script>
 <script src="bower_components/node_modules/satellizer/dist/satellizer.min.js"></script>
 <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->
+<!--  for link maker-->
+
+<script src="bower_components/node_modules/angular-sanitize/angular-sanitize.js"></script> 
 
 
 

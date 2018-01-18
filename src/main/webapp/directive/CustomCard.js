@@ -24,7 +24,8 @@ app.directive('cardDrective', function(){
 			 col:'=',
 			 colorChanged:'&',
 			 deleteLavel:'&',
-			 lables:'='
+			 lables:'=',
+			 editNote:'&'
 			 },
 		 templateUrl:"template/cardDriective.html"
 	};

@@ -4,7 +4,7 @@
  * @created
  */
 
-var app = angular.module('ToDo', [ 'ui.router','angular-img-cropper','ngMaterial' ,'satellizer','tb-color-picker','ngMaterialDatePicker','ngFileUpload' ]);
+var app = angular.module('ToDo', [ 'ui.router','ngSanitize','angular-img-cropper','ngMaterial' ,'satellizer','tb-color-picker','ngMaterialDatePicker','ngFileUpload' ]);
 
 var skipIfAuthenticated=function($q, $state, $auth,$timeout) {
 	  var defer = $q.defer();
