@@ -1,5 +1,5 @@
 <div layout="column">
-	<div id="div1"  flex="50" flex-xs=70>
+	<div id="div1" flex="50">
     		 <md-card layout="column">
          	<div>
        		<form layout=column >
@@ -116,7 +116,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         </md-card-title>
         <md-card-actions layout="column" layout-align="start">
       	<div><h4>{{note.title}}</h4></div> 
-      	<div><h2>{{note.description}}</h2>
+      	<div><h2 ng-bind-html="note.description | linky">{{note.description}}</h2>
       		<div>{{note.reminder}}</div>
       		<level ng-hide="true"> 
       		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start"></md-icon>
@@ -227,9 +227,9 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 <md-divider></md-divider>
  <p>==============================================PIN==================================================================</p>
  
-  <div id="div4" layout="{{align1}}"  layout-wrap>
+  <div  layout="{{align1}}" layout-xs="{{align2}}" layout-wrap>
  
- <card-drective  flex-gt-xs="{{flex}}" flex-xs="100" data="note" user-data="user"
+ <card-drective  flex="{{flex}}" flex-xs="100" data="note" user-data="user"
              pin="pin(note)"
 			 delete-reminder="deleteReminder(note)"
 			 show-alert="showAlert(note)"
@@ -249,7 +249,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false}|filter:{pin:true}"></card-drective> 
  </div>
  
- <!-- <div id="div4" layout="row" layout-xs="column" layout-wrap>
+ <!-- <div id="div4" layout="row" layout-xs="column" layout-wrap 
     <div flex="{{flex}}" flex-xs="100" ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}|filter:{pin:true}" class="content-class" ng-click="" flex >
      	
  	 <md-card ng-style="{'background-color': note.color}">

@@ -9,7 +9,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
 		$mdDialog,$timeout) {
 	
-	
+	 
 	
 	// FOR Image crop
 	
@@ -676,7 +676,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 
 		$scope.flex = "33";
 		$scope.align1 = "row";
-		/*$scope.align2 = "start";*/
+		
+		$scope.align2 = "column";
 
 		/*================================================================================================================*/	
 		$scope.changeView = function() {
@@ -734,9 +735,18 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 			}
 		}
 		
-		$scope.profileUpdate();
+		/*================================================================================================================*/
 		
-		$scope.urlScript=function(){
-			
-		} 
-});
+		/*
+		$scope.homeAuth=function(){
+			if(token==null){
+				$state.go('login');
+			}
+			else{
+				
+				$state.go('homepage');
+			}
+		}
+		
+		//$scope.homeAuth();
+*/})/*(window.angular)*/;

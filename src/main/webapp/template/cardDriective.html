@@ -10,7 +10,7 @@
         </md-card-title>
         <md-card-actions layout="column" layout-align="start">
       	<div><h4>{{data.title}}</h4></div> 
-      	<div><h2>{{data.description}}</h2>
+      	<div><h2 ng-bind-html="data.description | linky">{{data.description}}</h2>
       		
       		<level ng-if="data.reminder"> 
       		{{data.reminder}}

@@ -22,7 +22,7 @@ var skipIfAuthenticated=function($q, $state, $auth,$timeout) {
  var redirectIfNotAuthenticated =function($q, $state, $auth ,$timeout) {
 	
 		  var defer = $q.defer();
-	  if($auth.authenticate()) {
+	  if($auth.isAuthenticated()) {
 	    defer.resolve();
 		  } else {
 		    $timeout(function () {
@@ -68,9 +68,9 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 	.state('homepage', {
 		url : "/homepage",
 		templateUrl : 'template/homepage.html',
-		/*resolve: {
+		resolve: {
 	        redirectIfNotAuthenticated: redirectIfNotAuthenticated
-	      },*/
+	      },
 		controller : 'homepageCrt'
 	})
 

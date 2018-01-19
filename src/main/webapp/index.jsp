@@ -47,6 +47,7 @@
 <!--  for link maker-->
 
 <script src="bower_components/node_modules/angular-sanitize/angular-sanitize.js"></script> 
+<script src="bower_components/node_modules/angular-sanitize/angular-sanitize.min.js"></script>
 
 
 
