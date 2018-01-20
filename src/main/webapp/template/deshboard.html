@@ -1,8 +1,9 @@
 <div layout="column">
-	<div id="div1" flex="50">
+	
+			<div id="div1" flex="50">
     		 <md-card layout="column">
          	<div>
-       		<form layout=column >
+       		<form>
             <div contenteditable="true">
              <input required="required" placeholder="Tittle" name="title" ng-model="note.title" style="border: 0px;outline :0;"></input>
              </div>
@@ -74,10 +75,11 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
           </md-card>
         
     </div>
+
    
- <div layout="{{align1}}" layout-xs="column" layout-wrap>
- 
-<!--  <card-drective flex="{{flex}}" flex-xs="100" data="note" user-data="user"
+ <div> 
+ <md-content layout="{{align1}}" layout-wrap  layout-align="center center">
+ <card-drective flex="{{flex}}" data="note" user-data="user"
              pin="pin(note)"
              edit-note="editNote(note)"
 			 delete-reminder="deleteReminder(note)"
@@ -97,11 +99,12 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 			 color-changed="colorChanged(newColor, note)"
 			 delete-lavel="deleteLavel(note.id,labels.labelsId)"
 			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false} |filter:{pin:false}"></card-drective> 
- </div> -->
+  </md-content>
+ </div>
 
   <!-- ....................note create here...................................................................... -->
  
- <div id="div2" layout="row" layout-xs="column" layout-wrap>
+<!--  <div id="div2" layout="row" layout-xs="column" layout-wrap>
  
  			
     <div flex="{{flex}}" flex-xs="100" ng-repeat="note in notes|  filter:{archive:false}| filter:{trash:false} |filter:{pin:false}" class="content-class" ng-click="" flex >
@@ -219,17 +222,16 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
       </div>
     	
  
- </div>
+ </div> -->
   
   	
  
   <!-- ..........................this area use for pin......................................................... -->
 <md-divider></md-divider>
- <p>==============================================PIN==================================================================</p>
  
   <div  layout="{{align1}}" layout-xs="{{align2}}" layout-wrap>
  
- <card-drective  flex="{{flex}}" flex-xs="100" data="note" user-data="user"
+ <card-drective  flex="{{flex}}" flex-xs="66" data="note" user-data="user"
              pin="pin(note)"
 			 delete-reminder="deleteReminder(note)"
 			 show-alert="showAlert(note)"
@@ -248,91 +250,4 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
 			
 			 ng-repeat="note in notes | filter:{archive:false}| filter:{trash:false}|filter:{pin:true}"></card-drective> 
  </div>
- 
- <!-- <div id="div4" layout="row" layout-xs="column" layout-wrap 
-    <div flex="{{flex}}" flex-xs="100" ng-repeat="note in notes| filter:{archive:false}| filter:{trash:false}|filter:{pin:true}" class="content-class" ng-click="" flex >
-     	
- 	 <md-card ng-style="{'background-color': note.color}">
-      	<div>
-      		<div  class="pin-class">
-      		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
-      		</div>
-		</div>
-       </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="column" layout-align="start">
-      	<div><h4>{{note.title}}</h4></div> 
-      	<div><h2>{{note.description}}</h2></div>
-      	<br>     
-        </md-card-actions>
-        <div layout="row" layout-align="space-around">
-        
-        	<div>
-        	<md-menu >
-        		<md-icon ng-click="$mdMenu.open($event)" md-svg-icon="image/touch_black.svg" ></md-icon>
-        		<md-menu-content>
-        		<md-menu-item>
-        			<level>Reminder</level>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Later today</mvmd-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Tomorrow</md-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Next-week</md-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Pick data & time</md-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Pick Place</md-button>
-        		</md-menu-item>
-        		</md-menu-content>
-        	</md-menu>
-        	</div>
-        	<div>
-					<md-icon ng-click="" md-svg-icon="image/collabroter.svg" ></md-icon>
-			</div>
-			<div>
-					<md-icon ng-click="" md-svg-icon="image/image.svg" ></md-icon>
-			</div>
-        	<div>
-				<color-picker ng-model="note.color" color-changed="colorChanged(newColor, note)" color="note.color" options="options"></color-picker>
-			</div>
-        	<div>
-        	<md-icon  ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
-        	</div>
-        	<div>
-        	<md-menu>
-        			<md-icon ng-click="$mdMenu.open($event)" aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
-        			<md-menu-content>
-        			<md-menu-item>
-        			<md-button ng-click="trash(note)" >delete note</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="">add level</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="" ng-disabled="true">add drawing</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="addNode(note)">make copy</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="" ng-disabled="true">show checkboxes</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="" ng-disabled="true">copy to googleDocs</md-button>
-        			</md-menu-item>
-        			<md-menu-content>
-        			</md-menu>
-        	</div>
-        
-        </div>
-      </md-card>
- 	</div>    
-    </div> -->
-    
 </div>

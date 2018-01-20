@@ -666,7 +666,9 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		/*================================================================================================================*/
 		 $scope.showNav=true;
 		    $scope.hideNav=function(){
+		    	
 		    	$scope.showNav=!$scope.showNav;
+		    	
 	     } 
 		
 		
