@@ -2,7 +2,7 @@
 	
 		<div layout="row" >
 			<div layout-margin flex="8">
-				<md-button ng-click="hideNav()" class="md-icon-button md-primary" >
+				<md-button ng-click="toggleLeft()" class="md-icon-button md-primary" >
 				<md-icon md-svg-icon="image/menu.svg"></md-icon> </md-button>
 			</div>
 			<div layout-margin flex="8">
@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div md-search-text="ctrl.searchText" layout="row" flex>
-			<div flex="8">
+			<div flex="8" hide-xs> 
 				<md-button class="md-icon-button md-primary" >
 				<md-icon md-svg-icon="image/search.svg"></md-icon> </md-button>
 			</div>
@@ -18,25 +18,25 @@
 			<input class="inputType" aria-label="Search" autocomplete="off" placeholder="Search" role="combobox" type="text">
 				
 			</div>
-			<div flex="8">
+			<div flex="8" hide-xs>
 				<md-button class="md-icon-button md-primary" >
 				<md-icon md-svg-icon="image/close_white.svg"></md-icon> </md-button>
 			</div>
 		</div>
-		<div flex="8">
+		<div flex="8" hide-xs>
 			<md-button class="md-icon-button md-primary" >
 			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
 		</div>
-		<div flex="8">
+		<div flex="8" hide-xs>
 			<md-button ng-click="changeView()" class="md-icon-button md-primary" aria-label="list" ng-show="view">
 			<md-icon md-svg-icon="image/grid_image.svg"></md-icon> </md-button>
 		</div>
 		<div layout="row">
-			<div flex="8">
+			<div flex="8" hide-xs>
 				<md-button ng-click="changeView()"  class="md-icon-button md-primary" aria-label="grid" ng-hide="view">
 				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
 			</div>
-			<div flex="8">
+			<div flex="8" hide-xs>
 				<md-button class="md-icon-button md-primary" >
 				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
 			</div>

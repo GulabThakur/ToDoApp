@@ -7,7 +7,7 @@
 var app = angular.module('ToDo');
 app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$window, $mdToast, $document, mdcDateTimeDialog, $filter, $interval,
-		$mdDialog,$timeout) {
+		$mdDialog,$timeout,$mdSidenav) {
 	
 	 
 	
@@ -666,8 +666,8 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		/*================================================================================================================*/
 		 $scope.showNav=true;
 		    $scope.hideNav=function(){
-		    	
 		    	$scope.showNav=!$scope.showNav;
+		    	console.log("show nav value is :",$scope.showNav);
 		    	
 	     } 
 		
@@ -736,6 +736,16 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 				console.log("change Image",scopepicImage);
 			}
 		}
+		
+		
+		
+		$scope.toggleLeft = buildToggler('left');
+		 function buildToggler(componentId) {
+		      return function() {
+		    	  console.log("welcome to ", componentId);
+		        $mdSidenav(componentId).toggle();
+		      };
+		    }
 		
 		/*================================================================================================================*/
 		

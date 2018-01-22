@@ -1,6 +1,9 @@
 <html>
 <head>
 <!-- All css files are here -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 <link rel="stylesheet"
 	href="bower_components/node_modules/angular-material/angular-material.min.css" />
 <link rel="stylesheet"
