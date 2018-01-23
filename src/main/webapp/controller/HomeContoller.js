@@ -742,7 +742,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		$scope.toggleLeft = buildToggler('left');
 		 function buildToggler(componentId) {
 		      return function() {
-		    	  console.log("welcome to ", componentId);
+		    	 // console.log("welcome to ", componentId);
 		        $mdSidenav(componentId).toggle();
 		      };
 		    }

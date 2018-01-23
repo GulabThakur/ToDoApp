@@ -1,12 +1,12 @@
 <md-toolbar layout="row" layout-align="start center">
 	<div class="md-toolbar-tools" ng-style="{'background-color':navBarColor}">
-		<md-button class="md-icon-button" aria-label="Side Panel"
+		<md-button  ng-click="toggleLeft()"class="md-icon-button" aria-label="Side Panel"
 			style="color:black;">
 			 <md-tooltip md-direction="bottom">Main Menu</md-tooltip>
-			 <md-icon
+			 <md-icon 
 			md-svg-icon="image/menu.svg"></md-icon> </md-button>
 		<div flex="5"></div>
-		<h2 md-truncate flex>Google Keep</h2>
+		<h2 md-truncate flex>Search</h2>
 
 	<div flex>
 			<md-autocomplete  md-no-cache="true" md-selected-item="selectedItem"
@@ -16,17 +16,17 @@
 				md-search-text="searchText"
 				md-item-text="item.title" placeholder="Search here">
 </div>
-		<div flex="8">
+		<div flex="8" hide-xs>
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/close_white.svg"></md-icon> </md-button>
 			</div>
 		</div>
-		<div flex="8">
+		<div flex="8" hide-xs>
 			<md-button class="md-icon-button md-primary" aria-label="">
 			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
 		</div>
 		
-		<div layout="row">
+		<div layout="row" hide-xs>
 			<div>
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
