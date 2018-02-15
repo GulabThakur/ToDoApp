@@ -102,7 +102,7 @@ public class UserDaoImp implements IUserDao {
 	
 	public UserModel checkExits(String email) {
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from ToDoApp_user where email='"+email+"'");
+		Query query=session.createQuery("FROM ToDoApp_user WHERE email='"+email+"'");
 		UserModel user=(UserModel) query.uniqueResult();
 		return user;
 	}

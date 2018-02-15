@@ -18,31 +18,22 @@
 			<input class="inputType" aria-label="Search" autocomplete="off" placeholder="Search" role="combobox" type="text">
 				
 			</div>
-			<div flex="8" hide-xs>
-				<md-button class="md-icon-button md-primary" >
-				<md-icon md-svg-icon="image/close_white.svg"></md-icon> </md-button>
-			</div>
+			
 		</div>
+		
 		<div flex="8" hide-xs>
-			<md-button class="md-icon-button md-primary" >
-			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
-		</div>
-		<div flex="8" hide-xs>
-			<md-button ng-click="changeView()" class="md-icon-button md-primary" aria-label="list" ng-show="view">
+			<md-button ng-click="changeView()" class="md-icon-button md-primary gridClass" aria-label="list" ng-show="view">
 			<md-icon md-svg-icon="image/grid_image.svg"></md-icon> </md-button>
 		</div>
 		<div layout="row">
 			<div flex="8" hide-xs>
-				<md-button ng-click="changeView()"  class="md-icon-button md-primary" aria-label="grid" ng-hide="view">
+				<md-button ng-click="changeView()"  class="md-icon-button md-primary gridClass" aria-label="grid" ng-hide="view">
 				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
 			</div>
-			<div flex="8" hide-xs>
-				<md-button class="md-icon-button md-primary" >
-				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
-			</div>
+			
 			<div flex="8" flex-xs="4">
 			 <md-menu>
-			   <level ng-click="$mdMenu.open($event)"><img  style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>  
+			   <level ng-click="$mdMenu.open($event)"><img class="img" alt="{{user.userName.charAt(0)}}"   ng-src="{{user.proFile}}"/>  
 				</level>
 				<md-menu-content>
 				<md-menu-item>

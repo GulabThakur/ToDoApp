@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FaceBook {
 	public static final String app_Id = "1976981345893014";
 	public static final String secret_id = "1c9c64e45c074a1af386e6d5b6e5abee";
-	public static final String Redirect_URI = "http://localhost:8080/ToDoApp/connectFB";
+	public static final String Redirect_URI = "https://bridge-notes.herokuapp.com/connectFB";
 	
 	
 	public static String getFacebookURL(String uuid) {

@@ -1,4 +1,5 @@
 package com.bridgeit.ToDoApp.model;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,8 @@ import javax.persistence.Transient;
  *
  */
 @Entity(name="ToDoApp_user")
-public class UserModel {
+public class UserModel{
+	
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password

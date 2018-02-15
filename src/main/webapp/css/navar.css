@@ -11,7 +11,7 @@
 }
 .inputType
 {
-	width: 100%;
+	width: 500px;
 	height: 30px;
 	padding-top: 5px;
 	margin-top: 5px;
@@ -19,3 +19,14 @@
 .nav_bar{
 	background-color: #f4b042;
 }
+.gridClass{
+	margin-right: 50px !important;
+	margin-top: 6px !important;
+}
+.img{
+	border-radius: 45px !important;
+	max-width: 150%" !important;
+	border-radius: inherit !important;
+	margin-right: 30px !important;
+}
+ 

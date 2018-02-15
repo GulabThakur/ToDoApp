@@ -676,20 +676,20 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 		// for list and grid view
 		$scope.view = "true";
 
-		$scope.flex = "33";
+		$scope.flex = "30";
 		$scope.align1 = "row";
 		
-		$scope.align2 = "column";
+		//$scope.align2 = "column";
 
 		/*================================================================================================================*/	
 		$scope.changeView = function() {
 			if ($scope.view) {
-				$scope.flex = "66";
+				$scope.flex = "50";
 				$scope.align1 = "column";
 				/*$scope.align2 = "center";*/
 				$scope.view = !$scope.view;
 			} else {
-				$scope.flex = "33";
+				$scope.flex = "30";
 				$scope.align1 = "row";
 				/*$scope.align2 = "start";*/
 				$scope.view = !$scope.view;

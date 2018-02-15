@@ -11,19 +11,19 @@ import com.bridgeit.ToDoApp.email.IEmail;
 import com.bridgeit.ToDoApp.model.EmailSet;
 
 public class MessageCounsumer implements MessageListener {
-   
+  
 	@Autowired
 	private IEmail email;
 
 	public void onMessage(Message message) {
 		try {
-			System.out.println("In consumer");
-			ObjectMessage msg = (ObjectMessage) message;
-			EmailSet mail = (EmailSet) msg.getObject();
+		System.out.println("In consumer");
+		ObjectMessage msg = (ObjectMessage) message;
+		EmailSet mail = (EmailSet) msg.getObject();
 			email.registration(mail.getEmail(), mail.getToken());
 		} catch (JMSException e) {
 			e.printStackTrace();
-		}
+	}
 	}
 
 }

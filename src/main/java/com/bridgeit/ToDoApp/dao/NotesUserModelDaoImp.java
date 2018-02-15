@@ -32,7 +32,6 @@ public class NotesUserModelDaoImp implements InotesUserModelDao {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private IToken token;
-
 	public boolean createNote(Notes note, String token2) {
 		int id = token.varifyToken(token2);
 		if (id > 0) {

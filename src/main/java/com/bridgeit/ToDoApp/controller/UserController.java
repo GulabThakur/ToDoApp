@@ -1,7 +1,6 @@
 package com.bridgeit.ToDoApp.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.jms.JMSException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,6 @@ import com.bridgeit.ToDoApp.email.EmailProperties;
 import com.bridgeit.ToDoApp.email.IEmail;
 import com.bridgeit.ToDoApp.jms.MessageProducer;
 import com.bridgeit.ToDoApp.model.EmailSet;
-import com.bridgeit.ToDoApp.model.Notes;
 import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;
 import com.bridgeit.ToDoApp.security.IPasswordencode;
@@ -60,15 +58,17 @@ public class UserController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> register(@RequestBody UserModel user, HttpServletRequest request)
 			throws JMSException {
+		
 		Response message = new Response();
 		String status = valid.valid(user);
+		System.out.println("Status: " + status);
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
 			String url = request.getRequestURL().toString();
 			//System.out.println(url);
 			if (status == null) {
 				String endodePsd = encode.endode(user.getPassword());
-				user.setActive(0);
+				user.setActive(1);
 				user.setPassword(endodePsd);
 				int id = userModelService.registration(user);
 				String token1 = token.genratedToken(id);
@@ -81,7 +81,7 @@ public class UserController {
 				/*messageProducer.send(data);*/
 				// if you want to email process in your project remove in blow line then use
 				// email process
-				 email.registration(user.getEmail(), url);
+				// email.registration(user.getEmail(), url);
 				
 				message.setMessage("sucessfull ragister");
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
@@ -156,7 +156,7 @@ public class UserController {
 		int id = token.varifyToken(token1);
 		if (id > 0) {
 			message.setMessage("verification is sucessfully....");
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
+			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/homepage");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("sorry registration first...");
@@ -178,7 +178,7 @@ public class UserController {
 			message.setMessage("done verfy");
 			// here send user inside the reset password page...
 
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/resetpassword");
+			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/resetpassword");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("this is not valid....");
@@ -248,7 +248,7 @@ public class UserController {
 			String url = request.getRequestURI().toString();
 			int id = user_arg.getId();
 			String token2 = token.genratedToken(id);
-			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
+			url = "https://bridge-notes.herokuapp.com/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
 			email.registration(user.getEmail(), url);
 			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
@@ -266,7 +266,7 @@ public class UserController {
 			String url = request.getRequestURI().toString();
 			int id = user_arg.getId();
 			String token2 = token.genratedToken(id);
-			url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
+			url = "https://bridge-notes.herokuapp.com/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
 			email.registration(user_arg.getEmail(), url);
 			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);

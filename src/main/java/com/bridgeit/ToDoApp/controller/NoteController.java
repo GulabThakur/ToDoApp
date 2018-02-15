@@ -1,8 +1,6 @@
 package com.bridgeit.ToDoApp.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgeit.ToDoApp.model.Labels;
 import com.bridgeit.ToDoApp.model.Notes;
 import com.bridgeit.ToDoApp.model.Response;
 import com.bridgeit.ToDoApp.model.UserModel;

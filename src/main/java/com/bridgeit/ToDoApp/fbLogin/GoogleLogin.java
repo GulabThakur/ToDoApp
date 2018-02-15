@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GoogleLogin {
 	public static final String CLIENT_Id = "764585168380-6p8gk6l611itdm2u2sv76ga10md1tv1f.apps.googleusercontent.com";
 	public static final String Secret_Id = "9piUB9jLjY0gapo2AG2fCyDo";
-	public static final String Redirect_URI = "http://localhost:8080/ToDoApp/connectgoogle";
+	public static final String Redirect_URI = "https://bridge-notes.herokuapp.com/connectgoogle";
 
 	// Access token in header
 	public static String Gmail_GET_USER_URL = "https://www.googleapis.com/plus/v1/people/me";

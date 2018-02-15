@@ -76,7 +76,7 @@ public class GoogleController {
 		/*	 responseForMessage.setMessage(jwtToken);*/
 			 session.setAttribute("jwt", jwtToken);
 			 responseForMessage.setMessage("Hello "+user.getUserName()+" you are new user.");
-			 response.sendRedirect("http://localhost:8080/ToDoApp/#!/DummyHome");
+			 response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
 			return new ResponseEntity<Response>(responseForMessage,
 					HttpStatus.ACCEPTED);
 			
@@ -96,7 +96,7 @@ public class GoogleController {
 			response.addCookie(accCookie);
 			session.setAttribute("jwt", token1);
 			responseForMessage.setMessage("Hello " + user.getUserName() + " you are alredy visited here.");
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/DummyHome");
+			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
 			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
 	}

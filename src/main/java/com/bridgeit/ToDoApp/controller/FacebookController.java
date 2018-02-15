@@ -81,7 +81,7 @@ public class FacebookController {
 				response.setHeader("Authorization", token1);
 				session.setAttribute("jwt", token1);
 				message.setMessage("User Successfully registered.");
-				response.sendRedirect("/ToDoApp/#!/DummyHome");
+				response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			} else {
 				message.setMessage("User is not registered.");
@@ -93,8 +93,8 @@ public class FacebookController {
 			userModelService.update(user);
 			session.setAttribute("jwt", token2);
 			message.setMessage("User already exist.");
-			response.sendRedirect("/ToDoApp/#!/DummyHome");
-			return new ResponseEntity<Response>(message, HttpStatus.ALREADY_REPORTED);
+			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
+			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 	}
 

@@ -1,6 +1,5 @@
 package com.bridgeit.ToDoApp.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
@@ -24,15 +22,9 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  *
  */
 @Entity(name = "Note_user")
-public class Notes implements Serializable {
-	/**
-	 * @category Universal Identifier when Implement Serializable interface it use
-	 *           for manage serializable interface
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class Notes {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int id;
 	private String title;
 	private String description;
@@ -77,7 +69,7 @@ public class Notes implements Serializable {
 
 	// here i am take as properties for image
 	@Lob
-	@Column(name = "image", columnDefinition = "LONGBLOB")
+	@Column(name = "image")
 	private String imageNote;
 
 	public String getImageNote() {
@@ -123,8 +115,6 @@ public class Notes implements Serializable {
 	public void setTrash(boolean isTrash) {
 		this.isTrash = isTrash;
 	}
-
-	
 
 	public int getId() {
 		return id;

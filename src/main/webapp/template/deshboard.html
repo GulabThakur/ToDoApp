@@ -76,9 +76,9 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
     </div>
 
    
- <div layout="{{align1}}" layout-xs="column" layout-wrap  layout-margin layout-padding> 
- <card-drective layout-margin layout-padding 
- 			 flex="{{flex}}" flex-xs="66" data="note" user-data="user"
+ <div layout="row" layout-xs="column" layout-wrap  layout-margin layout-padding> 
+ <card-drective layout="{{align1}}" layout-margin layout-padding 
+ 			 flex="{{flex}}" flex-xs="50" data="note" user-data="user"
              pin="pin(note)"
              edit-note="editNote(note)"
 			 delete-reminder="deleteReminder(note)"
@@ -104,9 +104,9 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
   <!-- ..........................this area use for pin......................................................... -->
 <md-divider></md-divider>
  
-  <div  layout="{{align1}}" layout-xs="column" layout-wrap layout-margin layout-padding>
+  <div  layout="row" layout-xs="column" layout-wrap layout-margin layout-padding>
  
- <card-drective  layout-margin layout-padding
+ <card-drective layout="{{align1}}" layout-align="center" layout-margin layout-padding
              flex="{{flex}}" flex-xs="50" data="note" user-data="user"
              pin="pin(note)"
 			 delete-reminder="deleteReminder(note)"

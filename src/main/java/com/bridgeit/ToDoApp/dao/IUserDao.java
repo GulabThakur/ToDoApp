@@ -28,7 +28,7 @@ public interface IUserDao {
 
 	/**
 	 * @param id
-	 * @return 
+	 * @return
 	 * @this method well be using for update the password // Reset_password
 	 */
 	public UserModel update(UserModel user);
@@ -38,9 +38,10 @@ public interface IUserDao {
 	 * @return
 	 */
 	public UserModel checkExits(String email);
+
 	/**
 	 * @param id
-	 * @return
+	 * @return user only
 	 */
 	public UserModel getById(int id);
 }
