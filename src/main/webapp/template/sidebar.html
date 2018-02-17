@@ -2,10 +2,10 @@
                 md-disable-backdrop md-whiteframe="4">
 <md-list>
 	<md-list-item>
-	<md-icon md-svg-icon="image/lightbulb_outline_black.svg" ></md-icon>
+	<md-icon id="imageSize" md-svg-icon="image/lightbulb_outline_black.svg" ></md-icon>
 	<level class="sideLevel" ng-click="notesFunction()">Notes</level></md-list-item>
 	<md-list-item>
-	<md-icon md-svg-icon="image/touch_black.svg" ></md-icon>
+	<md-icon id="imageSize" md-svg-icon="image/touch_black.svg" ></md-icon>
 	<level class="sideLevel" ng-click="reminderLoad()">Reminder</level></md-list-item>
 	<md-divider></md-divider>
 	<md-list-item>
@@ -15,14 +15,14 @@
 	<div flex><md-icon md-svg-icon="image/label.svg" ></md-icon></div>
 	<div>{{label.labelsName}}</div></div>
 	<md-list-item>
-	<md-icon md-svg-icon="image/add_black.svg" ></md-icon>
+	<md-icon id="imageSize" md-svg-icon="image/add_black.svg" ></md-icon>
 	<level ng-click="lablesAlert($event)">Create new level</level></md-list-item>
 	<md-divider></md-divider>
 	<md-list-item>
-	<md-icon md-svg-icon="image/archive_black.svg" ></md-icon>
+	<md-icon id="imageSize" md-svg-icon="image/archive_black.svg" ></md-icon>
 	<level class="sideLevel" ng-click="archiveFunction()">Archive</level></md-list-item>
 	<md-list-item>
-	<md-icon md-svg-icon="image/trash_black.svg" ></md-icon>
+	<md-icon id="imageSize" md-svg-icon="image/trash_black.svg" ></md-icon>
 	<level class="sideLevel" ng-click="trashFunction()">Trash</level></md-list-item>
 	<md-divider></md-divider>
 </md-list>

@@ -1,0 +1,25 @@
+.input {
+	width: 50px !important;
+}
+
+.classSearch {
+	margin-right: 50px !important;
+	margin-top: 6px !important;
+}
+
+#imgserch {
+	border-radius: 45px !important;
+	max-width: 150%" !important;
+	border-radius: inherit !important;
+	margin-right: 30px !important;
+}
+
+#divSize {
+	width: 175px !important;
+}
+
+#logut {
+	width: 94px !important;
+	align-self: flex-end !important;
+	margin-right: 10px !important;
+}

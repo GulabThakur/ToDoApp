@@ -1,187 +1,153 @@
 <md-toolbar layout="row" layout-align="start center">
-	<div class="md-toolbar-tools" ng-style="{'background-color':navBarColor}">
-		<md-button  ng-click="toggleLeft()"class="md-icon-button" aria-label="Side Panel"
-			style="color:black;">
-			 <md-tooltip md-direction="bottom">Main Menu</md-tooltip>
-			 <md-icon 
-			md-svg-icon="image/menu.svg"></md-icon> </md-button>
-		<div flex="5"></div>
-		<h2 md-truncate flex>Search</h2>
+<div class="md-toolbar-tools"
+	ng-style="{'background-color':navBarColor}">
+	<md-button ng-click="toggleLeft()" class="md-icon-button"
+		aria-label="Side Panel" style="color:black;"> <md-tooltip
+		md-direction="bottom">Main Menu</md-tooltip> <md-icon
+		md-svg-icon="image/menu.svg"></md-icon> </md-button>
+	<div flex="5"></div>
 
-	<div flex>
-			<md-autocomplete  md-no-cache="true" md-selected-item="selectedItem"
-				md-items="item in searchAll(searchText)" 
-				md-search-text-change="searchAll(searchText)"
-				md-min-length="2"
-				md-search-text="searchText"
-				md-item-text="item.title" placeholder="Search here">
-</div>
-		<div flex="8" hide-xs>
-				<md-button class="md-icon-button md-primary" aria-label="">
-				<md-icon md-svg-icon="image/close_white.svg"></md-icon> </md-button>
-			</div>
-		</div>
-		<div flex="8" hide-xs>
-			<md-button class="md-icon-button md-primary" aria-label="">
-			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
-		</div>
-		
-		<div layout="row" hide-xs>
-			<div>
-				<md-button class="md-icon-button md-primary" aria-label="">
-				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
-			</div>
-			<div>
-				<md-button class="md-icon-button md-primary" aria-label="">
-				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
-			</div>
-			<div>
-			 <md-menu>
-			   <level ng-click="$mdMenu.open($event)"><img  style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>  
-				</level>
-				<md-menu-content>
-				<md-menu-item>
-				 <div>
-				 	<img  style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>
-				 </div>
-					{{user.userName}}
-				</md-menu-item>
-				
-				<md-menu-item layout-align="end end">
-					<button ng-click="logout()">LogOut</button>
-				</md-menu-item>
-				</md-menu-content>
-				</md-menu>
-				
-			</div>
-			
-		</div>
-		
-	</md-toolbar>
-	<div layout="row">
-	<side-bar></side-bar>
-	
-	<div>
-	
-	<div>
- 
- 			
-     <md-content  layout="row" layout-wrap  layout-align="center center">
 
-        <md-card ng-repeat="note in searchNotes" ng-style="{'background-color': note.color}" >
-      	<div>
-      		<div  class="pin-class">
-      		<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg" layout-align="end start"></md-icon>
-      		</div>
-		</div>
-		  <div ng-if="note.imageNote"><img ng-src={{note.imageNote}} style=" max-width: 100%;"></div>
-       </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="column" layout-align="start">
-      	<div><h4>{{note.title}}</h4></div> 
-      	<div><h2>{{note.description}}</h2>
-      		<div>{{note.reminder}}</div>
-      		<level ng-hide="true"> 
-      		<md-icon ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg" layout-align="end start"></md-icon>
-      		<level>
-      	</div>
-      	<div layout="row">
-      		<div  ng-repeat="user_info in note.collaboratorSet" >
-      		<img ng-click="showAlert($event, note)" style="border-radius: 15px;max-width: 60%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user_info.proFile}}"/>
-      		</div>
-      		<div ng-repeat="user_info in note.labels">
-      			<lavel>{{user_info.labelsName}}</lavel>
-      			<md-icon ng-click="deleteLavel(note.id,user_info.labelsId)" md-svg-icon="image/cancel.svg" ></md-icon>
-      		</div>
-      	</div>
-      	
-      	<br>     
-        </md-card-actions>
-        <div layout="row" layout-align="space-around">
-        
-        	<div>
-        	<md-menu >
-        		<md-icon ng-click="$mdMenu.open()" md-svg-icon="image/touch_black.svg" ></md-icon>
-        		<md-menu-content>
-        		<md-menu-item>
-        			<level>Reminder</level>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-show='first' >Later today</md-button>
-        			<input mdc-datetime-picker="" date="false" time="true" type="text" id="datetime"
-									placeholder="Date" show-todays-date="" min-date="date" ng-model="reminder" class=" md-input"
-										readonly="readonly" ng-change="reminderFunction(note,reminder)">
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Tomorrow</md-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Next-week</md-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Pick data & time</md-button>
-        		</md-menu-item>
-        		<md-menu-item>
-        			<md-button ng-click="">Pick Place</md-button>
-        		</md-menu-item>
-        		</md-menu-content>
-        	</md-menu>
-        	</div>
-        	<div>
-        			<md-tooltip md-direction="bottom">Collabratore</md-tooltip>
-					<md-icon ng-click="showAlert( note)" md-svg-icon="image/collabroter.svg" ></md-icon>
-					
-			</div>
-			
-			<div>
-					<md-tooltip md-direction="bottom">Add Image</md-tooltip>
-						<img md-card-image ng-src="image/image.svg" 
-						class="profile-img" ng-click="openHiddenButton(note)"/>
-						
-        				<input id="image" type="file" ng-model="note.image" ngf-select="imageUpload(note)" ngf-multiple="false" 
-        				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
-			</div>
-        	<div>
-        	<md-menu>
-			<color-picker ng-model="note.color" on-color-changed="colorChanged(newColor, note)" color="color" options="options"></color-picker>
-			</md-menu>
-			</div>
-        	<div>
-        	<md-icon ng-click="archive(note)" md-svg-icon="image/archive_black.svg" ></md-icon>
-        	</div>
-        	<div>
-        	<md-menu>
-        	
-        			<md-icon ng-click="$mdMenu.open()" aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
-        			<md-menu-content>
-        			<md-menu-item>
-        			<md-button ng-click="trash(note)" >delete note</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="labelNote( note)">add level</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="socialShare(note)" ng-disabled="false">FaceBookshare</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="addNode(note)">make copy</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="" ng-disabled="true">show checkboxes</md-button>
-        			</md-menu-item>
-        			<md-menu-item>
-        			<md-button ng-click="" ng-disabled="true">copy to googleDocs</md-button>
-        			</md-menu-item>
-        			<md-menu-content>
-        			</md-menu>
-        	</div>
-        
-        </div>
-      </md-card>
-    </md-content>
-    	
- 
- </div>
+	<div flex="45" flex-xs=25>
+		<md-autocomplete md-no-cache="true" md-selected-item="selectedItem"
+			md-items="item in searchAll(searchText)"
+			md-search-text-change="searchAll(searchText)" md-min-length="2"
+			md-search-text="searchText" md-item-text="item.title"
+			placeholder="Search here">
 	</div>
-	
-   </div>
+
+</div>
+
+
+<div layout="row" hide-xs>
+	<div>
+		<md-button class="md-icon-button md-primary" aria-label="">
+		<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
+	</div>
+	<div>
+		<md-menu> <level ng-click="$mdMenu.open($event)"> <img
+			id="imgserch" alt="{{user.userName.charAt(0)}}"
+			ng-src="{{user.proFile}}" /> </level> <md-menu-content id="divSize">
+		<md-menu-item>
+		<div style="width: 50px; height: 50px">
+			<img id="imgserch" alt="{{user.userName.charAt(0)}}"
+				ng-src="{{user.proFile}}" />
+		</div>
+		{{user.userName}} </md-menu-item> <md-menu-item layout-align="end end" id="logut">
+		<button ng-click="logout()">LogOut</button>
+		</md-menu-item> </md-menu-content> </md-menu>
+
+	</div>
+
+</div>
+
+</md-toolbar>
+<div layout="row">
+	<side-bar></side-bar>
+
+	<div>
+
+		<div>
+			<md-content layout="row" layout-wrap layout-align="center center">
+
+			<md-card ng-repeat="note in searchNotes"
+				ng-style="{'background-color': note.color}">
+			<div>
+				<div class="pin-class">
+					<md-icon ng-click="pin(note)" md-svg-icon="image/pin.svg"
+						layout-align="end start"></md-icon>
+				</div>
+			</div>
+			<div ng-if="note.imageNote">
+				<img ng-src={{note.imageNote}} style="max-width: 100%;">
+			</div>
+			</md-card-title-media> </md-card-title> <md-card-actions layout="column" layout-align="start">
+			<div>
+				<h4>{{note.title}}</h4>
+			</div>
+			<div>
+				<h2>{{note.description}}</h2>
+				<div>{{note.reminder}}</div>
+				<level ng-hide="true"> <md-icon
+					ng-click="deleteReminder(note)" md-svg-icon="image/cancel.svg"
+					layout-align="end start"></md-icon> <level>
+			</div>
+			<div layout="row">
+				<div ng-repeat="user_info in note.collaboratorSet">
+					<img ng-click="showAlert($event, note)"
+						style="border-radius: 15px; max-width: 60%"
+						alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"
+						ng-src="{{user_info.proFile}}" />
+				</div>
+				<div ng-repeat="user_info in note.labels">
+					<lavel>{{user_info.labelsName}}</lavel>
+					<md-icon ng-click="deleteLavel(note.id,user_info.labelsId)"
+						md-svg-icon="image/cancel.svg"></md-icon>
+				</div>
+			</div>
+
+			<br>
+			</md-card-actions>
+			<div layout="row" layout-align="space-around">
+
+				<div>
+					<md-menu> <md-icon ng-click="$mdMenu.open()"
+						md-svg-icon="image/touch_black.svg"></md-icon> <md-menu-content>
+					<md-menu-item> <level>Reminder</level> </md-menu-item> <md-menu-item>
+					<md-button ng-show='first'>Later today</md-button> <input
+						mdc-datetime-picker="" date="false" time="true" type="text"
+						id="datetime" placeholder="Date" show-todays-date=""
+						min-date="date" ng-model="reminder" class=" md-input"
+						readonly="readonly" ng-change="reminderFunction(note,reminder)">
+					</md-menu-item> <md-menu-item> <md-button ng-click="">Tomorrow</md-button>
+					</md-menu-item> <md-menu-item> <md-button ng-click="">Next-week</md-button>
+					</md-menu-item> <md-menu-item> <md-button ng-click="">Pick
+					data & time</md-button> </md-menu-item> <md-menu-item> <md-button ng-click="">Pick
+					Place</md-button> </md-menu-item> </md-menu-content> </md-menu>
+				</div>
+				<div>
+					<md-tooltip md-direction="bottom">Collabratore</md-tooltip>
+					<md-icon ng-click="showAlert( note)"
+						md-svg-icon="image/collabroter.svg"></md-icon>
+
+				</div>
+
+				<div>
+					<md-tooltip md-direction="bottom">Add Image</md-tooltip>
+					<img md-card-image ng-src="image/image.svg" class="profile-img"
+						ng-click="openHiddenButton(note)" /> <input id="image"
+						type="file" ng-model="note.image" ngf-select="imageUpload(note)"
+						ngf-multiple="false" style="display: none" ng-model="picFile"
+						accept="image/*" class="picUpload" />
+				</div>
+				<div>
+					<md-menu> <color-picker ng-model="note.color"
+						on-color-changed="colorChanged(newColor, note)" color="color"
+						options="options"></color-picker> </md-menu>
+				</div>
+				<div>
+					<md-icon ng-click="archive(note)"
+						md-svg-icon="image/archive_black.svg"></md-icon>
+				</div>
+				<div>
+					<md-menu> <md-icon ng-click="$mdMenu.open()"
+						aria-label="Open some menu" md-svg-icon="image/menudown.svg" flex></md-icon>
+					<md-menu-content> <md-menu-item> <md-button
+						ng-click="trash(note)">delete note</md-button> </md-menu-item> <md-menu-item>
+					<md-button ng-click="labelNote( note)">add level</md-button> </md-menu-item> <md-menu-item>
+					<md-button ng-click="socialShare(note)" ng-disabled="false">FaceBookshare</md-button>
+					</md-menu-item> <md-menu-item> <md-button ng-click="addNode(note)">make
+					copy</md-button> </md-menu-item> <md-menu-item> <md-button ng-click=""
+						ng-disabled="true">show checkboxes</md-button> </md-menu-item> <md-menu-item>
+					<md-button ng-click="" ng-disabled="true">copy to
+					googleDocs</md-button> </md-menu-item> <md-menu-content></md-menu>
+				</div>
+
+			</div>
+			</md-card> </md-content>
+
+
+		</div>
+	</div>
+
+</div>

@@ -4,7 +4,7 @@
     		 <md-card layout="column">
          	<div>
        		<form>
-            <div contenteditable="true">
+            <div contenteditable="true" style="margin-top: 6px">
              <input required="required" placeholder="Tittle" name="title" ng-model="note.title" style="border: 0px;outline :0;"></input>
              </div>
              <div >
@@ -67,7 +67,7 @@ ng-model="date" min-date="minDate" max-date="maxDate" class=" md-input" readonly
         			</md-menu>
         	    </div>
 				
-				<div layout-align="end end"> 
+				<div layout-align="end end" id="done"> 
 				    <level ng-click="addNode()" layout-align="start">Done</level>
 				</div>
 			</div>

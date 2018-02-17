@@ -1,7 +1,8 @@
 #div1{
 	height: 10px;
 	width: 450px;
-	margin-top:5px;
+	margin-top:20px;
+	margin-right:162px;
 	text-align: center;
 	align-self: center;
 }
@@ -15,4 +16,7 @@
 }
 .cardClass{
 	width: 500px;
+}
+#done{
+	margin-left: 98px;
 }

@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
 	
-	<!-- <context:property-placeholder location="classpath:development.properties" /> -->
+	<!-- <context:property-placeholder location="classpath:production.properties" />  -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="com.bridgeit.ToDoApp"></context:component-scan>
 	<mvc:annotation-driven />
@@ -49,7 +49,7 @@
 		<beans:property name="hibernateProperties">
 			<beans:props>
 
-				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>

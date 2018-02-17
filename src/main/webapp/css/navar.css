@@ -30,3 +30,23 @@
 	margin-right: 30px !important;
 }
  
+ /* .md-menu-content navLogout{
+	width: 175px !important;
+	color:red;
+	
+} */
+#demo{
+	width: 175px !important;
+	height:100px;
+}
+.navLog{
+	width: 94px !important;
+	align-self: flex-end !important;
+	margin-right: 10px !important;
+}
+
+
+md-dialog.md-transition-in, md-dialog.md-transition-out{
+	width: 350px !important;
+}
+ 

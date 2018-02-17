@@ -35,17 +35,17 @@
 			 <md-menu>
 			   <level ng-click="$mdMenu.open($event)"><img class="img" alt="{{user.userName.charAt(0)}}"   ng-src="{{user.proFile}}"/>  
 				</level>
-				<md-menu-content>
+				<md-menu-content class="md-menu-content navLogout" id="demo">
 				<md-menu-item>
-				 <div>
-				   <img ng-click="changeImage()" style="border-radius: 45px;max-width: 150%" alt="{{user.userName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.proFile}}"/>
+				 <div style="width:50px;height: 50px">
+				   <img class="img" ng-click="changeImage()" alt="{{user.userName.charAt(0)}}"   ng-src="{{user.proFile}}"/>
 				 </div>
 					{{user.userName}}
 				</md-menu-item>
 				<!-- <md-menu-item>
 					{{user.email}}
 				</md-menu-item> -->
-				<md-menu-item layout-align="end end">
+				<md-menu-item layout-align="end end" class="md-menu-item-layout-end-end navLog">
 					<button ng-click="logout()">LogOut</button>
 				</md-menu-item>
 				</md-menu-content>

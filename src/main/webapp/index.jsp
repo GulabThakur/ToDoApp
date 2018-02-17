@@ -13,6 +13,7 @@
 <link rel="stylesheet" ; href="css/navar.css"/>
 <link rel="stylesheet" ; href="css/sidebar.css"/>
 <link rel="stylesheet" ; href="css/login.css" />
+<link rel="stylesheet" ; href="css/search.css" />
 <!-- <link re="stylesheet" ;  href="css/registration.css"/> -->
 <link rel="stylesheet"; href="css/colorPicker.css"/>
 
