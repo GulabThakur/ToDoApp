@@ -81,7 +81,7 @@ public class FacebookController {
 				response.setHeader("Authorization", token1);
 				session.setAttribute("jwt", token1);
 				message.setMessage("User Successfully registered.");
-				response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
+				response.sendRedirect("https://note-keep.herokuapp.com/#!/DummyHome");
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			} else {
 				message.setMessage("User is not registered.");
@@ -93,19 +93,20 @@ public class FacebookController {
 			userModelService.update(user);
 			session.setAttribute("jwt", token2);
 			message.setMessage("User already exist.");
-			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
+			response.sendRedirect("https://note-keep.herokuapp.com/#!/DummyHome");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 	}
 
-	/*===================================get token===========================================================  */
+	/*
+	 * ===================================get
+	 * token===========================================================
+	 */
 	@RequestMapping(value = "/getToken")
 	public ResponseEntity<Response> getToken(HttpSession session) {
-		//System.out.println("welcome....");
 		Response responseMessage = new Response();
-		//System.out.println(session.getAttribute("jwt"));
 		responseMessage.setMessage((String) session.getAttribute("jwt"));
-		
-		return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED); 
+
+		return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 	}
 }

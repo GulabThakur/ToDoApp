@@ -36,7 +36,6 @@ public class NoteController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> store_note(@RequestBody Notes note, HttpServletRequest request) {
 		Response meResponse = new Response();
-		System.out.println("come in side node");
 		String token = request.getHeader("jwt");
 		System.out.println(token);
 		boolean status = noteService.create_note(note, token);
@@ -50,10 +49,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> update_note1(@RequestBody Notes note, @PathVariable("id") int id) {
-		
-		System.out.println("label ................."+note.getLabels());
 		Response meResponse = new Response();
-
 		System.out.println("Updating...................." + note.getArchive());
 		boolean status = noteService.update_note(id, note);
 		if (status) {
@@ -95,7 +91,7 @@ public class NoteController {
 		UserModel user = userModelService.getDataById(id);
 		System.out.println(user);
 		List<Notes> notes = noteService.allNotes(user);
-		
+
 		if (notes != null) {
 			return new ResponseEntity<List<Notes>>(notes, HttpStatus.OK);
 		}
@@ -126,7 +122,6 @@ public class NoteController {
 		UserModel user = userModelService.getDataByEmail(email);
 		System.out.println("email " + userId);
 		System.out.println("email " + user.getId());
-
 		Notes note = noteService.shareNote(email, noteId, user.getId());
 		System.out.println("notes" + note);
 		if (note != null) {
@@ -139,54 +134,57 @@ public class NoteController {
 	}
 
 	/*
-	 * ================================collabUser=============================================
+	 * ================================collabUser===================================
+	 * ==========
 	 */
 	@RequestMapping(value = "collabUser")
 	public ResponseEntity<Object> collabUser(@RequestBody Notes noteId) {
-		System.out.println("noteID value "+noteId.getId());
+		System.out.println("noteID value " + noteId.getId());
 		Notes notes = noteService.get_note(noteId.getId());
-		System.out.println("Total size of user"+notes.getCollaboratorSet().size());
+		System.out.println("Total size of user" + notes.getCollaboratorSet().size());
 		return new ResponseEntity<Object>(notes.getCollaboratorSet(), HttpStatus.ACCEPTED);
 	}
-	
+
 	/*
-	 * ================================collabUserDelete=============================================
+	 * ================================collabUserDelete=============================
+	 * ================
 	 */
 	@RequestMapping(value = "/deleteUser/{email:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> collabDeleteUser(@PathVariable String email,@RequestBody Notes noteId){
-		Response message=new Response();
-		boolean status=noteService.removeShareUser(noteId.getId(),email);
-		
-			message.setMessage("Delete SucessFull");
-	
-		return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED);
-			
+	public ResponseEntity<Response> collabDeleteUser(@PathVariable String email, @RequestBody Notes noteId) {
+		Response message = new Response();
+		boolean status = noteService.removeShareUser(noteId.getId(), email);
+		message.setMessage("Delete SucessFull");
+		return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
+
 	}
-	
+
 	/*
-	 * ================================LsbelsAdd=============================================
+	 * ================================LsbelsAdd====================================
+	 * =========
 	 */
-	
-	@RequestMapping(value="/setLabels/{noteId}/{lableId}" , method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> setLabels(@PathVariable("lableId") int lableId,@PathVariable("noteId") int noteId ){
-		Response message=new Response();
-		noteService.addLavel(noteId,lableId);
+
+	@RequestMapping(value = "/setLabels/{noteId}/{lableId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> setLabels(@PathVariable("lableId") int lableId,
+			@PathVariable("noteId") int noteId) {
+		Response message = new Response();
+		noteService.addLavel(noteId, lableId);
 		message.setMessage("lavel added");
-		return new ResponseEntity<Response>(message,HttpStatus.ACCEPTED);
-		
-		
-	} 
-	
+		return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
+
+	}
+
 	/*
-	 * ================================LableDelete=============================================
+	 * ================================LableDelete==================================
+	 * ===========
 	 */
-	
-	@RequestMapping(value="/lavelDelete/{noteId}/{lableId}",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> deleteLables(@PathVariable("noteId") int noteId,@PathVariable("lableId") int lableId){
-		System.out.println("note id ....................:"+noteId);
-		System.out.println("Lables ID...................:"+lableId);
-		Response message=new Response();
-		noteService.deleteLable(noteId,lableId);
+
+	@RequestMapping(value = "/lavelDelete/{noteId}/{lableId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> deleteLables(@PathVariable("noteId") int noteId,
+			@PathVariable("lableId") int lableId) {
+		System.out.println("note id ....................:" + noteId);
+		System.out.println("Lables ID...................:" + lableId);
+		Response message = new Response();
+		noteService.deleteLable(noteId, lableId);
 		message.setMessage("DeleteLabel");
 		return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
 	}

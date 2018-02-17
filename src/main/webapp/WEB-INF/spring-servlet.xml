@@ -49,7 +49,7 @@
 		<beans:property name="hibernateProperties">
 			<beans:props>
 
-				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect
 				</beans:prop>
 				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>

@@ -41,9 +41,9 @@ public class GoogleController {
 	}
 
 	@RequestMapping(value = "/connectgoogle")
-	public ResponseEntity<Response> redirectFromGoogle(HttpSession session,HttpServletRequest request,
+	public ResponseEntity<Response> redirectFromGoogle(HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		Response responseForMessage=new Response();
+		Response responseForMessage = new Response();
 		String sessionState = (String) request.getSession().getAttribute("STATE");
 		String googlestate = request.getParameter("state");
 
@@ -59,8 +59,8 @@ public class GoogleController {
 		String authCode = request.getParameter("code");
 		String googleaccessToken = GoogleLogin.getAccessToken(authCode);
 		JsonNode profile = GoogleLogin.getUserProfile(googleaccessToken);
-		System.out.println("profile"+profile);
-		System.out.println("User Name : "+profile.get("emails").get(0).get("value").asText());
+		System.out.println("profile" + profile);
+		System.out.println("User Name : " + profile.get("emails").get(0).get("value").asText());
 		UserModel user = userModelService.getDataByEmail(profile.get("emails").get(0).get("value").asText());
 		if (user == null) {
 			user = new UserModel();
@@ -69,17 +69,14 @@ public class GoogleController {
 			System.out.println(profile.get("image").get("url").asText());
 			user.setProFile(profile.get("image").get("url").asText());
 			user.setActive(1);
-			/* user.setPicUrl(profile.get("image").get("url")); */
 			user.setPassword("");
-			int id=userModelService.registration(user);
-			String jwtToken=token.genratedToken(id);
-		/*	 responseForMessage.setMessage(jwtToken);*/
-			 session.setAttribute("jwt", jwtToken);
-			 responseForMessage.setMessage("Hello "+user.getUserName()+" you are new user.");
-			 response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
-			return new ResponseEntity<Response>(responseForMessage,
-					HttpStatus.ACCEPTED);
-			
+			int id = userModelService.registration(user);
+			String jwtToken = token.genratedToken(id);
+			session.setAttribute("jwt", jwtToken);
+			responseForMessage.setMessage("Hello " + user.getUserName() + " you are new user.");
+			response.sendRedirect("https://note-keep.herokuapp.com/#!/DummyHome");
+			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
+
 		} else {
 			user = userModelService.getDataByEmail(user.getEmail());
 			String token1 = token.genratedToken(user.getId());
@@ -88,7 +85,6 @@ public class GoogleController {
 			System.out.println(profile.get("image").get("url").asText());
 			user.setProFile(profile.get("image").get("url").asText());
 			user.setActive(1);
-			/* user.setPicUrl(profile.get("image").get("url")); */
 			user.setPassword("");
 			userModelService.update(user);
 			response.setHeader("Authentication", token1);
@@ -96,7 +92,7 @@ public class GoogleController {
 			response.addCookie(accCookie);
 			session.setAttribute("jwt", token1);
 			responseForMessage.setMessage("Hello " + user.getUserName() + " you are alredy visited here.");
-			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/DummyHome");
+			response.sendRedirect("https://note-keep.herokuapp.com/#!/DummyHome");
 			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
 	}

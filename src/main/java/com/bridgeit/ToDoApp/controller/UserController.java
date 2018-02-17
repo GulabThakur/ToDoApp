@@ -34,10 +34,10 @@ import com.bridgeit.ToDoApp.validation.IValidation;
  */
 @RestController
 public class UserController {
-	
+
 	@Autowired
 	EmailProperties emailService;
-	
+
 	@Autowired
 	private IuserService userModelService;
 	@Autowired
@@ -58,14 +58,13 @@ public class UserController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> register(@RequestBody UserModel user, HttpServletRequest request)
 			throws JMSException {
-		
+
 		Response message = new Response();
 		String status = valid.valid(user);
 		System.out.println("Status: " + status);
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
 			String url = request.getRequestURL().toString();
-			//System.out.println(url);
 			if (status == null) {
 				String endodePsd = encode.endode(user.getPassword());
 				user.setActive(1);
@@ -78,11 +77,11 @@ public class UserController {
 				data.setEmail(user.getEmail());
 				data.setToken(url);
 				// This use for for jms technology.....
-				/*messageProducer.send(data);*/
+				/* messageProducer.send(data); */
 				// if you want to email process in your project remove in blow line then use
 				// email process
 				// email.registration(user.getEmail(), url);
-				
+
 				message.setMessage("sucessfull ragister");
 				return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 			}
@@ -112,16 +111,16 @@ public class UserController {
 		if (condition > 0) {
 			System.out.println(token2);
 			String url = request.getRequestURI().toString();
-			//url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) + "/verify/" + token2;
-			//email.registration(user.getEmail(), url);
-			boolean status=userModelService.login(user.getEmail(), user.getPassword());
-			if(status) 
-			{
+			// url = "http://localhost:8080/" + url.substring(0, url.lastIndexOf("/")) +
+			// "/verify/" + token2;
+			// email.registration(user.getEmail(), url);
+			boolean status = userModelService.login(user.getEmail(), user.getPassword());
+			if (status) {
 				resp.setToken(token2);
 				return new ResponseEntity<Response>(resp, HttpStatus.ACCEPTED);
 			}
 			// calling home page.......
-			//response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
+			// response.sendRedirect("http://localhost:8080/ToDoApp/#!/homepage");
 			resp.setMessage("wrong password");
 			return new ResponseEntity<Response>(resp, HttpStatus.BAD_REQUEST);
 		}
@@ -151,12 +150,13 @@ public class UserController {
 	 * ................this my verification API........
 	 */
 	@RequestMapping(value = "/verify/{token:.+}", method = RequestMethod.GET)
-	public ResponseEntity<Response> varify(@PathVariable("token") String token1,HttpServletResponse response) throws IOException {
+	public ResponseEntity<Response> varify(@PathVariable("token") String token1, HttpServletResponse response)
+			throws IOException {
 		Response message = new Response();
 		int id = token.varifyToken(token1);
 		if (id > 0) {
 			message.setMessage("verification is sucessfully....");
-			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/homepage");
+			response.sendRedirect("https://note-keep.herokuapp.com/#!/homepage");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("sorry registration first...");
@@ -178,7 +178,7 @@ public class UserController {
 			message.setMessage("done verfy");
 			// here send user inside the reset password page...
 
-			response.sendRedirect("https://bridge-notes.herokuapp.com/#!/resetpassword");
+			response.sendRedirect("https://note-keep.herokuapp.com/#!/resetpassword");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
 		message.setMessage("this is not valid....");
@@ -194,7 +194,7 @@ public class UserController {
 		Response message = new Response();
 
 		System.out.println("fhgfghhg");
-		
+
 		int id = (Integer) session.getAttribute("id");
 
 		// here i am using get the data from data base by id....
@@ -229,7 +229,6 @@ public class UserController {
 			message.setMessage("please enter the valid password....");
 			return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 		}
-		System.out.println("password incorrrect");
 		message.setMessage("password and conform password are not match");
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
@@ -248,7 +247,8 @@ public class UserController {
 			String url = request.getRequestURI().toString();
 			int id = user_arg.getId();
 			String token2 = token.genratedToken(id);
-			url = "https://bridge-notes.herokuapp.com/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
+			url = "https://note-keep.herokuapp.com/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/"
+					+ token2;
 			email.registration(user.getEmail(), url);
 			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
@@ -257,6 +257,7 @@ public class UserController {
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
+
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	public ResponseEntity<Response> test(@RequestBody UserModel user, HttpServletRequest request) {
 		Response message = new Response();
@@ -266,7 +267,8 @@ public class UserController {
 			String url = request.getRequestURI().toString();
 			int id = user_arg.getId();
 			String token2 = token.genratedToken(id);
-			url = "https://bridge-notes.herokuapp.com/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/" + token2;
+			url = "https://note-keep.herokuapp.com/" + url.substring(0, url.lastIndexOf("/")) + "/verifyReset/"
+					+ token2;
 			email.registration(user_arg.getEmail(), url);
 			message.setMessage("check your email....");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
@@ -275,47 +277,48 @@ public class UserController {
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 
 	}
-	
-	/*........................................this API use for get user detail  ........................*/
 
-	
-	@RequestMapping(value="/userData",method=RequestMethod.POST)
-	public ResponseEntity<UserModel> userProfile(HttpServletRequest request)
-	{
-		String jwtToken=request.getHeader("jwt");
-		int id=token.varifyToken(jwtToken);
-		if(id>0) {
-			UserModel newUser=userModelService.getDataById(id);
+	/*
+	 * ........................................this API use for get user detail
+	 * ........................
+	 */
+
+	@RequestMapping(value = "/userData", method = RequestMethod.POST)
+	public ResponseEntity<UserModel> userProfile(HttpServletRequest request) {
+		String jwtToken = request.getHeader("jwt");
+		int id = token.varifyToken(jwtToken);
+		if (id > 0) {
+			UserModel newUser = userModelService.getDataById(id);
 			System.out.println(newUser);
 			return new ResponseEntity<UserModel>(newUser, HttpStatus.ACCEPTED);
 		}
 		return new ResponseEntity<UserModel>(HttpStatus.BAD_REQUEST);
 	}
-	
-	@RequestMapping(value="/profilChage",method=RequestMethod.POST)
-	public ResponseEntity<Response> updateProfile(@RequestBody UserModel user,HttpServletRequest request){
-		String jwtToken=request.getHeader("jwt");
-		System.out.println("..........................prfile update:"+user.getProFile());
-		int userId=token.varifyToken(jwtToken);
-		System.out.println("token id :"+userId );
-		if(userId>0) {
-		UserModel userUpdate =userModelService.getDataById(userId);
-		System.out.println("user Data"+userUpdate.getId());
-		userUpdate.setProFile(user.getProFile());
-		userModelService.update(userUpdate);
-		return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
-		}
-		else {
+
+	@RequestMapping(value = "/profilChage", method = RequestMethod.POST)
+	public ResponseEntity<Response> updateProfile(@RequestBody UserModel user, HttpServletRequest request) {
+		String jwtToken = request.getHeader("jwt");
+		System.out.println("..........................prfile update:" + user.getProFile());
+		int userId = token.varifyToken(jwtToken);
+		System.out.println("token id :" + userId);
+		if (userId > 0) {
+			UserModel userUpdate = userModelService.getDataById(userId);
+			System.out.println("user Data" + userUpdate.getId());
+			userUpdate.setProFile(user.getProFile());
+			userModelService.update(userUpdate);
+			return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
+		} else {
 			return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
 		}
-		
-		
+
 	}
-	
-	/* ............................this Use for get .............................................
-	
-	@RequestMapping(value="/collabratore",method=RequestMethod.POST)
-	public ResponseEntity<Response> sendNoteUser(@RequestBody List<UserModel> list,@RequestBody int noteId,String email){
-		return null;
-	}*/
+
+	/*
+	 * ............................this Use for get
+	 * .............................................
+	 * 
+	 * @RequestMapping(value="/collabratore",method=RequestMethod.POST) public
+	 * ResponseEntity<Response> sendNoteUser(@RequestBody List<UserModel>
+	 * list,@RequestBody int noteId,String email){ return null; }
+	 */
 }
