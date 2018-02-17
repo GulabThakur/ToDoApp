@@ -1,4 +1,4 @@
-      <md-card  class="md-card cardClass" ng-style="{'background-color': data.color}" ng-click="editNote(note)" >
+      <md-card  class="md-card cardClass" ng-style="{'background-color': data.color}">
       	<div>
       		<div  class="pin-class">
       		
@@ -9,8 +9,8 @@
        </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="column" layout-align="start">
-      	<div><h4>{{data.title}}</h4></div> 
-      	<div><h2 ng-bind-html="data.description | linky">{{data.description}}</h2>
+      	<div><h4 ng-click="editNote(note)" >{{data.title}}</h4></div> 
+      	<div><h2 ng-click="editNote(note)"  ng-bind-html="data.description | linky">{{data.description}}</h2>
       		
       		<level ng-if="data.reminder"> 
       		{{data.reminder}}

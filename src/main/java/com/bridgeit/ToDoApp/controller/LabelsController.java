@@ -40,6 +40,7 @@ public class LabelsController {
 
 	@RequestMapping(value = "/createLabel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> createLable(HttpServletRequest request, @RequestBody Labels label) {
+		System.out.println("lavel create"+label);
 		Response message = new Response();
 		String jwtToken = (String) request.getHeader("jwt");
 		System.out.println(jwtToken);
@@ -80,6 +81,7 @@ public class LabelsController {
 		Response message = new Response();
 		String jwtToken = (String) request.getHeader("jwt");
 		List<Labels> lavel = lavelservice.getLabelsService(jwtToken);
+		System.out.println("lavel fetch"+lavel);
 		message.setMessage("Fetch lables ...");
 		return new ResponseEntity<List<Labels>>(lavel, HttpStatus.ACCEPTED);
 	}

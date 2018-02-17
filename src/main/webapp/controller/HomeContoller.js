@@ -115,6 +115,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 						
 						/*=======================================================================*/
 						$scope.addLabel=function(label){
+							console.log(label);
 							$mdDialog.hide();
 							var addLabel=homeService.getAllnode("createLabel","post",token,label);
 						}
@@ -141,6 +142,7 @@ app.controller('homepageCrt', function($scope, homeService, $location, $state,
 	/*================================================================================================================*/
 	$scope.labels={};
 	$scope.getLabels=function(){
+		console.log("in side label");
 		var labels=homeService.getAllnode("fetchLabls","post",token,null);
 		labels.then(function(response){
 			$scope.labels=response.data;
