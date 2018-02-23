@@ -11,8 +11,8 @@ var skipIfAuthenticated=function($q, $state, $auth,$timeout) {
   if($auth.isAuthenticated()) {
 	    $timeout(function () {
 	    	$state.go('homepage'); 
-	    },500);
-	    defer.reject(); 
+	    });
+	    //defer.reject(); 
 	  } else {
 	    defer.resolve();
 	  }
@@ -28,7 +28,7 @@ var skipIfAuthenticated=function($q, $state, $auth,$timeout) {
 		    $timeout(function () {
 		      $state.go('login'); 
 		    });
-		    defer.reject();
+		   // defer.reject();
 		  }
 		  return defer.promise;
 	  
@@ -41,9 +41,9 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 		url : '/login',
 		// template: 'login',
 		templateUrl : 'template/login.html',
-			/*resolve: {
+			resolve: {
 			        skipIfAuthenticated: skipIfAuthenticated
-			      },*/
+			      },
 		controller : 'loginController'
 	})
 	// this code will be use for register CrtL and load HtmL..
@@ -68,9 +68,9 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 	.state('homepage', {
 		url : "/homepage",
 		templateUrl : 'template/homepage.html',
-		/*resolve: {
+		resolve: {
 	        redirectIfNotAuthenticated: redirectIfNotAuthenticated
-	      },*/
+	      },
 		controller : 'homepageCrt'
 	})
 
