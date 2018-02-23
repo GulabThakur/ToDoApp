@@ -16,6 +16,10 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author ThakurGulab
+ *
+ */
 public class GoogleLogin {
 	public static final String CLIENT_Id = "764585168380-6p8gk6l611itdm2u2sv76ga10md1tv1f.apps.googleusercontent.com";
 	public static final String Secret_Id = "9piUB9jLjY0gapo2AG2fCyDo";
