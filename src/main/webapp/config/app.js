@@ -41,9 +41,9 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 		url : '/login',
 		// template: 'login',
 		templateUrl : 'template/login.html',
-		/*resolve: {
-		        skipIfAuthenticated: skipIfAuthenticated
-		      },*/
+			/*resolve: {
+			        skipIfAuthenticated: skipIfAuthenticated
+			      },*/
 		controller : 'loginController'
 	})
 	// this code will be use for register CrtL and load HtmL..
