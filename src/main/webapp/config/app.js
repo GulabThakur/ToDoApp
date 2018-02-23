@@ -68,7 +68,7 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 	.state('homepage', {
 		url : "/homepage",
 		templateUrl : 'template/homepage.html',
-		resolve: {
+			resolve: {
 	        redirectIfNotAuthenticated: redirectIfNotAuthenticated
 	      },
 		controller : 'homepageCrt'
