@@ -41,10 +41,10 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 		url : '/login',
 		// template: 'login',
 		templateUrl : 'template/login.html',
-		/*resolve: {
+		resolve: {
 		        skipIfAuthenticated: skipIfAuthenticated
 		      },
-		controller : 'loginController'*/
+		controller : 'loginController'
 	})
 	// this code will be use for register CrtL and load HtmL..
 	.state('registration', {
@@ -68,9 +68,9 @@ app.config( function($stateProvider, $urlRouterProvider ,$authProvider) {
 	.state('homepage', {
 		url : "/homepage",
 		templateUrl : 'template/homepage.html',
-		resolve: {
+		/*resolve: {
 	        redirectIfNotAuthenticated: redirectIfNotAuthenticated
-	      },
+	      },*/
 		controller : 'homepageCrt'
 	})
 
