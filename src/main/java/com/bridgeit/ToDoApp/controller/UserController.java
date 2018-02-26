@@ -36,8 +36,7 @@ import com.bridgeit.ToDoApp.validation.IValidation;
 public class UserController {
 
 	@Autowired
-	EmailProperties emailService;
-
+	private EmailProperties emailService;
 	@Autowired
 	private IuserService userModelService;
 	@Autowired
@@ -51,9 +50,7 @@ public class UserController {
 	@Autowired(required = true)
 	private MessageProducer messageProducer;
 
-	/*
-	 * ................this my register API........
-	 */
+	/*=================================REGISTRATION-API===============================================*/
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> register(@RequestBody UserModel user, HttpServletRequest request)
@@ -61,7 +58,6 @@ public class UserController {
 
 		Response message = new Response();
 		String status = valid.valid(user);
-		System.out.println("Status: " + status);
 		UserModel user1 = userModelService.getDataByEmail(user.getEmail());
 		if (user1 == null) {
 			String url = request.getRequestURL().toString();
@@ -92,9 +88,7 @@ public class UserController {
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 	}
 
-	/*
-	 * ................this my login API........
-	 */
+	/*===========================================LOGIN-API============================================*/
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> login(@RequestBody UserModel user, HttpServletRequest request,
@@ -128,9 +122,7 @@ public class UserController {
 		return new ResponseEntity<Response>(resp, HttpStatus.BAD_REQUEST);
 	}
 
-	/*
-	 * ................this my activate API........
-	 */
+	/*========================================================ACTIVE-API=======================*/
 
 	@RequestMapping(value = "/active/{token:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> activeLogin(@PathVariable("token") String jwt) {
@@ -146,9 +138,7 @@ public class UserController {
 		return new ResponseEntity<Response>(message, HttpStatus.BAD_REQUEST);
 	}
 
-	/*
-	 * ................this my verification API........
-	 */
+	/*================================================VERIFICATION-API===============================*/
 	@RequestMapping(value = "/verify/{token:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> varify(@PathVariable("token") String token1, HttpServletResponse response)
 			throws IOException {
@@ -164,9 +154,7 @@ public class UserController {
 
 	}
 
-	/*
-	 * ................this my verification for reset API........
-	 */
+	/*================================================VERIYFY-API========================================= */
 	@RequestMapping(value = "/verifyReset/{token:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> varifyReset(@PathVariable("token") String token1, HttpServletResponse response,
 			HttpSession session) throws IOException {
@@ -177,7 +165,6 @@ public class UserController {
 		if (id > 0) {
 			message.setMessage("done verfy");
 			// here send user inside the reset password page...
-
 			response.sendRedirect("https://note-keep.herokuapp.com/#!/resetpassword");
 			return new ResponseEntity<Response>(message, HttpStatus.ACCEPTED);
 		}
@@ -186,9 +173,7 @@ public class UserController {
 
 	}
 
-	/*
-	 * ................this my reset API........
-	 */
+	/*======================================REST-API========================================== */
 	@RequestMapping(value = "/reset", method = RequestMethod.PUT)
 	public ResponseEntity<Response> setPassword(@RequestBody UserModel user, HttpSession session) {
 		Response message = new Response();
@@ -235,7 +220,7 @@ public class UserController {
 	}
 
 	/*
-	 * ................this my forgot API........
+	 * ====================================FORGOT-API===============================================================
 	 */
 
 	@RequestMapping(value = "/test/forgot", method = RequestMethod.POST)
@@ -278,10 +263,8 @@ public class UserController {
 
 	}
 
-	/*
-	 * ........................................this API use for get user detail
-	 * ........................
-	 */
+	//===================================this API use for get user detail======================================
+	 
 
 	@RequestMapping(value = "/userData", method = RequestMethod.POST)
 	public ResponseEntity<UserModel> userProfile(HttpServletRequest request) {
@@ -289,7 +272,6 @@ public class UserController {
 		int id = token.varifyToken(jwtToken);
 		if (id > 0) {
 			UserModel newUser = userModelService.getDataById(id);
-			System.out.println(newUser);
 			return new ResponseEntity<UserModel>(newUser, HttpStatus.ACCEPTED);
 		}
 		return new ResponseEntity<UserModel>(HttpStatus.BAD_REQUEST);
@@ -298,12 +280,10 @@ public class UserController {
 	@RequestMapping(value = "/profilChage", method = RequestMethod.POST)
 	public ResponseEntity<Response> updateProfile(@RequestBody UserModel user, HttpServletRequest request) {
 		String jwtToken = request.getHeader("jwt");
-		System.out.println("..........................prfile update:" + user.getProFile());
 		int userId = token.varifyToken(jwtToken);
 		System.out.println("token id :" + userId);
 		if (userId > 0) {
 			UserModel userUpdate = userModelService.getDataById(userId);
-			System.out.println("user Data" + userUpdate.getId());
 			userUpdate.setProFile(user.getProFile());
 			userModelService.update(userUpdate);
 			return new ResponseEntity<Response>(HttpStatus.ACCEPTED);
@@ -313,12 +293,4 @@ public class UserController {
 
 	}
 
-	/*
-	 * ............................this Use for get
-	 * .............................................
-	 * 
-	 * @RequestMapping(value="/collabratore",method=RequestMethod.POST) public
-	 * ResponseEntity<Response> sendNoteUser(@RequestBody List<UserModel>
-	 * list,@RequestBody int noteId,String email){ return null; }
-	 */
 }
